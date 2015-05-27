@@ -2,7 +2,7 @@ package res.pessoa;
 
 import java.util.ArrayList;
 
-import res.general.EntityManager;
+import res.datamanager.EntityManager;
 
 public class PessoaManager implements EntityManager<Pessoa>{
 	@Override
