@@ -15,7 +15,7 @@ public class Application {
 			c.setDbServer("localhost");
 			c.setDbName("tcontrol");
 			c.setDbUser("root");
-			c.setDbPass("Csrf052400");
+			c.setDbPass("");
 			c.setDbPort(3306);
 			
 			c.save();
