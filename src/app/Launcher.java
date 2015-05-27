@@ -1,10 +1,9 @@
-package com.ats.tcontrol.app;
+package app;
 
 public class Launcher {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 }
