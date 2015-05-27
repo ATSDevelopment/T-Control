@@ -1,15 +1,14 @@
 package res.datamanager;
 
-import java.util.ArrayList;
 
 public interface BusinessLayoutLayer<Entity> {
-	public int salvar(Entity entity);
+	public DataAccessObject salvar(Entity entity);
 
-	public int deletar(Entity entity);
+	public DataAccessObject deletar(Entity entity);
 
-	public Entity getById(int id);
+	public DataAccessObject getById(int id);
 
-	public ArrayList<Entity> listar();
+	public DataAccessObject listar();
 
-	public ArrayList<Entity> listarWhere(String key, String value);
+	public DataAccessObject listarWhere(String key, String value);
 }
