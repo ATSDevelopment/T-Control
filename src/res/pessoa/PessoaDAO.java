@@ -4,10 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import res.datamanager.ConnectionFactory;
 import res.datamanager.DataAccessResponse;
 import res.datamanager.ParcialDataAccessObject;
 import res.datamanager.ResponseType;
-import app.ConnectionFactory;
 
 public class PessoaDAO implements ParcialDataAccessObject<Pessoa> {
 
