@@ -1,8 +1,17 @@
+-- MySQL Workbench Forward Engineering
+
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
+-- -----------------------------------------------------
+-- Schema tcontrol
+-- -----------------------------------------------------
 DROP SCHEMA IF EXISTS `tcontrol` ;
+
+-- -----------------------------------------------------
+-- Schema tcontrol
+-- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `tcontrol` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
 USE `tcontrol` ;
 
@@ -12,7 +21,7 @@ USE `tcontrol` ;
 DROP TABLE IF EXISTS `tcontrol`.`pessoas` ;
 
 CREATE TABLE IF NOT EXISTS `tcontrol`.`pessoas` (
-  `id_pessoa` INT NOT NULL,
+  `id_pessoa` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id_pessoa`))
 ENGINE = InnoDB;
@@ -24,7 +33,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `tcontrol`.`usuarios` ;
 
 CREATE TABLE IF NOT EXISTS `tcontrol`.`usuarios` (
-  `id_usuario` INT NOT NULL,
+  `id_usuario` INT NOT NULL AUTO_INCREMENT,
   `nome_de_usuario` VARCHAR(45) NOT NULL,
   `password` VARCHAR(45) NOT NULL,
   `ativo` TINYINT(1) NOT NULL DEFAULT false,
@@ -67,7 +76,7 @@ CREATE INDEX `fk_Funcionarios_Usuarios1_idx` ON `tcontrol`.`funcionarios` (`id_u
 DROP TABLE IF EXISTS `tcontrol`.`grupos` ;
 
 CREATE TABLE IF NOT EXISTS `tcontrol`.`grupos` (
-  `id_grupo` INT NOT NULL,
+  `id_grupo` INT NOT NULL AUTO_INCREMENT,
   `sigla` VARCHAR(10) NOT NULL,
   `nome` VARCHAR(100) NOT NULL,
   `ativo` TINYINT(1) NOT NULL DEFAULT false,
@@ -81,7 +90,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `tcontrol`.`utilizadores` ;
 
 CREATE TABLE IF NOT EXISTS `tcontrol`.`utilizadores` (
-  `id_utilizador` INT NOT NULL,
+  `id_utilizador` INT NOT NULL AUTO_INCREMENT,
   `dsc` VARCHAR(12) NOT NULL,
   `id_grupo` INT NOT NULL,
   PRIMARY KEY (`id_utilizador`),
@@ -106,7 +115,7 @@ CREATE INDEX `fk_Alunos_cursos1_idx` ON `tcontrol`.`utilizadores` (`id_grupo` AS
 DROP TABLE IF EXISTS `tcontrol`.`setores` ;
 
 CREATE TABLE IF NOT EXISTS `tcontrol`.`setores` (
-  `id_setor` INT NOT NULL,
+  `id_setor` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(100) NOT NULL,
   `sigla` VARCHAR(10) NOT NULL,
   PRIMARY KEY (`id_setor`))
@@ -119,7 +128,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `tcontrol`.`mapa_de_servicos` ;
 
 CREATE TABLE IF NOT EXISTS `tcontrol`.`mapa_de_servicos` (
-  `id_mapa` INT NOT NULL,
+  `id_mapa` INT NOT NULL AUTO_INCREMENT,
   `idFuncionario` INT NOT NULL,
   `idSetor` INT NOT NULL,
   `horario_entrada` TIME NOT NULL,
@@ -155,7 +164,7 @@ CREATE INDEX `fk_mapa_de_servicos_Funcionarios1_idx` ON `tcontrol`.`mapa_de_serv
 DROP TABLE IF EXISTS `tcontrol`.`excecoes` ;
 
 CREATE TABLE IF NOT EXISTS `tcontrol`.`excecoes` (
-  `id_exececao` INT NOT NULL,
+  `id_exececao` INT NOT NULL AUTO_INCREMENT,
   `mapa_de_servicos_id_mapa` INT NOT NULL,
   `data_excecao` DATE NOT NULL,
   PRIMARY KEY (`id_exececao`),
@@ -175,7 +184,7 @@ CREATE INDEX `fk_excecoes_mapa_de_servicos1_idx` ON `tcontrol`.`excecoes` (`mapa
 DROP TABLE IF EXISTS `tcontrol`.`terminais` ;
 
 CREATE TABLE IF NOT EXISTS `tcontrol`.`terminais` (
-  `id_terminal` INT NOT NULL,
+  `id_terminal` INT NOT NULL AUTO_INCREMENT,
   `hostname` VARCHAR(45) NOT NULL,
   `ip_address` VARCHAR(15) NOT NULL,
   `ativo` TINYINT(1) NOT NULL,
@@ -197,7 +206,7 @@ CREATE INDEX `fk_terminais_Setores1_idx` ON `tcontrol`.`terminais` (`id_setor` A
 DROP TABLE IF EXISTS `tcontrol`.`bloqueios` ;
 
 CREATE TABLE IF NOT EXISTS `tcontrol`.`bloqueios` (
-  `id_bloqueio` INT NOT NULL,
+  `id_bloqueio` INT NOT NULL AUTO_INCREMENT,
   `data_inicio` DATETIME NOT NULL,
   `data_fim` DATETIME NULL,
   `dsc` VARCHAR(100) NULL,
@@ -294,7 +303,7 @@ CREATE INDEX `fk_bloqueios_cursos_bloqueios1_idx` ON `tcontrol`.`bloqueios_grupo
 DROP TABLE IF EXISTS `tcontrol`.`registros` ;
 
 CREATE TABLE IF NOT EXISTS `tcontrol`.`registros` (
-  `id_registros` INT NOT NULL,
+  `id_registros` INT NOT NULL AUTO_INCREMENT,
   `id_utilizador` INT NOT NULL,
   `id_terminal` INT NOT NULL,
   `id_funcionario` INT NOT NULL,

@@ -1,5 +1,5 @@
 package res.datamanager;
 
 public enum ResponseType {
-	MESSAGE, OBJECT;
+	MESSAGE, OBJECT, EXCEPTION;
 }

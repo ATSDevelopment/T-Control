@@ -1,7 +1,9 @@
 package app;
 
-import java.sql.Connection;
-import java.sql.SQLException;
+import res.datamanager.DataAccessResponse;
+import res.pessoa.Pessoa;
+import res.pessoa.PessoaDAO;
+
 
 
 public class Application {
@@ -23,16 +25,14 @@ public class Application {
 		
 		config = c;
 		
-		ConnectionFactory con = new ConnectionFactory();
-		Connection co = con.getConnection();
-		System.out.println(co);
+		Pessoa p = new Pessoa(1, "Carlos Souza Rodrigues Filho"){};
 		
-		try {
-			co.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		PessoaDAO dao = new PessoaDAO();
+		
+		DataAccessResponse response = dao.deletar(p);
+		
+		System.out.println("Status : "+(response.getStatus() ? "OK":"ERROR"));
+		System.out.println("Message: "+response.getResponse());
 	}
 	
 	public static Config getConfig(){

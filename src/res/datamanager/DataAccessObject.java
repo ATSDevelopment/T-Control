@@ -1,11 +1,7 @@
 package res.datamanager;
 
 
-public interface DataAccessObject<Entity> {
-	public DataAccessResponse salvar(Entity entity);
-	
-	public DataAccessResponse deletar(Entity entity);
-	
+public interface DataAccessObject<Entity> extends ParcialDataAccessObject<Entity>{
 	public DataAccessResponse getById(int id);
 	
 	public DataAccessResponse listar();

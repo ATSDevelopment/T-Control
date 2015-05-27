@@ -1,12 +1,12 @@
 package res.pessoa;
 
-public class Pessoa {
+public abstract class Pessoa {
 	private int id;
-	private String pessoa;
-	public Pessoa(int id, String pessoa) {
+	private String nome;
+	public Pessoa(int id, String nome) {
 		super();
 		this.id = id;
-		this.pessoa = pessoa;
+		this.nome = nome;
 	}
 	public int getId() {
 		return id;
@@ -14,10 +14,10 @@ public class Pessoa {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getPessoa() {
-		return pessoa;
+	public String getNome() {
+		return nome;
 	}
-	public void setPessoa(String pessoa) {
-		this.pessoa = pessoa;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 }

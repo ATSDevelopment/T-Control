@@ -5,7 +5,17 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectionFactory {
+	private static Connection conexao;
+	
 	public Connection getConnection(){
+		if(conexao!=null){
+			return conexao;
+		}else{
+			return conexao = generateConnection();
+		}
+	}
+	
+	public Connection generateConnection(){
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 

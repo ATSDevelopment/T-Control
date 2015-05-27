@@ -10,7 +10,7 @@ public class DataAccessResponse {
 		this.type = type;
 		this.response = response;
 	}
-	public boolean isStatus() {
+	public boolean getStatus() {
 		return status;
 	}
 	public ResponseType getType() {
