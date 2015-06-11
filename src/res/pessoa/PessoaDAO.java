@@ -31,6 +31,7 @@ public class PessoaDAO implements ParcialDataAccessObject<Pessoa> {
 			r = new DataAccessResponse(false, ResponseType.STRING,
 					"Não foi possível se comunicar com o banco de dados!");
 		}
+		
 		return r;
 	}
 
