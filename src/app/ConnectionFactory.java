@@ -1,10 +1,8 @@
-package res.datamanager;
+package app;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-
-import app.Application;
 
 public class ConnectionFactory {
 	private static Connection conexao;

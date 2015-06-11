@@ -1,4 +1,4 @@
-package res.datamanager;
+package res.datamanager.dao;
 
 public interface ParcialDataAccessObject<Entity> {
 	public DataAccessResponse salvar(Entity entity, boolean novo);

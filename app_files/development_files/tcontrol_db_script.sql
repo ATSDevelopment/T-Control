@@ -1,17 +1,8 @@
--- MySQL Workbench Forward Engineering
-
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
--- -----------------------------------------------------
--- Schema tcontrol
--- -----------------------------------------------------
 DROP SCHEMA IF EXISTS `tcontrol` ;
-
--- -----------------------------------------------------
--- Schema tcontrol
--- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `tcontrol` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
 USE `tcontrol` ;
 
@@ -210,16 +201,8 @@ CREATE TABLE IF NOT EXISTS `tcontrol`.`bloqueios` (
   `data_inicio` DATETIME NOT NULL,
   `data_fim` DATETIME NULL,
   `dsc` VARCHAR(100) NULL,
-  `id_utilizador` INT NOT NULL,
-  PRIMARY KEY (`id_bloqueio`),
-  CONSTRAINT `fk_bloqueio_aluno_Alunos1`
-    FOREIGN KEY (`id_utilizador`)
-    REFERENCES `tcontrol`.`utilizadores` (`id_utilizador`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  PRIMARY KEY (`id_bloqueio`))
 ENGINE = InnoDB;
-
-CREATE INDEX `fk_bloqueio_aluno_Alunos1_idx` ON `tcontrol`.`bloqueios` (`id_utilizador` ASC);
 
 
 -- -----------------------------------------------------
@@ -230,6 +213,7 @@ DROP TABLE IF EXISTS `tcontrol`.`bloqueios_setores` ;
 CREATE TABLE IF NOT EXISTS `tcontrol`.`bloqueios_setores` (
   `id_bloqueio` INT NOT NULL,
   `id_setor` INT NOT NULL,
+  PRIMARY KEY (`id_bloqueio`, `id_setor`),
   CONSTRAINT `fk_bloqueios_setores_bloqueios1`
     FOREIGN KEY (`id_bloqueio`)
     REFERENCES `tcontrol`.`bloqueios` (`id_bloqueio`)
@@ -255,6 +239,7 @@ DROP TABLE IF EXISTS `tcontrol`.`bloqueios_terminais` ;
 CREATE TABLE IF NOT EXISTS `tcontrol`.`bloqueios_terminais` (
   `id_bloqueio` INT NOT NULL,
   `id_terminail` INT NOT NULL,
+  PRIMARY KEY (`id_bloqueio`, `id_terminail`),
   CONSTRAINT `fk_bloqueios_terminais_bloqueios1`
     FOREIGN KEY (`id_bloqueio`)
     REFERENCES `tcontrol`.`bloqueios` (`id_bloqueio`)
@@ -279,9 +264,10 @@ DROP TABLE IF EXISTS `tcontrol`.`bloqueios_grupo` ;
 
 CREATE TABLE IF NOT EXISTS `tcontrol`.`bloqueios_grupo` (
   `id_bloqueio` INT NOT NULL,
-  `id_curso` INT NOT NULL,
+  `id_grupo` INT NOT NULL,
+  PRIMARY KEY (`id_bloqueio`, `id_grupo`),
   CONSTRAINT `fk_bloqueios_cursos_cursos1`
-    FOREIGN KEY (`id_curso`)
+    FOREIGN KEY (`id_grupo`)
     REFERENCES `tcontrol`.`grupos` (`id_grupo`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
@@ -292,7 +278,7 @@ CREATE TABLE IF NOT EXISTS `tcontrol`.`bloqueios_grupo` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE INDEX `fk_bloqueios_cursos_cursos1_idx` ON `tcontrol`.`bloqueios_grupo` (`id_curso` ASC);
+CREATE INDEX `fk_bloqueios_cursos_cursos1_idx` ON `tcontrol`.`bloqueios_grupo` (`id_grupo` ASC);
 
 CREATE INDEX `fk_bloqueios_cursos_bloqueios1_idx` ON `tcontrol`.`bloqueios_grupo` (`id_bloqueio` ASC);
 
@@ -332,6 +318,32 @@ CREATE INDEX `fk_registros_Alunos1_idx` ON `tcontrol`.`registros` (`id_utilizado
 CREATE INDEX `fk_registros_terminais1_idx` ON `tcontrol`.`registros` (`id_terminal` ASC);
 
 CREATE INDEX `fk_registros_Funcionarios1_idx` ON `tcontrol`.`registros` (`id_funcionario` ASC);
+
+
+-- -----------------------------------------------------
+-- Table `tcontrol`.`bloqueios_utilizadores`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `tcontrol`.`bloqueios_utilizadores` ;
+
+CREATE TABLE IF NOT EXISTS `tcontrol`.`bloqueios_utilizadores` (
+  `id_bloqueio` INT NOT NULL,
+  `id_utilizador` INT NOT NULL,
+  PRIMARY KEY (`id_bloqueio`, `id_utilizador`),
+  CONSTRAINT `fk_bloqueios_utilizadores_bloqueios1`
+    FOREIGN KEY (`id_bloqueio`)
+    REFERENCES `tcontrol`.`bloqueios` (`id_bloqueio`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_bloqueios_utilizadores_utilizadores1`
+    FOREIGN KEY (`id_utilizador`)
+    REFERENCES `tcontrol`.`utilizadores` (`id_utilizador`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+CREATE INDEX `fk_bloqueios_utilizadores_bloqueios1_idx` ON `tcontrol`.`bloqueios_utilizadores` (`id_bloqueio` ASC);
+
+CREATE INDEX `fk_bloqueios_utilizadores_utilizadores1_idx` ON `tcontrol`.`bloqueios_utilizadores` (`id_utilizador` ASC);
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

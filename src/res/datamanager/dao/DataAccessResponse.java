@@ -1,10 +1,13 @@
-package res.datamanager;
+package res.datamanager.dao;
+
+import java.io.Serializable;
+
 
 public class DataAccessResponse {
 	public boolean status;
 	public ResponseType type;
-	public Object response;
-	public DataAccessResponse(boolean status, ResponseType type, Object response) {
+	public Serializable response;
+	public DataAccessResponse(boolean status, ResponseType type, Serializable response) {
 		super();
 		this.status = status;
 		this.type = type;

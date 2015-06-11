@@ -2,12 +2,14 @@ package res.pessoa;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
-import res.datamanager.ConnectionFactory;
-import res.datamanager.DataAccessResponse;
-import res.datamanager.ParcialDataAccessObject;
-import res.datamanager.ResponseType;
+import res.datamanager.dao.DataAccessResponse;
+import res.datamanager.dao.ParcialDataAccessObject;
+import res.datamanager.dao.ResponseType;
+import app.ConnectionFactory;
 
 public class PessoaDAO implements ParcialDataAccessObject<Pessoa> {
 
@@ -16,67 +18,85 @@ public class PessoaDAO implements ParcialDataAccessObject<Pessoa> {
 		DataAccessResponse r;
 		Connection conexao = new ConnectionFactory().getConnection();
 		if (conexao != null) {
-			String query;
-			if (novo) {
-				query = "INSERT INTO pessoas SET nome = ?";
-			} else {
-				query = "UPDATE pessoas SET nome = ? WHERE id_pessoa = ?";
-			}
-
-			try {
-				PreparedStatement ps = conexao.prepareStatement(query);
-
-				ps.setString(1, entity.getNome());
-
-				if (!novo) {
-					ps.setInt(2, entity.getId());
+			try{
+				if (novo) {
+					r = insert(conexao, entity);
+				} else {
+					r = update(conexao, entity);
 				}
-
-				ps.execute();
-
-				ps.close();
-
-				r = new DataAccessResponse(true, ResponseType.MESSAGE,
-						"Pessoa " + (novo ? "salva" : "atualizada")
-								+ " com sucesso!");
-			} catch (SQLException e) {
-				e.printStackTrace();
-				r = new DataAccessResponse(false, ResponseType.EXCEPTION, e);
+			}catch(SQLException e){
+				r = new DataAccessResponse(false, ResponseType.STRING, e.getMessage());
 			}
 		} else {
-			r = new DataAccessResponse(false, ResponseType.MESSAGE,
+			r = new DataAccessResponse(false, ResponseType.STRING,
 					"Não foi possível se comunicar com o banco de dados!");
 		}
 		return r;
 	}
 
+	private DataAccessResponse update(Connection conexao, Pessoa pessoa) throws SQLException{
+		PreparedStatement ps = conexao.prepareStatement("UPDATE pessoas SET nome = ? WHERE id_pessoa = ?");
+
+		ps.setString(1, pessoa.getNome());
+
+		ps.setInt(2, pessoa.getId());
+
+		ps.execute();
+
+		ps.close();
+
+		return new DataAccessResponse(true, ResponseType.NULL, null);
+	}
+
+	private DataAccessResponse insert(Connection conexao, Pessoa pessoa) throws SQLException{
+		PreparedStatement ps = conexao.prepareStatement("INSERT INTO pessoas SET nome = ?", Statement.RETURN_GENERATED_KEYS);
+
+		ps.setString(1, pessoa.getNome());
+
+		ps.execute();
+
+		ResultSet rs = ps.getGeneratedKeys();
+
+		int idPessoa;
+		if(rs.next()){
+			idPessoa = rs.getInt(1);
+		}else{
+			idPessoa = 0;
+		}
+
+		rs.close();
+		ps.close();
+
+		return new DataAccessResponse(true, ResponseType.INTEGER, idPessoa);
+	}
+
 	@Override
 	public DataAccessResponse deletar(Pessoa entity) {
 		DataAccessResponse r;
-		
+
 		Connection conexao = new ConnectionFactory().getConnection();
-		
+
 		if(conexao != null){
 			String query = "DELETE FROM pessoas WHERE id_pessoa = ?";
-			
+
 			try {
 				PreparedStatement ps = conexao.prepareStatement(query);
-				
+
 				ps.setInt(1, entity.getId());
-				
+
 				ps.execute();
-				
+
 				ps.close();
-				
-				r = new DataAccessResponse(true, ResponseType.MESSAGE, entity.getNome() + " Deletad@ com sucesso!");
+
+				r = new DataAccessResponse(true, ResponseType.STRING, entity.getNome() + " Deletad@ com sucesso!");
 			} catch (SQLException e) {
-				r = new DataAccessResponse(false, ResponseType.EXCEPTION, e);
+				r = new DataAccessResponse(false, ResponseType.STRING, e.getMessage());
 			}
 		}else{
-			r = new DataAccessResponse(false, ResponseType.MESSAGE,
+			r = new DataAccessResponse(false, ResponseType.STRING,
 					"Não foi possível se comunicar com o banco de dados!");
 		}
-		
+
 		return r;
 	}
 }

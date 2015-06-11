@@ -1,6 +1,6 @@
 package app;
 
-import res.datamanager.DataAccessResponse;
+import res.datamanager.dao.DataAccessResponse;
 import res.pessoa.Pessoa;
 import res.pessoa.PessoaDAO;
 

@@ -1,14 +1,16 @@
 package res.datamanager;
 
+import res.datamanager.dao.DataAccessResponse;
+
 
 public interface BusinessLayoutLayer<Entity> {
-	public DataAccessObject salvar(Entity entity);
+	public DataAccessResponse salvar(Entity entity);
 
-	public DataAccessObject deletar(Entity entity);
+	public DataAccessResponse deletar(Entity entity);
 
-	public DataAccessObject getById(int id);
+	public DataAccessResponse getById(int id);
 
-	public DataAccessObject listar();
+	public DataAccessResponse listar();
 
-	public DataAccessObject listarWhere(String key, String value);
+	public DataAccessResponse listarWhere(String key, String value);
 }
