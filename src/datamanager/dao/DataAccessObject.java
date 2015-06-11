@@ -1,4 +1,4 @@
-package res.datamanager.dao;
+package datamanager.dao;
 
 
 public interface DataAccessObject<Entity> extends ParcialDataAccessObject<Entity>{

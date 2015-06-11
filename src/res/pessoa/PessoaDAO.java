@@ -6,9 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import res.datamanager.dao.DataAccessResponse;
-import res.datamanager.dao.ParcialDataAccessObject;
-import res.datamanager.dao.ResponseType;
+import datamanager.dao.DataAccessResponse;
+import datamanager.dao.ParcialDataAccessObject;
+import datamanager.dao.ResponseType;
 import app.ConnectionFactory;
 
 public class PessoaDAO implements ParcialDataAccessObject<Pessoa> {

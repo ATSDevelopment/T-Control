@@ -1,4 +1,4 @@
-package res.datamanager.dao;
+package datamanager.dao;
 
 import java.io.Serializable;
 
