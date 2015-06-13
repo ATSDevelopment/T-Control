@@ -4,10 +4,10 @@ import datamanager.dao.DataAccessResponse;
 import res.pessoa.Pessoa;
 import res.pessoa.PessoaDAO;
 
-
-
 public class Application {
+	
 	private static Config config;
+	
 	public static void main(String[] args) {
 		Config c = Config.load();
 		
@@ -32,6 +32,7 @@ public class Application {
 		DataAccessResponse response = dao.deletar(p);
 		
 		System.out.println("Status : "+(response.getStatus() ? "OK":"ERROR"));
+		
 		System.out.println("Message: "+response.getResponse());
 	}
 	
