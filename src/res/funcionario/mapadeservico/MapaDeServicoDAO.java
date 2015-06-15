@@ -13,10 +13,6 @@ import datamanager.dao.DataAccessResponse;
 import datamanager.dao.ResponseType;
 
 public class MapaDeServicoDAO implements DataAccessObject<MapaDeServico>{
-<<<<<<< HEAD
-=======
-	
->>>>>>> c7e62495131564f521c8a055fed6089ebd6d841f
 	@Override
 	public DataAccessResponse salvar(MapaDeServico map, boolean novo) {
 		DataAccessResponse res;
