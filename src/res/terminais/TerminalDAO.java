@@ -5,6 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+
+import res.setor.Setor;
 
 import app.ConnectionFactory;
 import datamanager.dao.DataAccessObject;
@@ -125,13 +128,100 @@ public class TerminalDAO implements DataAccessObject<Terminal> {
 	@Override
 	public DataAccessResponse getById(int id) {
 
-		return null;
+		DataAccessResponse r;
+
+		Connection conexao = new ConnectionFactory().getConnection();
+
+		if (conexao != null) {
+
+			String query = "SELECT * FROM terminal WHERE id_terminal = ?";
+
+			Terminal terminal = null;
+			SetorDAO dao = null;
+
+			try {
+				PreparedStatement ps = conexao.prepareStatement(query);
+
+				ps.setInt(1, id);
+
+				ResultSet resultado = ps.executeQuery();
+				if (resultado.next()) {
+					dao = new SetorDAO();
+
+					DataAccessResponse response = dao.getById(resultado
+							.getInt(5));
+
+					Setor setor = (Setor) response.getResponse();
+
+					terminal = new Terminal(resultado.getInt(1),
+							resultado.getString(2), resultado.getString(3),
+							resultado.getBoolean(4), setor);
+				}
+				resultado.close();
+				ps.close();
+
+				r = new DataAccessResponse(true, ResponseType.OBJECT, terminal);
+			} catch (SQLException e) {
+
+				r = new DataAccessResponse(false, ResponseType.STRING,
+						e.getMessage());
+			}
+		} else {
+			r = new DataAccessResponse(false, ResponseType.STRING,
+					"Não foi possível se comunicar com o banco de dados!");
+		}
+
+		return r;
 	}
 
 	@Override
 	public DataAccessResponse listar() {
 
-		return null;
+		DataAccessResponse r;
+
+		Connection conexao = new ConnectionFactory().getConnection();
+
+		if (conexao != null) {
+
+			String query = "SELECT * FROM terminal";
+
+			Terminal terminal = null;
+			ArrayList<Terminal> array = new ArrayList<Terminal>();
+			SetorDAO dao = null;
+
+			try {
+				PreparedStatement ps = conexao.prepareStatement(query);
+
+				ResultSet resultado = ps.executeQuery();
+				while (resultado.next()) {
+					dao = new SetorDAO();
+
+					DataAccessResponse response = dao.getById(resultado
+							.getInt(5));
+
+					Setor setor = (Setor) response.getResponse();
+
+					terminal = new Terminal(resultado.getInt(1),
+							resultado.getString(2), resultado.getString(3),
+							resultado.getBoolean(4), setor);
+
+					array.add(terminal);
+				}
+				resultado.close();
+				ps.close();
+
+				r = new DataAccessResponse(true, ResponseType.ARRAY_LIST, array);
+			} catch (SQLException e) {
+
+				r = new DataAccessResponse(false, ResponseType.STRING,
+						e.getMessage());
+			}
+		} else {
+			r = new DataAccessResponse(false, ResponseType.STRING,
+					"Não foi possível se comunicar com o banco de dados!");
+		}
+
+		return r;
 	}
 
 }

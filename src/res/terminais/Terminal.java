@@ -1,8 +1,10 @@
 package res.terminais;
 
+import java.io.Serializable;
+
 import res.setor.Setor;
 
-public class Terminal {
+public class Terminal implements Serializable {
 
 	private int id;
 	private String hostname;
