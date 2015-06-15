@@ -224,4 +224,85 @@ public class TerminalDAO implements DataAccessObject<Terminal> {
 		return r;
 	}
 
+	public DataAccessResponse listarWhere(String key, String value) {
+
+		DataAccessResponse r;
+
+		Connection conexao = new ConnectionFactory().getConnection();
+
+		if (conexao != null) {
+
+			Terminal terminal = null;
+			ArrayList<Terminal> array = new ArrayList<Terminal>();
+			SetorDAO dao = null;
+
+			try {
+
+				PreparedStatement ps = null;
+				if (key.equals("id")) {
+					String query = "SELECT * FROM terminal WHERE id_terminal = %?%";
+					ps = conexao.prepareStatement(query);
+
+					ps.setInt(1, Integer.parseInt(value));
+
+				} else if (key.equals("hostname")) {
+
+					String query = "SELECT * FROM terminal WHERE hostname = %?%";
+					ps = conexao.prepareStatement(query);
+
+					ps.setString(1, value);
+
+				} else if (key.equals("ipAddress")) {
+					String query = "SELECT * FROM terminal WHERE ip_address = %?%";
+					ps = conexao.prepareStatement(query);
+
+					ps.setString(1, value);
+
+				} else if (key.equals("ativo")) {
+
+					String query = "SELECT * FROM terminal WHERE ativo = %?%";
+					ps = conexao.prepareStatement(query);
+
+					ps.setBoolean(1, Boolean.parseBoolean(value));
+
+				} else if (key.equals("setor")) {
+
+					String query = "SELECT * FROM terminal WHERE id_setor = %?%";
+					ps = conexao.prepareStatement(query);
+
+					ps.setInt(2, Integer.parseInt(value));
+				}
+
+				ResultSet resultado = ps.executeQuery();
+				while (resultado.next()) {
+					dao = new SetorDAO();
+
+					DataAccessResponse response = dao.getById(resultado
+							.getInt(5));
+
+					Setor setor = (Setor) response.getResponse();
+
+					terminal = new Terminal(resultado.getInt(1),
+							resultado.getString(2), resultado.getString(3),
+							resultado.getBoolean(4), setor);
+
+					array.add(terminal);
+				}
+				resultado.close();
+				ps.close();
+
+				r = new DataAccessResponse(true, ResponseType.ARRAY_LIST, array);
+			} catch (SQLException e) {
+
+				r = new DataAccessResponse(false, ResponseType.STRING,
+						e.getMessage());
+			}
+		} else {
+			r = new DataAccessResponse(false, ResponseType.STRING,
+					"Não foi possível se comunicar com o banco de dados!");
+		}
+
+		return r;
+	}
+
 }
