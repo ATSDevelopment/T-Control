@@ -18,25 +18,28 @@ public class PessoaDAO implements ParcialDataAccessObject<Pessoa> {
 		DataAccessResponse r;
 		Connection conexao = new ConnectionFactory().getConnection();
 		if (conexao != null) {
-			try{
+			try {
 				if (novo) {
 					r = insert(conexao, entity);
 				} else {
 					r = update(conexao, entity);
 				}
-			}catch(SQLException e){
-				r = new DataAccessResponse(false, ResponseType.STRING, e.getMessage());
+			} catch (SQLException e) {
+				r = new DataAccessResponse(false, ResponseType.STRING,
+						e.getMessage());
 			}
 		} else {
 			r = new DataAccessResponse(false, ResponseType.STRING,
 					"Não foi possível se comunicar com o banco de dados!");
 		}
-		
+
 		return r;
 	}
 
-	private DataAccessResponse update(Connection conexao, Pessoa pessoa) throws SQLException{
-		PreparedStatement ps = conexao.prepareStatement("UPDATE pessoas SET nome = ? WHERE id_pessoa = ?");
+	private DataAccessResponse update(Connection conexao, Pessoa pessoa)
+			throws SQLException {
+		PreparedStatement ps = conexao
+				.prepareStatement("UPDATE pessoas SET nome = ? WHERE id_pessoa = ?");
 
 		ps.setString(1, pessoa.getNome());
 
@@ -49,8 +52,11 @@ public class PessoaDAO implements ParcialDataAccessObject<Pessoa> {
 		return new DataAccessResponse(true, ResponseType.NULL, null);
 	}
 
-	private DataAccessResponse insert(Connection conexao, Pessoa pessoa) throws SQLException{
-		PreparedStatement ps = conexao.prepareStatement("INSERT INTO pessoas SET nome = ?", Statement.RETURN_GENERATED_KEYS);
+	private DataAccessResponse insert(Connection conexao, Pessoa pessoa)
+			throws SQLException {
+		PreparedStatement ps = conexao.prepareStatement(
+				"INSERT INTO pessoas SET nome = ?",
+				Statement.RETURN_GENERATED_KEYS);
 
 		ps.setString(1, pessoa.getNome());
 
@@ -59,9 +65,9 @@ public class PessoaDAO implements ParcialDataAccessObject<Pessoa> {
 		ResultSet rs = ps.getGeneratedKeys();
 
 		int idPessoa;
-		if(rs.next()){
+		if (rs.next()) {
 			idPessoa = rs.getInt(1);
-		}else{
+		} else {
 			idPessoa = 0;
 		}
 
@@ -77,7 +83,7 @@ public class PessoaDAO implements ParcialDataAccessObject<Pessoa> {
 
 		Connection conexao = new ConnectionFactory().getConnection();
 
-		if(conexao != null){
+		if (conexao != null) {
 			String query = "DELETE FROM pessoas WHERE id_pessoa = ?";
 
 			try {
@@ -89,11 +95,13 @@ public class PessoaDAO implements ParcialDataAccessObject<Pessoa> {
 
 				ps.close();
 
-				r = new DataAccessResponse(true, ResponseType.STRING, entity.getNome() + " Deletad@ com sucesso!");
+				r = new DataAccessResponse(true, ResponseType.STRING,
+						entity.getNome() + " Deletad@ com sucesso!");
 			} catch (SQLException e) {
-				r = new DataAccessResponse(false, ResponseType.STRING, e.getMessage());
+				r = new DataAccessResponse(false, ResponseType.STRING,
+						e.getMessage());
 			}
-		}else{
+		} else {
 			r = new DataAccessResponse(false, ResponseType.STRING,
 					"Não foi possível se comunicar com o banco de dados!");
 		}

@@ -4,7 +4,7 @@ import datamanager.dao.DataAccessResponse;
 
 
 public interface BusinessLayoutLayer<Entity> {
-	public DataAccessResponse salvar(Entity entity);
+	public DataAccessResponse salvar(Entity entity, boolean novo);
 
 	public DataAccessResponse deletar(Entity entity);
 
