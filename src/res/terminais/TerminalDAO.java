@@ -1,4 +1,4 @@
-package res.pessoa;
+package res.terminais;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,15 +6,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import datamanager.dao.DataAccessResponse;
-import datamanager.dao.ParcialDataAccessObject;
-import datamanager.dao.ResponseType;
 import app.ConnectionFactory;
+import datamanager.dao.DataAccessObject;
+import datamanager.dao.DataAccessResponse;
+import datamanager.dao.ResponseType;
 
-public class PessoaDAO implements ParcialDataAccessObject<Pessoa> {
+public class TerminalDAO implements DataAccessObject<Terminal> {
 
 	@Override
-	public DataAccessResponse salvar(Pessoa entity, boolean novo) {
+	public DataAccessResponse salvar(Terminal entity, boolean novo) {
+
 		DataAccessResponse r;
 		Connection conexao = new ConnectionFactory().getConnection();
 		if (conexao != null) {
@@ -34,16 +35,20 @@ public class PessoaDAO implements ParcialDataAccessObject<Pessoa> {
 		}
 
 		return r;
+
 	}
 
-	private DataAccessResponse update(Connection conexao, Pessoa pessoa)
+	private DataAccessResponse update(Connection conexao, Terminal terminal)
 			throws SQLException {
+
 		PreparedStatement ps = conexao
-				.prepareStatement("UPDATE pessoas SET nome = ? WHERE id_pessoa = ?");
+				.prepareStatement("UPDATE terminais SET hostname = ?, ip_address = ?, ativo = ?, id_setor = ?  WHERE id_terminal = ?");
 
-		ps.setString(1, pessoa.getNome());
-
-		ps.setInt(2, pessoa.getId());
+		ps.setString(1, terminal.getHostname());
+		ps.setString(2, terminal.getIpAddress());
+		ps.setBoolean(3, terminal.isAtivo());
+		ps.setInt(4, terminal.getSetor().getId());
+		ps.setInt(5, terminal.getId());
 
 		ps.execute();
 
@@ -52,39 +57,46 @@ public class PessoaDAO implements ParcialDataAccessObject<Pessoa> {
 		return new DataAccessResponse(true, ResponseType.NULL, null);
 	}
 
-	private DataAccessResponse insert(Connection conexao, Pessoa pessoa)
+	private DataAccessResponse insert(Connection conexao, Terminal terminal)
 			throws SQLException {
-		PreparedStatement ps = conexao.prepareStatement(
-				"INSERT INTO pessoas SET nome = ?",
-				Statement.RETURN_GENERATED_KEYS);
 
-		ps.setString(1, pessoa.getNome());
+		PreparedStatement ps = conexao
+				.prepareStatement(
+						"INSERT INTO terminal SET hostname = ?, ip_address = ?, ativo = ?, id_setor = ?",
+						Statement.RETURN_GENERATED_KEYS);
+
+		ps.setString(1, terminal.getHostname());
+		ps.setString(2, terminal.getIpAddress());
+		ps.setBoolean(3, terminal.isAtivo());
+		ps.setInt(4, terminal.getSetor().getId());
 
 		ps.execute();
 
 		ResultSet rs = ps.getGeneratedKeys();
 
-		int idPessoa;
+		int idTerminal;
 		if (rs.next()) {
-			idPessoa = rs.getInt(1);
+			idTerminal = rs.getInt(1);
 		} else {
-			idPessoa = 0;
+			idTerminal = 0;
 		}
 
 		rs.close();
 		ps.close();
 
-		return new DataAccessResponse(true, ResponseType.INTEGER, idPessoa);
+		return new DataAccessResponse(true, ResponseType.INTEGER, idTerminal);
+
 	}
 
 	@Override
-	public DataAccessResponse deletar(Pessoa entity) {
+	public DataAccessResponse deletar(Terminal entity) {
+
 		DataAccessResponse r;
 
 		Connection conexao = new ConnectionFactory().getConnection();
 
 		if (conexao != null) {
-			String query = "DELETE FROM pessoas WHERE id_pessoa = ?";
+			String query = "DELETE FROM terminal WHERE id_terminal = ?";
 
 			try {
 				PreparedStatement ps = conexao.prepareStatement(query);
@@ -96,7 +108,8 @@ public class PessoaDAO implements ParcialDataAccessObject<Pessoa> {
 				ps.close();
 
 				r = new DataAccessResponse(true, ResponseType.STRING,
-						entity.getNome() + " Deletad@ com sucesso!");
+						"Terminal " + entity.getHostname()
+								+ " Deletado com sucesso!");
 			} catch (SQLException e) {
 				r = new DataAccessResponse(false, ResponseType.STRING,
 						e.getMessage());
@@ -108,4 +121,17 @@ public class PessoaDAO implements ParcialDataAccessObject<Pessoa> {
 
 		return r;
 	}
+
+	@Override
+	public DataAccessResponse getById(int id) {
+
+		return null;
+	}
+
+	@Override
+	public DataAccessResponse listar() {
+
+		return null;
+	}
+
 }

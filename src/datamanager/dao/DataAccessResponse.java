@@ -7,6 +7,7 @@ public class DataAccessResponse {
 	public boolean status;
 	public ResponseType type;
 	public Serializable response;
+	
 	public DataAccessResponse(boolean status, ResponseType type, Serializable response) {
 		super();
 		this.status = status;
