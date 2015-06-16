@@ -34,9 +34,6 @@ public class SetorBLL implements BusinessLayoutLayer <Setor> {
 		return setordao.listar();
 	}
 
-	public DataAccessResponse listarWhere(String key, String value) {
-		SetorDAO setordao = new SetorDAO();
-		return setordao.listarWhere(key, value);
-	}
+	
 
 }
