@@ -10,7 +10,5 @@ public interface EntityManager<Entity> {
 	
 	public DataAccessResponse getById(int id);
 	
-	public DataAccessResponse listar();
-	
-	public DataAccessResponse listarWhere(String key, String value);
+	public DataAccessResponse listar();	
 }
