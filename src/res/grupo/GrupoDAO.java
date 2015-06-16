@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import res.connection.ConnectionManager;
+import datamanager.connection.ConnectionManager;
 import datamanager.dao.DataAccessResponse;
 import datamanager.dao.ParcialDataAccessObject;
 import datamanager.dao.ResponseType;

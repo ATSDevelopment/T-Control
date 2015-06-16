@@ -1,4 +1,4 @@
-package res.connection;
+package datamanager.connection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
