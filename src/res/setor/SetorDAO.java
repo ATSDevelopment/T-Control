@@ -1,4 +1,4 @@
-package res.setores;
+package res.setor;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
