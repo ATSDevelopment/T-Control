@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import res.setor.Setor;
+import res.setor.SetorDAO;
 import app.ConnectionFactory;
 import datamanager.dao.DataAccessObject;
 import datamanager.dao.DataAccessResponse;
@@ -137,8 +138,8 @@ public class TerminalDAO implements DataAccessObject<Terminal> {
 
 			Terminal terminal = null;
 			
-			//Instancia SetorDAO
-			DataAccessObject<Setor> dao = null;
+			
+			DataAccessObject<Setor> dao =new SetorDAO();
 
 			try {
 				PreparedStatement ps = conexao.prepareStatement(query);
@@ -187,7 +188,7 @@ public class TerminalDAO implements DataAccessObject<Terminal> {
 
 			Terminal terminal = null;
 			ArrayList<Terminal> array = new ArrayList<Terminal>();
-			DataAccessObject<Setor> dao = null;
+			DataAccessObject<Setor> dao = new SetorDAO();
 
 			try {
 				PreparedStatement ps = conexao.prepareStatement(query);
