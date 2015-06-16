@@ -1,7 +1,5 @@
 package res.grupo;
 
-import gui.MainFrame;
-
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,9 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 
-import res.usuario.Usuario;
 import app.ConnectionFactory;
 import datamanager.dao.DataAccessResponse;
 import datamanager.dao.ParcialDataAccessObject;
