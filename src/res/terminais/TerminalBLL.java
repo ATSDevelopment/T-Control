@@ -6,11 +6,11 @@ import datamanager.dao.DataAccessResponse;
 public class TerminalBLL implements BusinessLayoutLayer<Terminal> {
 
 	@Override
-	public DataAccessResponse salvar(Terminal entity, boolean novo) {
+	public DataAccessResponse salvar(Terminal entity) {
 
 		TerminalDAO dao = new TerminalDAO();
 
-		return dao.salvar(entity, novo);
+		return dao.salvar(entity, entity.getId()==0);
 	}
 
 	@Override
@@ -34,13 +34,4 @@ public class TerminalBLL implements BusinessLayoutLayer<Terminal> {
 		TerminalDAO dao = new TerminalDAO();
 		return dao.listar();
 	}
-
-	@Override
-	public DataAccessResponse listarWhere(String key, String value) {
-		
-		TerminalDAO dao = new TerminalDAO();
-		
-		return dao.listarWhere(key, value);
-	}
-
 }
