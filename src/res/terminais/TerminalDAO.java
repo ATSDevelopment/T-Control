@@ -7,9 +7,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import res.connection.ConnectionManager;
 import res.setor.Setor;
 import res.setor.SetorDAO;
-import app.ConnectionFactory;
 import datamanager.dao.DataAccessObject;
 import datamanager.dao.DataAccessResponse;
 import datamanager.dao.ResponseType;
@@ -20,7 +20,7 @@ public class TerminalDAO implements DataAccessObject<Terminal> {
 	public DataAccessResponse salvar(Terminal entity, boolean novo) {
 
 		DataAccessResponse r;
-		Connection conexao = new ConnectionFactory().getConnection();
+		Connection conexao = ConnectionManager.get();
 		if (conexao != null) {
 			try {
 				if (novo) {
@@ -96,7 +96,7 @@ public class TerminalDAO implements DataAccessObject<Terminal> {
 
 		DataAccessResponse r;
 
-		Connection conexao = new ConnectionFactory().getConnection();
+		Connection conexao = ConnectionManager.get();
 
 		if (conexao != null) {
 			String query = "DELETE FROM terminal WHERE id_terminal = ?";
@@ -130,7 +130,7 @@ public class TerminalDAO implements DataAccessObject<Terminal> {
 
 		DataAccessResponse r;
 
-		Connection conexao = new ConnectionFactory().getConnection();
+		Connection conexao = ConnectionManager.get();
 
 		if (conexao != null) {
 
@@ -180,7 +180,7 @@ public class TerminalDAO implements DataAccessObject<Terminal> {
 
 		DataAccessResponse r;
 
-		Connection conexao = new ConnectionFactory().getConnection();
+		Connection conexao = ConnectionManager.get();
 
 		if (conexao != null) {
 

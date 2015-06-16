@@ -8,18 +8,17 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import res.setor.Setor;
+import res.connection.ConnectionManager;
 import datamanager.dao.DataAccessObject;
 import datamanager.dao.DataAccessResponse;
 import datamanager.dao.ResponseType;
-import app.ConnectionFactory;
 
 public class SetorDAO implements DataAccessObject<Setor> {
 
 	@Override
 	public DataAccessResponse salvar(Setor entity, boolean novo) {
 		DataAccessResponse r;
-		Connection conexao = new ConnectionFactory().getConnection();
+		Connection conexao = ConnectionManager.get();
 		if (conexao != null) {
 			try{
 				if (novo) {
@@ -92,7 +91,7 @@ public class SetorDAO implements DataAccessObject<Setor> {
 		
 			DataAccessResponse r;
 
-			Connection conexao = new ConnectionFactory().getConnection();
+			Connection conexao = ConnectionManager.get();
 
 			if(conexao != null){
 				String query = "DELETE FROM setor WHERE id_setor = ?";
@@ -122,7 +121,7 @@ public class SetorDAO implements DataAccessObject<Setor> {
 
 		DataAccessResponse r;
 
-		Connection conexao = new ConnectionFactory().getConnection();
+		Connection conexao = ConnectionManager.get();
 
 		if (conexao != null) {
 
@@ -170,7 +169,7 @@ public class SetorDAO implements DataAccessObject<Setor> {
 
 		DataAccessResponse r;
 
-		Connection conexao = new ConnectionFactory().getConnection();
+		Connection conexao = ConnectionManager.get();
 
 		if (conexao != null) {
 

@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import app.ConnectionFactory;
+import res.connection.ConnectionManager;
 import datamanager.dao.DataAccessObject;
 import datamanager.dao.DataAccessResponse;
 import datamanager.dao.ResponseType;
@@ -17,7 +17,7 @@ public class MapaDeServicoDAO implements DataAccessObject<MapaDeServico>{
 	public DataAccessResponse salvar(MapaDeServico map, boolean novo) {
 		DataAccessResponse res;
 
-		Connection conexao = new ConnectionFactory().getConnection();
+		Connection conexao = ConnectionManager.get();
 
 		if(novo){
 			try {
@@ -76,7 +76,7 @@ public class MapaDeServicoDAO implements DataAccessObject<MapaDeServico>{
 	public DataAccessResponse deletar(MapaDeServico map) {
 		DataAccessResponse res;
 
-		Connection conexao = new ConnectionFactory().getConnection();
+		Connection conexao = ConnectionManager.get();
 
 		try {
 			PreparedStatement ps = conexao.prepareStatement("DELETE FROM mapa_de_servico WHERE id_funcionario=? AND id_setor=?");
@@ -102,7 +102,7 @@ public class MapaDeServicoDAO implements DataAccessObject<MapaDeServico>{
 	public DataAccessResponse getById(int id) {
 		DataAccessResponse res;
 		
-		Connection conexao = new ConnectionFactory().getConnection();
+		Connection conexao = ConnectionManager.get();
 
 		try {
 			PreparedStatement ps = conexao.prepareStatement(

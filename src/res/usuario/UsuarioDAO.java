@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import app.ConnectionFactory;
+import res.connection.ConnectionManager;
 import datamanager.dao.DataAccessObject;
 import datamanager.dao.DataAccessResponse;
 import datamanager.dao.ResponseType;
@@ -18,7 +18,7 @@ public class UsuarioDAO implements DataAccessObject<Usuario> {
 	@Override
 	public DataAccessResponse salvar(Usuario entity, boolean novo) {
 		DataAccessResponse r;
-		Connection conexao = new ConnectionFactory().getConnection();
+		Connection conexao = ConnectionManager.get();
 		if (conexao != null) {
 			try{
 				if (novo) {
@@ -96,7 +96,7 @@ public class UsuarioDAO implements DataAccessObject<Usuario> {
 	public DataAccessResponse deletar(Usuario entity) {
 		DataAccessResponse r;
 
-		Connection conexao = new ConnectionFactory().getConnection();
+		Connection conexao = ConnectionManager.get();
 
 		if(conexao != null){
 			String query = "DELETE FROM usuarios WHERE id_usuario = ?";
@@ -127,7 +127,7 @@ public class UsuarioDAO implements DataAccessObject<Usuario> {
 
 		DataAccessResponse resp;
 
-		Connection conexao = new ConnectionFactory().getConnection();
+		Connection conexao = ConnectionManager.get();
 
 		if (conexao != null) {
 
@@ -176,7 +176,7 @@ public class UsuarioDAO implements DataAccessObject<Usuario> {
 
 		DataAccessResponse resp;
 
-		Connection conexao = new ConnectionFactory().getConnection();
+		Connection conexao = ConnectionManager.get();
 
 		if (conexao != null) {
 

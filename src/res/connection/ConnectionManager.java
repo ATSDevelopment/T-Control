@@ -1,21 +1,15 @@
-package app;
+package res.connection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class ConnectionFactory {
+import app.Application;
+
+public class ConnectionManager {
 	private static Connection conexao;
-	
-	public Connection getConnection(){
-		if(conexao!=null){
-			return conexao;
-		}else{
-			return conexao = generateConnection();
-		}
-	}
-	
-	public Connection generateConnection(){
+
+	public static boolean open(){
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 
@@ -35,12 +29,31 @@ public class ConnectionFactory {
 			url = url.replaceAll("#port", Integer.toString(port));
 			url = url.replaceAll("#database", database);
 
-			return DriverManager.getConnection(url, user, pass);
-
+			conexao = DriverManager.getConnection(url, user, pass);
+			
+			return true;
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
+			return false;
 		}
-
-		return null;
+	}
+	
+	public static Connection get(){
+		return conexao;
+	}
+	
+	public static boolean close(){
+		try {
+			conexao.close();
+			
+			conexao = null;
+			
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+			return false;
+		}
 	}
 }

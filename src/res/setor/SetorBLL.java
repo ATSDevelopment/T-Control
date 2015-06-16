@@ -1,10 +1,6 @@
 package res.setor;
 
 
-import java.sql.SQLException;
-import java.util.List;
-
-import res.setor.SetorDAO;
 import datamanager.BusinessLayoutLayer;
 import datamanager.dao.DataAccessResponse;
 

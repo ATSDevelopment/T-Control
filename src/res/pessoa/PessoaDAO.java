@@ -6,17 +6,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import res.connection.ConnectionManager;
 import datamanager.dao.DataAccessResponse;
 import datamanager.dao.ParcialDataAccessObject;
 import datamanager.dao.ResponseType;
-import app.ConnectionFactory;
 
 public class PessoaDAO implements ParcialDataAccessObject<Pessoa> {
 
 	@Override
 	public DataAccessResponse salvar(Pessoa entity, boolean novo) {
 		DataAccessResponse r;
-		Connection conexao = new ConnectionFactory().getConnection();
+		Connection conexao = ConnectionManager.get();
 		if (conexao != null) {
 			try {
 				if (novo) {
@@ -81,7 +81,7 @@ public class PessoaDAO implements ParcialDataAccessObject<Pessoa> {
 	public DataAccessResponse deletar(Pessoa entity) {
 		DataAccessResponse r;
 
-		Connection conexao = new ConnectionFactory().getConnection();
+		Connection conexao = ConnectionManager.get();
 
 		if (conexao != null) {
 			String query = "DELETE FROM pessoas WHERE id_pessoa = ?";

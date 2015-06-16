@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import app.ConnectionFactory;
+import res.connection.ConnectionManager;
 import datamanager.dao.DataAccessResponse;
 import datamanager.dao.ParcialDataAccessObject;
 import datamanager.dao.ResponseType;
@@ -19,7 +19,7 @@ public class GrupoDAO implements ParcialDataAccessObject<Grupo> {
 	@Override
 	public DataAccessResponse salvar(Grupo entity, boolean novo) {
 		DataAccessResponse r;
-		Connection conexao = new ConnectionFactory().getConnection();
+		Connection conexao = ConnectionManager.get();
 		if (conexao != null) {
 			try{
 				if (novo) {
@@ -87,7 +87,7 @@ public class GrupoDAO implements ParcialDataAccessObject<Grupo> {
 	public DataAccessResponse deletar(Grupo entity) {
 		DataAccessResponse r;
 
-		Connection conexao = new ConnectionFactory().getConnection();
+		Connection conexao = ConnectionManager.get();
 
 		if(conexao != null){
 			String query = "DELETE FROM grupos WHERE id_grupos = ?";
@@ -116,7 +116,7 @@ public class GrupoDAO implements ParcialDataAccessObject<Grupo> {
 
 		DataAccessResponse resp;
 
-		Connection conexao = new ConnectionFactory().getConnection();
+		Connection conexao = ConnectionManager.get();
 
 		if (conexao != null) {
 
@@ -165,7 +165,7 @@ public class GrupoDAO implements ParcialDataAccessObject<Grupo> {
 
 		DataAccessResponse resp;
 
-		Connection conexao = new ConnectionFactory().getConnection();
+		Connection conexao = ConnectionManager.get();
 
 		if (conexao != null) {
 
