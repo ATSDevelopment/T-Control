@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import server.Application;
+import server.Launcher;
 
 public class ConnectionManager {
 	private static Connection conexao;
@@ -16,12 +16,12 @@ public class ConnectionManager {
 			String server, database, user, pass;
 			int port;
 
-			server = Application.getConfig().getDbServer();
-			database = Application.getConfig().getDbName();
-			user = Application.getConfig().getDbUser();
-			pass = Application.getConfig().getDbPass();
+			server = Launcher.getConfig().getDbServer();
+			database = Launcher.getConfig().getDbName();
+			user = Launcher.getConfig().getDbUser();
+			pass = Launcher.getConfig().getDbPass();
 
-			port = Application.getConfig().getDbPort();
+			port = Launcher.getConfig().getDbPort();
 
 			String url = "jdbc:mysql://#server:#port/#database";
 

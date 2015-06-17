@@ -1,0 +1,121 @@
+package server;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.io.Serializable;
+import java.net.Socket;
+
+import res.setor.Setor;
+import res.setor.SetorBLL;
+import datamanager.dao.DataAccessResponse;
+import datamanager.dao.ResponseType;
+
+public class ClientConnection extends Thread{
+	private Socket socket;
+	public ClientConnection(Socket socket){
+		this.socket = socket;
+	}
+	
+	@Override
+	public void run(){		
+		try {
+			DataAccessResponse res;
+
+			InputStream inputStream = socket.getInputStream();
+			
+			ObjectInputStream objectIn = new ObjectInputStream(inputStream);
+			
+			Object objRequest = objectIn.readObject();
+			
+			if(objRequest instanceof Request){
+				Request r = (Request) objRequest;
+				
+				res = proccessRequest(r);
+			}else{
+				res = null;
+			}
+			
+			OutputStream outputStream = socket.getOutputStream();
+			
+			ObjectOutputStream objOut = new ObjectOutputStream(outputStream);
+			
+			objOut.writeObject(res);
+			
+			objOut.flush();
+			
+			objOut.close();
+			objectIn.close();
+			socket.close();
+		} catch (IOException | ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	private DataAccessResponse proccessRequest(Request request){
+		DataAccessResponse res = null;
+		
+		switch(request.getDescription()){
+		case "funcionarios:salvar":
+		{}
+			break;
+		case "funcionarios:deletar":
+		{}
+			break;
+		case "funcionarios:listar":
+		{}
+			break;
+		case "funcionarios:obter_por_id":
+		{}
+			break;
+		case "setores:salvar":
+		{
+			Serializable s = request.getObject();
+			
+			if(s instanceof Setor){
+				SetorBLL sbll = new SetorBLL();
+				res = sbll.salvar((Setor) s);
+			}
+		}
+			break;
+		case "setores:deletar":
+		{
+			Serializable s = request.getObject();
+			
+			if(s instanceof Setor){
+				SetorBLL sbll = new SetorBLL();
+				res = sbll.deletar((Setor) s);
+			}
+		}
+			break;
+		case "setores:obter_por_id":
+		{
+			Serializable s = request.getObject();
+			
+			if(s instanceof Integer){
+				SetorBLL sbll = new SetorBLL();
+				res = sbll.getById((Integer) s);
+			}
+		}
+			break;
+		case "setores:listar":
+		{
+			Serializable s = request.getObject();
+			
+			if(s instanceof Setor){
+				SetorBLL sbll = new SetorBLL();
+				res = sbll.listar();
+			}
+		}
+			break;
+		default:
+			res = new DataAccessResponse(false, ResponseType.STRING, "Impossível analisar a requisição");
+			break;
+		}
+		
+		return res;
+	}
+}

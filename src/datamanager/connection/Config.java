@@ -1,4 +1,4 @@
-package server;
+package datamanager.connection;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -21,7 +21,7 @@ public class Config implements Serializable{
 	
 	private int dbPort;
 	
-	protected Config(){
+	public Config(){
 		save();
 	}
 	
