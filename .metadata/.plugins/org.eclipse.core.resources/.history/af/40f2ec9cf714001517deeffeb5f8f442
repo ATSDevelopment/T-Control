@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import datamanager.connection.ConnectionManager;
 import datamanager.dao.DataAccessObject;
 import datamanager.dao.DataAccessResponse;
-import datamanager.dao.ResponseType;
 import entity.funcionario.Funcionario;
 
 public class FuncionarioDAO implements DataAccessObject<Funcionario>{
@@ -23,35 +22,15 @@ public class FuncionarioDAO implements DataAccessObject<Funcionario>{
 				
 				DataAccessResponse resPessoa = pessoaDAO.salvar(entity, novo);
 				
-				UsuarioDAO usuarioDAO = new UsuarioDAO();
-				
-				DataAccessResponse resUsuario = usuarioDAO.salvar(entity.getUsuario(), novo);
-				
 				if(resPessoa.getStatus()){
+					int id = (Integer) resPessoa.getResponse();
 					
-					int idPessoa = (Integer) resPessoa.getResponse();
-					
-					int idUsuario = (Integer) resUsuario.getResponse();
-					
-					PreparedStatement ps = conexao.prepareStatement("INSERT INTO funcionarios VALUES (?, ?, ?, ?, ?)");
-					
-					ps.setInt(1, idPessoa);
-					ps.setString(2, entity.getTelefone());
-					ps.setString(3, entity.getEmail());
-					ps.setString(4, entity.getDataSaida());
-					ps.setInt(5, idUsuario);
-					
-					ps.execute();
-					
-					ps.close();
-					
-					res = new DataAccessResponse(true, ResponseType.INTEGER, idPessoa);
-					
+					PreparedStatement ps = conexao.prepareStatement("");
 				}else{
 					res = resPessoa;
 				}
 			} catch (SQLException e) {
-				res = new DataAccessResponse(false, ResponseType.STRING, e.getMessage());
+				
 			}
 		}else{
 			

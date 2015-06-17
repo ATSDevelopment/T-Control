@@ -51,7 +51,7 @@ public class FuncionarioDAO implements DataAccessObject<Funcionario>{
 					res = resPessoa;
 				}
 			} catch (SQLException e) {
-				res = new DataAccessResponse(false, ResponseType.STRING, e.getMessage());
+				
 			}
 		}else{
 			

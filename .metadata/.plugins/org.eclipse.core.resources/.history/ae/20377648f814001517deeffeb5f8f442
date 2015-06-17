@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import datamanager.connection.ConnectionManager;
 import datamanager.dao.DataAccessObject;
 import datamanager.dao.DataAccessResponse;
-import datamanager.dao.ResponseType;
 import entity.funcionario.Funcionario;
 
 public class FuncionarioDAO implements DataAccessObject<Funcionario>{
@@ -45,13 +44,11 @@ public class FuncionarioDAO implements DataAccessObject<Funcionario>{
 					
 					ps.close();
 					
-					res = new DataAccessResponse(true, ResponseType.INTEGER, idPessoa);
-					
 				}else{
 					res = resPessoa;
 				}
 			} catch (SQLException e) {
-				res = new DataAccessResponse(false, ResponseType.STRING, e.getMessage());
+				
 			}
 		}else{
 			
