@@ -1,0 +1,14 @@
+package res.entity.funcionario;
+
+import java.util.ArrayList;
+
+import res.entity.Pessoa;
+import res.entity.Usuario;
+
+public class Funcionario extends Pessoa{
+	private String telefone;
+	private String email;
+	private String dataSaida;
+	private Usuario usuario;
+	private ArrayList<MapaDeServico> mapasDeServico;
+}

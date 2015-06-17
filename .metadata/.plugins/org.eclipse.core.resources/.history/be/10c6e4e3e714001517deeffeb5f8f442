@@ -1,0 +1,5 @@
+package res.entity.funcionario;
+
+public class Funcionario {
+
+}

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import res.entity.DiasServico;
-import res.entity.MapaDeServico;
+import res.entity.funcionario.MapaDeServico;
 import datamanager.connection.ConnectionManager;
 import datamanager.dao.DataAccessObject;
 import datamanager.dao.DataAccessResponse;
