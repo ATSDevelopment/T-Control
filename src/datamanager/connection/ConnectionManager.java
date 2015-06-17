@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import app.Application;
+import server.Application;
 
 public class ConnectionManager {
 	private static Connection conexao;

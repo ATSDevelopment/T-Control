@@ -1,4 +1,4 @@
-package app;
+package server;
 
 import res.pessoa.Pessoa;
 import res.pessoa.PessoaDAO;
