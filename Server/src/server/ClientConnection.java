@@ -8,11 +8,11 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import java.net.Socket;
 
-import res.bll.SetorBLL;
-import res.entity.Setor;
+import server.bll.SetorBLL;
 import server.request.Request;
 import datamanager.dao.DataAccessResponse;
 import datamanager.dao.ResponseType;
+import entity.Setor;
 
 public class ClientConnection extends Thread{
 	private Socket socket;
