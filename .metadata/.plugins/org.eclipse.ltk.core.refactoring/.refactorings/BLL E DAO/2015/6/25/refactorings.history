@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Move package &apos;res.entity&apos; to &apos;Entitys Only/src&apos;&#x0A;- Original project: &apos;BLL E DAO&apos;&#x0A;- Destination element: &apos;Entitys Only/src&apos;&#x0A;- Original element: &apos;BLL E DAO/src/res.entity&apos;&#x0A;- Update references to refactored element" description="Move package" destination="=Entitys Only/src" element1="/src&lt;res.entity" flags="589830" fragments="1" id="org.eclipse.jdt.ui.move" policy="org.eclipse.jdt.ui.movePackages" stamp="1434541311256" version="1.0"/>
+</session>

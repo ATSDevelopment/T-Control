@@ -1,5 +1,9 @@
+import res.entity.Pessoa;
+
 public class Main {
 	public static void main(String[] args){
-		Setor s;
+		Pessoa p = new Pessoa(0, "Carlos"){};
+		
+		System.out.println(p.getId()+":"+p.getNome());
 	}
 }
