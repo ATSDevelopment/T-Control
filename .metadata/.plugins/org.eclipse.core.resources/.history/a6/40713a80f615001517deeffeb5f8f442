@@ -1,0 +1,7 @@
+package client.view.nodes;
+
+import javax.swing.tree.DefaultMutableTreeNode;
+
+public class NoSetor extends DefaultMutableTreeNode{
+	
+}

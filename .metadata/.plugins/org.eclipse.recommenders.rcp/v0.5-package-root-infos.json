@@ -1,0 +1,236 @@
+[
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "1282ee494406e75faa6b1cd9756a8e2409762f7b",
+    "jarFileModificationDate": "2015-04-16T05:25:47-03:00",
+    "location": "/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/ext/localedata.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "com.mysql.jdbc",
+    "version": {
+      "major": 5,
+      "minor": 1,
+      "micro": 31,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "a5d23e72c58a2403bbe8abbdff6f4b021511b3f2",
+    "jarFileModificationDate": "2015-06-17T08:03:16-03:00",
+    "location": "/home/carlosrodrigues/workspace/T-Control/T-Control-Server/lib/mysql-connector-java-5.1.31-bin.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "8a37813a2042b81656c63cd6e02d61ff447f2896",
+    "jarFileModificationDate": "2015-04-16T05:25:34-03:00",
+    "location": "/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/ext/dnsns.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "com.mysql.jdbc",
+    "version": {
+      "major": 5,
+      "minor": 1,
+      "micro": 31,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "a5d23e72c58a2403bbe8abbdff6f4b021511b3f2",
+    "jarFileModificationDate": "2015-06-17T08:03:16-03:00",
+    "location": "/home/carlosrodrigues/workspace/T-Control/-Datamanager/lib/mysql-connector-java-5.1.31-bin.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "com.mysql.jdbc",
+    "version": {
+      "major": 5,
+      "minor": 1,
+      "micro": 31,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "a5d23e72c58a2403bbe8abbdff6f4b021511b3f2",
+    "jarFileModificationDate": "2015-06-17T08:03:16-03:00",
+    "location": "/home/carlosrodrigues/workspace/T-Control/T-Control-Datamanager/lib/mysql-connector-java-5.1.31-bin.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "b7196f57ce90be50342e4b6b9d5c62517351bb18",
+    "jarFileModificationDate": "2015-04-16T05:31:38-03:00",
+    "location": "/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/rhino.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "com.mysql.jdbc",
+    "version": {
+      "major": 5,
+      "minor": 1,
+      "micro": 31,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "a5d23e72c58a2403bbe8abbdff6f4b021511b3f2",
+    "jarFileModificationDate": "2015-06-17T08:03:16-03:00",
+    "location": "/home/carlosrodrigues/workspace/T-Control/Datamanager/lib/mysql-connector-java-5.1.31-bin.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "com.mysql.jdbc",
+    "version": {
+      "major": 5,
+      "minor": 1,
+      "micro": 31,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "a5d23e72c58a2403bbe8abbdff6f4b021511b3f2",
+    "jarFileModificationDate": "2015-06-17T08:03:16-03:00",
+    "location": "/home/carlosrodrigues/workspace/T-Control/T-Control/lib/mysql-connector-java-5.1.31-bin.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "9c1e3fbbd980d0eef1e971ca6c31df79096b1dfe",
+    "jarFileModificationDate": "2015-04-16T05:28:17-03:00",
+    "location": "/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/ext/zipfs.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "eff2f95e1de119625a8b7ae2f83426f7fb5e7bd3",
+    "jarFileModificationDate": "2015-04-16T05:31:38-03:00",
+    "location": "/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/resources.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "e4042fb530fd3dea700ec086361857770cadd058",
+    "jarFileModificationDate": "2015-04-16T05:31:38-03:00",
+    "location": "/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/rt.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "7cb97335c6293daa8653e8b9ceb181a5bf68ef66",
+    "jarFileModificationDate": "2015-04-16T05:31:38-03:00",
+    "location": "/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/jsse.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "7eaeccb3510795eeed943e30fc83c93b963e5c60",
+    "jarFileModificationDate": "2015-04-16T05:25:23-03:00",
+    "location": "/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/ext/sunpkcs11.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "02d046c76271b39d1948d369b420b9a37f0e30d7",
+    "jarFileModificationDate": "2015-04-16T05:25:44-03:00",
+    "location": "/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/charsets.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "c30382a4ff1f7bc7af28969cefb40de54e45d9b6",
+    "jarFileModificationDate": "2015-04-16T05:25:04-03:00",
+    "location": "/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/jce.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "82c89422944e3efefaac1f38e03d0f64682a6a9a",
+    "jarFileModificationDate": "2015-04-16T10:06:53-03:00",
+    "location": "/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/ext/icedtea-sound.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "13f1b361090b36111f733d2d2f6ab6db2c9958ca",
+    "jarFileModificationDate": "2013-12-09T09:50:36-02:00",
+    "location": "/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/ext/java-atk-wrapper.jar",
+    "javaRuntime": true
+  },
+  {
+    "symbolicName": "jre",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "micro": 0,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "b413b4673eaa4591aa8b4f5c3bf0489206786d6c",
+    "jarFileModificationDate": "2015-04-16T05:27:31-03:00",
+    "location": "/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/ext/sunjce_provider.jar",
+    "javaRuntime": true
+  }
+]

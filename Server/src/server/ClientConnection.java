@@ -21,7 +21,7 @@ public class ClientConnection extends Thread{
 	}
 	
 	@Override
-	public void run(){		
+	public void run(){	
 		try {
 			DataAccessResponse res;
 

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="datamanager.connection.ConnectionManager"/>
+<fullyQualifiedTypeName name="datamanager.dao.ResponseType"/>
+<fullyQualifiedTypeName name="java.sql.Connection"/>
+<fullyQualifiedTypeName name="datamanager.dao.DataAccessResponse"/>
+<fullyQualifiedTypeName name="javax.swing.tree.DefaultMutableTreeNode"/>
+</qualifiedTypeNameHistroy>
