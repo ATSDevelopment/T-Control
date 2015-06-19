@@ -3,7 +3,7 @@ package datamanager.dao;
 import java.io.Serializable;
 
 
-public class DataAccessResponse {
+public class DataAccessResponse implements Serializable{
 	public boolean status;
 	public ResponseType type;
 	public Serializable response;

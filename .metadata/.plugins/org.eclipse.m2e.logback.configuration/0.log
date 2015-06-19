@@ -138,3 +138,44 @@ java.io.FileNotFoundException: no segments* file found in org.apache.lucene.stor
 	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53) [org.eclipse.core.jobs_3.5.300.v20130429-1813.jar:na]
 2015-06-18 17:13:01,267 [pool-17-thread-1] INFO  c.n.h.c.p.n.NettyAsyncHttpProvider - Number of application's worked threads is 8
 2015-06-18 17:13:07,389 [pool-19-thread-1] INFO  c.n.h.c.p.n.NettyAsyncHttpProvider - Number of application's worked threads is 8
+2015-06-19 18:23:41,545 [main] INFO  c.n.h.c.p.n.NettyAsyncHttpProvider - Number of application's worked threads is 8
+2015-06-19 18:23:47,225 [Worker-2] WARN  o.e.r.i.rcp.repo.ModelRepository - 'remote-models (http://download.eclipse.org/recommenders/models/kepler/, releases+snapshots)' did not send ETAG header for 'org.eclipse.recommenders:index:zip:0.0.0'.
+2015-06-19 18:23:47,476 [pool-6-thread-1] INFO  c.n.h.c.p.n.NettyAsyncHttpProvider - Number of application's worked threads is 8
+2015-06-19 18:23:49,445 [Worker-2] WARN  o.e.r.i.rcp.repo.ModelRepository - 'remote-models (http://download.eclipse.org/recommenders/models/kepler/, releases+snapshots)' did not send ETAG header for 'org.eclipse.recommenders:index:zip:0.0.0'.
+2015-06-19 18:23:49,464 [Worker-2] ERROR o.e.r.i.r.repo.ModelRepositoryIndex - Failed to open search index.
+org.apache.lucene.index.IndexNotFoundException: no segments* file found in org.apache.lucene.store.MMapDirectory@/home/carlosrodrigues/workspace/T-Control/.metadata/.plugins/org.eclipse.recommenders.rcp/index lockFactory=org.apache.lucene.store.NativeFSLockFactory@505a3893: files: []
+	at org.apache.lucene.index.SegmentInfos$FindSegmentsFile.run(SegmentInfos.java:712) ~[org.apache.lucene.core_3.5.0.v20120725-1805.jar:3.5.0 1204988 - simon - 2011-11-22 14:46:51]
+	at org.apache.lucene.index.DirectoryReader.open(DirectoryReader.java:75) ~[org.apache.lucene.core_3.5.0.v20120725-1805.jar:3.5.0 1204988 - simon - 2011-11-22 14:46:51]
+	at org.apache.lucene.index.IndexReader.open(IndexReader.java:462) ~[org.apache.lucene.core_3.5.0.v20120725-1805.jar:3.5.0 1204988 - simon - 2011-11-22 14:46:51]
+	at org.apache.lucene.index.IndexReader.open(IndexReader.java:308) ~[org.apache.lucene.core_3.5.0.v20120725-1805.jar:3.5.0 1204988 - simon - 2011-11-22 14:46:51]
+	at org.eclipse.recommenders.internal.rcp.repo.ModelRepositoryIndex.open(ModelRepositoryIndex.java:64) ~[org.eclipse.recommenders.rcp_1.0.5.v20130822-0858-b90.jar:na]
+	at org.eclipse.recommenders.internal.rcp.repo.UpdateModelIndexJob.run(UpdateModelIndexJob.java:57) [org.eclipse.recommenders.rcp_1.0.5.v20130822-0858-b90.jar:na]
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53) [org.eclipse.core.jobs_3.5.300.v20130429-1813.jar:na]
+2015-06-19 18:27:51,720 [Worker-2] ERROR o.e.r.i.r.repo.ModelRepositoryIndex - Searching index failed with exception
+org.apache.lucene.store.AlreadyClosedException: this IndexReader is closed
+	at org.apache.lucene.index.IndexReader.ensureOpen(IndexReader.java:297) ~[org.apache.lucene.core_3.5.0.v20120725-1805.jar:3.5.0 1204988 - simon - 2011-11-22 14:46:51]
+	at org.apache.lucene.index.IndexReader.getSequentialSubReaders(IndexReader.java:1622) ~[org.apache.lucene.core_3.5.0.v20120725-1805.jar:3.5.0 1204988 - simon - 2011-11-22 14:46:51]
+	at org.apache.lucene.util.ReaderUtil.gatherSubReaders(ReaderUtil.java:42) ~[org.apache.lucene.core_3.5.0.v20120725-1805.jar:3.5.0 1204988 - simon - 2011-11-22 14:46:51]
+	at org.apache.lucene.util.ReaderUtil.gatherSubReaders(ReaderUtil.java:48) ~[org.apache.lucene.core_3.5.0.v20120725-1805.jar:3.5.0 1204988 - simon - 2011-11-22 14:46:51]
+	at org.apache.lucene.search.IndexSearcher.gatherSubReaders(IndexSearcher.java:210) ~[org.apache.lucene.core_3.5.0.v20120725-1805.jar:3.5.0 1204988 - simon - 2011-11-22 14:46:51]
+	at org.apache.lucene.search.IndexSearcher.<init>(IndexSearcher.java:190) ~[org.apache.lucene.core_3.5.0.v20120725-1805.jar:3.5.0 1204988 - simon - 2011-11-22 14:46:51]
+	at org.apache.lucene.search.IndexSearcher.<init>(IndexSearcher.java:115) ~[org.apache.lucene.core_3.5.0.v20120725-1805.jar:3.5.0 1204988 - simon - 2011-11-22 14:46:51]
+	at org.eclipse.recommenders.internal.rcp.repo.ModelRepositoryIndex.findByTerm(ModelRepositoryIndex.java:131) [org.eclipse.recommenders.rcp_1.0.5.v20130822-0858-b90.jar:na]
+	at org.eclipse.recommenders.internal.rcp.repo.ModelRepositoryIndex.searchByFingerprint(ModelRepositoryIndex.java:89) [org.eclipse.recommenders.rcp_1.0.5.v20130822-0858-b90.jar:na]
+	at org.eclipse.recommenders.internal.rcp.models.store.ModelArchiveResolutionJob.findInIndex(ModelArchiveResolutionJob.java:130) [org.eclipse.recommenders.rcp_1.0.5.v20130822-0858-b90.jar:na]
+	at org.eclipse.recommenders.internal.rcp.models.store.ModelArchiveResolutionJob.run(ModelArchiveResolutionJob.java:87) [org.eclipse.recommenders.rcp_1.0.5.v20130822-0858-b90.jar:na]
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53) [org.eclipse.core.jobs_3.5.300.v20130429-1813.jar:na]
+2015-06-19 18:27:51,721 [Worker-2] ERROR o.e.r.i.r.repo.ModelRepositoryIndex - Searching index failed with exception
+org.apache.lucene.store.AlreadyClosedException: this IndexReader is closed
+	at org.apache.lucene.index.IndexReader.ensureOpen(IndexReader.java:297) ~[org.apache.lucene.core_3.5.0.v20120725-1805.jar:3.5.0 1204988 - simon - 2011-11-22 14:46:51]
+	at org.apache.lucene.index.IndexReader.getSequentialSubReaders(IndexReader.java:1622) ~[org.apache.lucene.core_3.5.0.v20120725-1805.jar:3.5.0 1204988 - simon - 2011-11-22 14:46:51]
+	at org.apache.lucene.util.ReaderUtil.gatherSubReaders(ReaderUtil.java:42) ~[org.apache.lucene.core_3.5.0.v20120725-1805.jar:3.5.0 1204988 - simon - 2011-11-22 14:46:51]
+	at org.apache.lucene.util.ReaderUtil.gatherSubReaders(ReaderUtil.java:48) ~[org.apache.lucene.core_3.5.0.v20120725-1805.jar:3.5.0 1204988 - simon - 2011-11-22 14:46:51]
+	at org.apache.lucene.search.IndexSearcher.gatherSubReaders(IndexSearcher.java:210) ~[org.apache.lucene.core_3.5.0.v20120725-1805.jar:3.5.0 1204988 - simon - 2011-11-22 14:46:51]
+	at org.apache.lucene.search.IndexSearcher.<init>(IndexSearcher.java:190) ~[org.apache.lucene.core_3.5.0.v20120725-1805.jar:3.5.0 1204988 - simon - 2011-11-22 14:46:51]
+	at org.apache.lucene.search.IndexSearcher.<init>(IndexSearcher.java:115) ~[org.apache.lucene.core_3.5.0.v20120725-1805.jar:3.5.0 1204988 - simon - 2011-11-22 14:46:51]
+	at org.eclipse.recommenders.internal.rcp.repo.ModelRepositoryIndex.findByTerm(ModelRepositoryIndex.java:131) [org.eclipse.recommenders.rcp_1.0.5.v20130822-0858-b90.jar:na]
+	at org.eclipse.recommenders.internal.rcp.repo.ModelRepositoryIndex.searchByArtifactId(ModelRepositoryIndex.java:98) [org.eclipse.recommenders.rcp_1.0.5.v20130822-0858-b90.jar:na]
+	at org.eclipse.recommenders.internal.rcp.models.store.ModelArchiveResolutionJob.findInIndex(ModelArchiveResolutionJob.java:133) [org.eclipse.recommenders.rcp_1.0.5.v20130822-0858-b90.jar:na]
+	at org.eclipse.recommenders.internal.rcp.models.store.ModelArchiveResolutionJob.run(ModelArchiveResolutionJob.java:87) [org.eclipse.recommenders.rcp_1.0.5.v20130822-0858-b90.jar:na]
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53) [org.eclipse.core.jobs_3.5.300.v20130429-1813.jar:na]

@@ -8,11 +8,13 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import java.net.Socket;
 
+import server.bll.FuncionarioBLL;
 import server.bll.SetorBLL;
-import server.request.Request;
+import server.request.Packet;
 import datamanager.dao.DataAccessResponse;
 import datamanager.dao.ResponseType;
 import entity.Setor;
+import entity.funcionario.Funcionario;
 
 public class ClientConnection extends Thread{
 	private Socket socket;
@@ -23,7 +25,7 @@ public class ClientConnection extends Thread{
 	@Override
 	public void run(){	
 		try {
-			DataAccessResponse res;
+			Packet res;
 
 			InputStream inputStream = socket.getInputStream();
 			
@@ -31,10 +33,12 @@ public class ClientConnection extends Thread{
 			
 			Object objRequest = objectIn.readObject();
 			
-			if(objRequest instanceof Request){
-				Request r = (Request) objRequest;
+			if(objRequest instanceof Packet){
+				Packet r = (Packet) objRequest;
 				
-				res = proccessRequest(r);
+				DataAccessResponse response = proccessRequest(r);
+				
+				res = new Packet(r.getDescription()+":reply", response);
 			}else{
 				res = null;
 			}
@@ -56,19 +60,22 @@ public class ClientConnection extends Thread{
 		}
 	}
 	
-	private DataAccessResponse proccessRequest(Request request){
+	private DataAccessResponse proccessRequest(Packet request){
 		DataAccessResponse res = null;
 		
 		switch(request.getDescription()){
 		case "funcionarios:salvar":
-		{}
-			break;
+		{
+			return new FuncionarioBLL().salvar((Funcionario) request.getObject());
+		}
 		case "funcionarios:deletar":
-		{}
-			break;
+		{
+			return new FuncionarioBLL().deletar((Funcionario) request.getObject());
+		}
 		case "funcionarios:listar":
-		{}
-			break;
+		{
+			return new FuncionarioBLL().listar();
+		}
 		case "funcionarios:obter_por_id":
 		{}
 			break;

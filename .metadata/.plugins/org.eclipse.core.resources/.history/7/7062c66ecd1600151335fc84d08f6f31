@@ -1,0 +1,8 @@
+package server.bll;
+
+import datamanager.BusinessLayoutLayer;
+import entity.funcionario.Funcionario;
+
+public class FuncionarioBLL implements BusinessLayoutLayer<Funcionario>{
+
+}
