@@ -13,17 +13,19 @@ import datamanager.dao.ResponseType;
 import entity.Pessoa;
 
 public class PessoaDAO implements ParcialDataAccessObject<Pessoa> {
-
+	private Connection conexao;
+	protected PessoaDAO(Connection conexao){
+		this.conexao = conexao;
+	}
 	@Override
 	public DataAccessResponse salvar(Pessoa entity, boolean novo) {
 		DataAccessResponse r;
-		Connection conexao = ConnectionManager.get();
 		if (conexao != null) {
 			try {
 				if (novo) {
-					r = insert(conexao, entity);
+					r = insert(entity);
 				} else {
-					r = update(conexao, entity);
+					r = update(entity);
 				}
 			} catch (SQLException e) {
 				r = new DataAccessResponse(false, ResponseType.STRING,
@@ -37,7 +39,7 @@ public class PessoaDAO implements ParcialDataAccessObject<Pessoa> {
 		return r;
 	}
 
-	private DataAccessResponse update(Connection conexao, Pessoa pessoa)
+	private DataAccessResponse update(Pessoa pessoa)
 			throws SQLException {
 		PreparedStatement ps = conexao
 				.prepareStatement("UPDATE pessoas SET nome = ? WHERE id_pessoa = ?");
@@ -53,7 +55,7 @@ public class PessoaDAO implements ParcialDataAccessObject<Pessoa> {
 		return new DataAccessResponse(true, ResponseType.NULL, null);
 	}
 
-	private DataAccessResponse insert(Connection conexao, Pessoa pessoa)
+	private DataAccessResponse insert(Pessoa pessoa)
 			throws SQLException {
 		PreparedStatement ps = conexao.prepareStatement(
 				"INSERT INTO pessoas SET nome = ?",
@@ -81,8 +83,6 @@ public class PessoaDAO implements ParcialDataAccessObject<Pessoa> {
 	@Override
 	public DataAccessResponse deletar(Pessoa entity) {
 		DataAccessResponse r;
-
-		Connection conexao = ConnectionManager.get();
 
 		if (conexao != null) {
 			String query = "DELETE FROM pessoas WHERE id_pessoa = ?";

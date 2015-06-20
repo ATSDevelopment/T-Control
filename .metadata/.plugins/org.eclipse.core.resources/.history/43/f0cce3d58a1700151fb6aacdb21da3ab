@@ -1,0 +1,6 @@
+package server.dao;
+
+public class Snippet {
+	delete f, p from funcionarios f join pessoas p on p.id_pessoa=f.id_funcionario where f.id_funcionario<8;
+}
+

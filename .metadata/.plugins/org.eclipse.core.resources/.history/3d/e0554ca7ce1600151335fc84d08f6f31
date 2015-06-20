@@ -1,0 +1,10 @@
+package client.dao;
+
+import server.request.Packet;
+import datamanager.dao.DataAccessResponse;
+
+public class ConnectionManager {
+	public static DataAccessResponse sendPacket(Packet p){
+		
+	}
+}

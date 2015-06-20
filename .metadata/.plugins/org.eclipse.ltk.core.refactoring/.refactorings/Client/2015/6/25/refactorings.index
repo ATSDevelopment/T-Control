@@ -4,3 +4,7 @@
 1434542886090	Rename package 'view.forms'
 1434542891594	Rename package 'view.nodes'
 1434750942713	Delete element
+1434751131047	Delete element
+1434751418032	Rename type 'FuncionarioDAO'
+1434751521059	Rename type 'ConnectionManager'
+1434830773142	Rename package 'client.dao'

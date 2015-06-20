@@ -1,0 +1,12 @@
+package server.bll;
+
+import java.util.ArrayList;
+
+import entity.funcionario.Funcionario;
+import entity.funcionario.MapaDeServico;
+
+public class Test {
+	public static void main(String[] args){
+		Funcionario f = new Funcionario(0, "Carlos Souza Rodrigues Filho", "", "", null, null, new ArrayList<MapaDeServico>());
+	}
+}

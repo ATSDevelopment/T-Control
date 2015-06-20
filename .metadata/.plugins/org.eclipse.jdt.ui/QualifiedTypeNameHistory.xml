@@ -3,6 +3,16 @@
 <fullyQualifiedTypeName name="datamanager.connection.ConnectionManager"/>
 <fullyQualifiedTypeName name="datamanager.dao.ResponseType"/>
 <fullyQualifiedTypeName name="java.sql.Connection"/>
+<fullyQualifiedTypeName name="server.dao.PessoaDAO"/>
+<fullyQualifiedTypeName name="entity.funcionario.Funcionario"/>
+<fullyQualifiedTypeName name="server.bll.FuncionarioBLL"/>
+<fullyQualifiedTypeName name="datamanager.dao.DataAccessObject"/>
+<fullyQualifiedTypeName name="java.io.ObjectOutputStream"/>
+<fullyQualifiedTypeName name="java.io.ObjectInputStream"/>
 <fullyQualifiedTypeName name="datamanager.dao.DataAccessResponse"/>
+<fullyQualifiedTypeName name="datamanager.BusinessLayoutLayer"/>
+<fullyQualifiedTypeName name="client.dao.FuncionarioBLL"/>
+<fullyQualifiedTypeName name="server.request.Packet"/>
 <fullyQualifiedTypeName name="javax.swing.tree.DefaultMutableTreeNode"/>
+<fullyQualifiedTypeName name="atscomponents.PasswordDocument"/>
 </qualifiedTypeNameHistroy>

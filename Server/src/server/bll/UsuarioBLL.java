@@ -7,8 +7,6 @@ import entity.Usuario;
 
 
 public class UsuarioBLL implements BusinessLayoutLayer<Usuario> {
-
-
 	@Override
 	public DataAccessResponse salvar(Usuario entity) {
 		UsuarioDAO usuarioDao = new UsuarioDAO();
@@ -32,10 +30,4 @@ public class UsuarioBLL implements BusinessLayoutLayer<Usuario> {
 		UsuarioDAO usuarioDao = new UsuarioDAO();
 		return usuarioDao.getById(id);
 	}
-
-
-
-	
-
-	
 }

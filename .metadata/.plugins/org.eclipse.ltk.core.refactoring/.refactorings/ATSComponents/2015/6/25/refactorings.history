@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Move 4 elements to &apos;ATSComponents/src/atscomponents&apos;&#x0A;- Original project: &apos;ATSComponents&apos;&#x0A;- Destination element: &apos;ATSComponents/src/atscomponents&apos;&#x0A;- Original elements:&#x0A;     TitledTextField.java&#x0A;     TitledDocument.java&#x0A;     PasswordDocument.java&#x0A;     Teste.java&#x0A;- Update references to refactored element" description="Move compilation units" destination="/src&lt;atscomponents" element1="/src&lt;{TitledTextField.java" element2="/src&lt;{TitledDocument.java" element3="/src&lt;{PasswordDocument.java" element4="/src&lt;{Teste.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.move" policy="org.eclipse.jdt.ui.moveResources" qualified="false" references="true" stamp="1434752163151" units="4" version="1.0"/>
+</session>

@@ -20,39 +20,56 @@ public class FuncionarioDAO implements DataAccessObject<Funcionario>{
 
 		Connection conexao = ConnectionManager.get();
 
-		PessoaDAO pessoaDAO = new PessoaDAO();
+		boolean startOk;
+		try{
+			PreparedStatement ps = conexao.prepareStatement("START TRANSACTION");
+			ps.execute();
+			startOk = true;
+		}catch(SQLException e){
+			startOk = false;
+		}
 
-		DataAccessResponse resPessoa = pessoaDAO.salvar(entity, novo);
+		if(startOk){
+			PessoaDAO pessoaDAO = new PessoaDAO(conexao);
+			DataAccessResponse resPessoa = pessoaDAO.salvar(entity, novo);
 
-		if(resPessoa.getStatus()){
-			UsuarioDAO usuarioDAO = new UsuarioDAO();
+			if(resPessoa.getStatus()){
+				UsuarioDAO usuarioDAO = new UsuarioDAO(conexao);
+				DataAccessResponse resUsuario = usuarioDAO.salvar(entity.getUsuario(), novo);
 
-			DataAccessResponse resUsuario = usuarioDAO.salvar(entity.getUsuario(), novo);
-
-			if(resUsuario.getStatus()){
-				if(novo){
-					try {
-						int idPessoa = (Integer) resPessoa.getResponse();
-
-						int idUsuario = (Integer) resUsuario.getResponse();
-
-						res = insert(conexao, idPessoa, idUsuario, entity);
-					} catch (SQLException e) {
+				if(resUsuario.getStatus()){
+					try{
+						if(novo){
+							int idPessoa = (Integer)resPessoa.getResponse();
+							int idUsuario = (Integer)resUsuario.getResponse();
+							
+							res = insert(conexao, idPessoa, idUsuario, entity);
+						}else{
+							res = update(conexao, entity);
+						}
+						
+						PreparedStatement ps = conexao.prepareStatement("COMMIT");
+						ps.execute();
+						ps.close();
+					}catch(SQLException e){
+						try {
+							PreparedStatement ps = conexao.prepareStatement("ROLLBACK");
+							ps.execute();
+							ps.close();
+						} catch (SQLException ignore) {}
+						
 						res = new DataAccessResponse(false, ResponseType.STRING, e.getMessage());
 					}
 				}else{
-					try{
-						res = update(conexao, entity);
-					}catch(SQLException e){
-						res = new DataAccessResponse(false, ResponseType.STRING, e.getMessage());
-					}
+					res = resUsuario;
 				}
 			}else{
-				res = resUsuario;
+				res = resPessoa;
 			}
 		}else{
-			res = resPessoa;
+			res = new DataAccessResponse(false, ResponseType.STRING, "Não foi possível iniciar a transação!");
 		}
+
 		return res;
 	}
 
@@ -103,11 +120,11 @@ public class FuncionarioDAO implements DataAccessObject<Funcionario>{
 		}
 
 		if(response.getStatus()){
-			PessoaDAO pessoaDAO = new PessoaDAO();
+			PessoaDAO pessoaDAO = new PessoaDAO(conexao);
 
 			DataAccessResponse resPessoa = pessoaDAO.deletar(entity);
 		}
-		
+
 		return response;
 	}
 
@@ -119,39 +136,41 @@ public class FuncionarioDAO implements DataAccessObject<Funcionario>{
 	@Override
 	public DataAccessResponse listar() {
 		DataAccessResponse response;
-		
+
 		Connection conexao = ConnectionManager.get();
-		
+
 		try{
 			PreparedStatement ps = conexao.prepareStatement("SELECT p.id_pessoa, p.nome, f.telefone, f.email, f.data_saida, f.id_usuario FROM funcionarios JOIN pessoas p ON p.id_pessoa=f.id_funcionario");
-			
+
 			ResultSet rs = ps.executeQuery();
-			
+
 			UsuarioDAO usuarioDAO = new UsuarioDAO();
-			
+
 			ArrayList<Funcionario> funcionarios = new ArrayList<Funcionario>();
+
 			while(rs.next()){
+
 				int id = rs.getInt("id_pessoa");
 				String nome = rs.getString("nome");
 				String telefone = rs.getString("telefone");
 				String email = rs.getString("email");
 				String dataSaida = rs.getString("data_saida");
 				int idUsuario = rs.getInt("id_usuario");
-				
+
 				DataAccessResponse responseUsuario =  usuarioDAO.getById(idUsuario);
-				
+
 				if(responseUsuario.getStatus()){
 					Usuario usuario  = (Usuario)responseUsuario.getResponse();
-					
+
 					Funcionario f = new Funcionario(idUsuario, nome, telefone, email, dataSaida, usuario, null);
-					
+
 					funcionarios.add(f);
 				}
 			}
-			
+
 			rs.close();
 			ps.close();
-			
+
 			return new DataAccessResponse(true, ResponseType.ARRAY_LIST, funcionarios);
 		}catch(SQLException e){
 			return new DataAccessResponse(false, ResponseType.STRING, e.getMessage());

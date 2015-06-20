@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import entity.Pessoa;
 import entity.Usuario;
 
-public class Funcionario extends Pessoa{
+public class Funcionario extends Pessoa {
 	private String telefone;
 	private String email;
 	private String dataSaida;

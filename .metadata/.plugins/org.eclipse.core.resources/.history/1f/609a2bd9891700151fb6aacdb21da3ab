@@ -1,0 +1,134 @@
+package server.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import datamanager.connection.ConnectionManager;
+import datamanager.dao.DataAccessObject;
+import datamanager.dao.DataAccessResponse;
+import datamanager.dao.ResponseType;
+import entity.Usuario;
+import entity.funcionario.Funcionario;
+
+public class FuncionarioDAO implements DataAccessObject<Funcionario>{
+	@Override
+	public DataAccessResponse salvar(Funcionario entity, boolean novo) {
+		DataAccessResponse res;
+
+		Connection conexao = ConnectionManager.get();
+		
+		try{
+			
+		}catch(SQLException e){
+			
+		}
+		return res;
+	}
+
+	private DataAccessResponse update(Connection conexao, Funcionario entity) throws SQLException{
+		PreparedStatement ps = conexao.prepareStatement("INSERT INTO funcionarios SET telefone=?, email=?, dataSaida=? WHERE id_funcionario=?");
+		ps.setString(1, entity.getTelefone());
+		ps.setString(2, entity.getEmail());
+		ps.setString(3, entity.getDataSaida());
+		ps.setInt(4, entity.getId());
+
+		ps.execute();
+		ps.close();
+
+		return new DataAccessResponse(true, ResponseType.NULL, null);
+	}
+
+	private DataAccessResponse insert(Connection conexao, int idPessoa, int idUsuario, Funcionario entity) throws SQLException{
+		PreparedStatement ps = conexao.prepareStatement("INSERT INTO funcionarios VALUES (?, ?, ?, ?, ?)");
+
+		ps.setInt(1, idPessoa);
+		ps.setString(2, entity.getTelefone());
+		ps.setString(3, entity.getEmail());
+		ps.setString(4, entity.getDataSaida());
+		ps.setInt(5, idUsuario);
+
+		ps.execute();
+
+		ps.close();
+
+		return new DataAccessResponse(true, ResponseType.INTEGER, idPessoa);
+	}
+	@Override
+	public DataAccessResponse deletar(Funcionario entity) {
+		DataAccessResponse response = null;
+
+		Connection conexao = ConnectionManager.get();
+
+		try{
+			PreparedStatement ps = conexao.prepareStatement("DELETE FROM funcionarios WHERE id_funcionario=?");
+
+			ps.setInt(1, entity.getId());
+
+			ps.execute();
+
+			ps.close();
+		}catch(SQLException e){
+			response = new DataAccessResponse(false, ResponseType.STRING, e.getMessage());
+		}
+
+		if(response.getStatus()){
+			PessoaDAO pessoaDAO = new PessoaDAO();
+
+			DataAccessResponse resPessoa = pessoaDAO.deletar(entity);
+		}
+		
+		return response;
+	}
+
+	@Override
+	public DataAccessResponse getById(int id) {
+		return new DataAccessResponse(false, ResponseType.STRING, "Não implementado!");
+	}
+
+	@Override
+	public DataAccessResponse listar() {
+		DataAccessResponse response;
+		
+		Connection conexao = ConnectionManager.get();
+		
+		try{
+			PreparedStatement ps = conexao.prepareStatement("SELECT p.id_pessoa, p.nome, f.telefone, f.email, f.data_saida, f.id_usuario FROM funcionarios JOIN pessoas p ON p.id_pessoa=f.id_funcionario");
+			
+			ResultSet rs = ps.executeQuery();
+			
+			UsuarioDAO usuarioDAO = new UsuarioDAO();
+			
+			ArrayList<Funcionario> funcionarios = new ArrayList<Funcionario>();
+			
+			while(rs.next()){
+				
+				int id = rs.getInt("id_pessoa");
+				String nome = rs.getString("nome");
+				String telefone = rs.getString("telefone");
+				String email = rs.getString("email");
+				String dataSaida = rs.getString("data_saida");
+				int idUsuario = rs.getInt("id_usuario");
+				
+				DataAccessResponse responseUsuario =  usuarioDAO.getById(idUsuario);
+				
+				if(responseUsuario.getStatus()){
+					Usuario usuario  = (Usuario)responseUsuario.getResponse();
+					
+					Funcionario f = new Funcionario(idUsuario, nome, telefone, email, dataSaida, usuario, null);
+					
+					funcionarios.add(f);
+				}
+			}
+			
+			rs.close();
+			ps.close();
+			
+			return new DataAccessResponse(true, ResponseType.ARRAY_LIST, funcionarios);
+		}catch(SQLException e){
+			return new DataAccessResponse(false, ResponseType.STRING, e.getMessage());
+		}
+	}
+}

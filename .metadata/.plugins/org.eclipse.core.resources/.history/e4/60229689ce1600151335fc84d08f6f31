@@ -1,0 +1,9 @@
+package client.dao;
+
+import java.net.Socket;
+
+public class ConnectionManager {
+	public static Socket get(){
+		
+	}
+}

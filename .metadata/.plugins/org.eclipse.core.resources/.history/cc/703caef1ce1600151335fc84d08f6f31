@@ -1,0 +1,12 @@
+package client.dao;
+
+import java.net.Socket;
+
+import server.request.Packet;
+import datamanager.dao.DataAccessResponse;
+
+public class ConnectionManager {
+	public static DataAccessResponse sendPacket(Packet p){
+		Socket s = new Socket("localhost", 12345);
+	}
+}

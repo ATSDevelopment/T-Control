@@ -1,0 +1,108 @@
+package server.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import datamanager.dao.DataAccessResponse;
+import datamanager.dao.ParcialDataAccessObject;
+import datamanager.dao.ResponseType;
+import entity.Pessoa;
+
+public class PessoaDAO implements ParcialDataAccessObject<Pessoa> {
+	private Connection conexao;
+	@Override
+	public DataAccessResponse salvar(Pessoa entity, boolean novo) {
+		DataAccessResponse r;
+		if (conexao != null) {
+			try {
+				if (novo) {
+					r = insert(conexao, entity);
+				} else {
+					r = update(conexao, entity);
+				}
+			} catch (SQLException e) {
+				r = new DataAccessResponse(false, ResponseType.STRING,
+						e.getMessage());
+			}
+		} else {
+			r = new DataAccessResponse(false, ResponseType.STRING,
+					"Não foi possível se comunicar com o banco de dados!");
+		}
+
+		return r;
+	}
+
+	private DataAccessResponse update(Pessoa pessoa)
+			throws SQLException {
+		PreparedStatement ps = conexao
+				.prepareStatement("UPDATE pessoas SET nome = ? WHERE id_pessoa = ?");
+
+		ps.setString(1, pessoa.getNome());
+
+		ps.setInt(2, pessoa.getId());
+
+		ps.execute();
+
+		ps.close();
+
+		return new DataAccessResponse(true, ResponseType.NULL, null);
+	}
+
+	private DataAccessResponse insert(Pessoa pessoa)
+			throws SQLException {
+		PreparedStatement ps = conexao.prepareStatement(
+				"INSERT INTO pessoas SET nome = ?",
+				Statement.RETURN_GENERATED_KEYS);
+
+		ps.setString(1, pessoa.getNome());
+
+		ps.execute();
+
+		ResultSet rs = ps.getGeneratedKeys();
+
+		int idPessoa;
+		if (rs.next()) {
+			idPessoa = rs.getInt(1);
+		} else {
+			idPessoa = 0;
+		}
+
+		rs.close();
+		ps.close();
+
+		return new DataAccessResponse(true, ResponseType.INTEGER, idPessoa);
+	}
+
+	@Override
+	public DataAccessResponse deletar(Pessoa entity) {
+		DataAccessResponse r;
+
+		if (conexao != null) {
+			String query = "DELETE FROM pessoas WHERE id_pessoa = ?";
+
+			try {
+				PreparedStatement ps = conexao.prepareStatement(query);
+
+				ps.setInt(1, entity.getId());
+
+				ps.execute();
+
+				ps.close();
+
+				r = new DataAccessResponse(true, ResponseType.STRING,
+						entity.getNome() + " Deletad@ com sucesso!");
+			} catch (SQLException e) {
+				r = new DataAccessResponse(false, ResponseType.STRING,
+						e.getMessage());
+			}
+		} else {
+			r = new DataAccessResponse(false, ResponseType.STRING,
+					"Não foi possível se comunicar com o banco de dados!");
+		}
+
+		return r;
+	}
+}

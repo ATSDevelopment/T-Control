@@ -15,11 +15,16 @@ import datamanager.dao.ResponseType;
 import entity.Usuario;
 
 public class UsuarioDAO implements DataAccessObject<Usuario> {
-
+	private Connection conexao;
+	protected UsuarioDAO(Connection conexao){
+		this.conexao = conexao;
+	}
+	public UsuarioDAO(){
+		this.conexao = ConnectionManager.get();
+	}
 	@Override
 	public DataAccessResponse salvar(Usuario entity, boolean novo) {
 		DataAccessResponse r;
-		Connection conexao = ConnectionManager.get();
 		if (conexao != null) {
 			try{
 				if (novo) {
@@ -52,9 +57,6 @@ public class UsuarioDAO implements DataAccessObject<Usuario> {
 		
 		ps.setInt(5, usuario.getId());
 		
-		
-		
-		
 		ps.execute();
 
 		ps.close();
@@ -64,7 +66,7 @@ public class UsuarioDAO implements DataAccessObject<Usuario> {
 
 	private DataAccessResponse insert(Connection conexao, Usuario usuario) throws SQLException{
 		PreparedStatement ps = conexao.prepareStatement(
-						"INSERT INTO usuario SET nome_de_usuario= ?, password = ?, ativo = ?, exp_data = ? ",
+						"INSERT INTO usuarios SET nome_de_usuario= ?, password = ?, ativo = ?, exp_data = ? ",
 						Statement.RETURN_GENERATED_KEYS);
 		
 		ps.setString(1, usuario.getNomedeUsuario());
@@ -97,7 +99,6 @@ public class UsuarioDAO implements DataAccessObject<Usuario> {
 	public DataAccessResponse deletar(Usuario entity) {
 		DataAccessResponse r;
 
-		Connection conexao = ConnectionManager.get();
 
 		if(conexao != null){
 			String query = "DELETE FROM usuarios WHERE id_usuario = ?";
@@ -128,7 +129,6 @@ public class UsuarioDAO implements DataAccessObject<Usuario> {
 
 		DataAccessResponse resp;
 
-		Connection conexao = ConnectionManager.get();
 
 		if (conexao != null) {
 
@@ -176,8 +176,6 @@ public class UsuarioDAO implements DataAccessObject<Usuario> {
 	public DataAccessResponse getById(int id) {
 
 		DataAccessResponse resp;
-
-		Connection conexao = ConnectionManager.get();
 
 		if (conexao != null) {
 

@@ -6,6 +6,5 @@ import entity.Setor;
 
 public class NoSetor extends DefaultMutableTreeNode{
 	public NoSetor(Setor setor){
-		
 	}
 }

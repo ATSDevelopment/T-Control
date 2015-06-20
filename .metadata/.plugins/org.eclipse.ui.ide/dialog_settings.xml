@@ -5,6 +5,8 @@
 		<item value="false" key="WizardProjectsImportPage.STORE_COPY_PROJECT_ID"/>
 		<item value="false" key="WizardProjectsImportPage.STORE_NESTED_PROJECTS"/>
 		<list key="WizardProjectsImportPage.STORE_DIRECTORIES">
+			<item value="/media/data/Arquivos/Backups/Linux/UbuntuBK/carlosrodrigues/ControleMerenda"/>
+			<item value="/home/carlosrodrigues/workspace/T-Control"/>
 			<item value="/home/carlosrodrigues/workspace/T-Control/T-Control"/>
 		</list>
 		<list key="WizardProjectsImportPage.STORE_ARCHIVES">

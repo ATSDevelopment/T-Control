@@ -7,7 +7,7 @@
   "/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/rt.jar": {
     "location": "/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/rt.jar",
     "status": "UNRESOLVED",
-    "error": "Could not transfer artifact jre:jre:zip:call:1.0.0 from/to remote-models (http://download.eclipse.org/recommenders/models/kepler/): GET request of: jre/jre/1.0.0/jre-1.0.0-call.zip from remote-models failed"
+    "error": "No call model found for \u0027/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/rt.jar\u0027. Neither fingerprint \u0027e4042fb530fd3dea700ec086361857770cadd058\u0027 nor symbolic name \u0027jre\u0027 are known."
   },
   "/home/carlosrodrigues/workspace/T-Control/Entitys/bin/res/entity": {
     "location": "/home/carlosrodrigues/workspace/T-Control/Entitys/bin/res/entity",
@@ -23,5 +23,10 @@
     "location": "/home/carlosrodrigues/workspace/T-Control/Datamanager/src",
     "status": "UNRESOLVED",
     "error": "No class path info available for \u0027/home/carlosrodrigues/workspace/T-Control/Datamanager/src\u0027. Skipped."
+  },
+  "/home/carlosrodrigues/workspace/T-Control/Client/src": {
+    "location": "/home/carlosrodrigues/workspace/T-Control/Client/src",
+    "status": "UNRESOLVED",
+    "error": "No class path info available for \u0027/home/carlosrodrigues/workspace/T-Control/Client/src\u0027. Skipped."
   }
 }

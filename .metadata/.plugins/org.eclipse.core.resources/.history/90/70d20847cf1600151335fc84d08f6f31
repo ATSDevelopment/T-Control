@@ -1,0 +1,33 @@
+package client.dao;
+
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
+
+import server.request.Packet;
+import datamanager.dao.DataAccessResponse;
+
+public class ConnectionManager {
+	public static DataAccessResponse sendPacket(Packet p){
+		try {
+			Socket s = new Socket("localhost", 12345);
+			
+			ObjectOutputStream output = new ObjectOutputStream(s.getOutputStream());
+			
+			output.writeObject(p);
+			
+			ObjectInputStream inputStream = new ObjectInputStream(s.getInputStream());
+			
+			Packet pr = (Packet) inputStream.readObject();
+			
+			output.close();
+			inputStream.close();
+			s.close();
+			
+			return (DataAccessResponse)pr.getObject();
+		} catch (Exception e){
+			return null;
+		}
+		
+	}
+}

@@ -66,15 +66,27 @@ public class ClientConnection extends Thread{
 		switch(request.getDescription()){
 		case "funcionarios:salvar":
 		{
-			return new FuncionarioBLL().salvar((Funcionario) request.getObject());
+			Serializable s = request.getObject();
+			
+			if(s instanceof Funcionario){
+				return new FuncionarioBLL().salvar((Funcionario) s); 
+			}
 		}
 		case "funcionarios:deletar":
 		{
-			return new FuncionarioBLL().deletar((Funcionario) request.getObject());
+			Serializable s = request.getObject();
+			
+			if(s instanceof Funcionario){
+				return new FuncionarioBLL().deletar((Funcionario) s); 
+			}
 		}
 		case "funcionarios:listar":
 		{
-			return new FuncionarioBLL().listar();
+			Serializable s = request.getObject();
+			
+			if(s instanceof Funcionario){
+				return new FuncionarioBLL().listar(); 
+			}		
 		}
 		case "funcionarios:obter_por_id":
 		{}

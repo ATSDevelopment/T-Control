@@ -1,0 +1,32 @@
+package client.dao;
+
+import server.request.Packet;
+import datamanager.dao.DataAccessObject;
+import datamanager.dao.DataAccessResponse;
+import entity.funcionario.Funcionario;
+
+public class FuncionarioDAO implements DataAccessObject<Funcionario>{
+
+	@Override
+	public DataAccessResponse salvar(Funcionario entity, boolean novo) {
+		return null;
+	}
+
+	@Override
+	public DataAccessResponse deletar(Funcionario entity) {
+		return null;
+	}
+
+	@Override
+	public DataAccessResponse getById(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public DataAccessResponse listar() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}
