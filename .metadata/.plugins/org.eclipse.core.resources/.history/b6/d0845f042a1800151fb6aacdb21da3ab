@@ -1,0 +1,15 @@
+package atscustom.documents;
+
+import atscustom.TitleModeListener;
+
+public class PasswordTitledDocument extends DefaultTitledDocument{
+	private static final long serialVersionUID = 1L;
+	public PasswordTitledDocument(String title, TitleModeListener listener) {
+		super(title, listener);
+	}
+	
+	@Override
+	public void mod(String text){
+		
+	}
+}

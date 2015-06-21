@@ -8,10 +8,11 @@ import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
-import atscomponents.PasswordDocument;
-import atscomponents.TitledTextField;
+import atsmod.textfield.InputType;
+import atsmod.textfield.TitledTextField;
 
 public class FormFuncionario extends JFrame {
 
@@ -29,6 +30,7 @@ public class FormFuncionario extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
 					FormFuncionario frame = new FormFuncionario();
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -59,27 +61,27 @@ public class FormFuncionario extends JFrame {
 		contentPane.add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
 		
-		tfNome = new TitledTextField("Nome");
+		tfNome = new TitledTextField("Nome", InputType.ALL);
 		tfNome.setBounds(12, 12, 240, 19);
 		panel.add(tfNome);
 		tfNome.setColumns(10);
 		
-		tfTel = new TitledTextField("Telefone");
+		tfTel = new TitledTextField("Telefone", InputType.ALL);
 		tfTel.setBounds(12, 43, 114, 19);
 		panel.add(tfTel);
 		tfTel.setColumns(10);
 		
-		tfMail = new TitledTextField("E-Mail");
+		tfMail = new TitledTextField("E-Mail", InputType.ALL);
 		tfMail.setBounds(138, 43, 114, 19);
 		panel.add(tfMail);
 		tfMail.setColumns(10);
 		
-		tfUsuario = new TitledTextField("Usuario");
+		tfUsuario = new TitledTextField("Usuario", InputType.ALL);
 		tfUsuario.setBounds(12, 74, 114, 19);
 		panel.add(tfUsuario);
 		tfUsuario.setColumns(10);
 		
-		tfSenha = new TitledTextField("Senha");
+		tfSenha = new TitledTextField("Senha", InputType.ALL);
 		tfSenha.setColumns(10);
 		tfSenha.setBounds(138, 74, 114, 19);
 		panel.add(tfSenha);

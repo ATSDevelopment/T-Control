@@ -1,0 +1,50 @@
+package atscustom.documents;
+
+import java.util.ArrayList;
+
+import javax.swing.text.BadLocationException;
+
+import atscustom.TitleModeListener;
+
+public class PasswordTitledDocument extends DefaultTitledDocument{
+	private static final long serialVersionUID = 1L;
+
+	private ArrayList<Character> buffer;
+	public PasswordTitledDocument(String title, TitleModeListener listener) {
+		super(title, listener);
+		buffer = new ArrayList<Character>();
+	}
+	@Override
+	public String modInsert(int off, String text){
+		StringBuilder saida = new StringBuilder();
+		for(int i=0; i<text.length(); i++){
+			buffer.add(off+i, text.charAt(i));
+			saida.append("*");
+		}
+		return saida.toString();
+	}
+
+	@Override
+	public void remove(int off, int length) throws BadLocationException{
+		if(!this.isTitledMode()){
+			for(int i=0; i<length; i++){
+				buffer.remove(off+i);
+			}
+		}
+		super.remove(off, length);
+	}
+	public String getPasswordText(int off, int length){
+		if(!this.isTitledMode()){
+			StringBuilder saida = new StringBuilder();
+
+			for(int i=0; i<length; i++){
+				saida.append(buffer.get(off+i));
+				System.out.println(saida);
+			}
+
+			return saida.toString();
+		}else{
+			return "";
+		}
+	}
+}

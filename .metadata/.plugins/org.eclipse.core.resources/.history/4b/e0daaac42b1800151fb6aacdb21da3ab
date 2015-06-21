@@ -1,0 +1,24 @@
+package atscustom.documents;
+
+import java.util.ArrayList;
+
+import atscustom.TitleModeListener;
+
+public class PasswordTitledDocument extends DefaultTitledDocument{
+	private static final long serialVersionUID = 1L;
+	
+	private ArrayList<Character> buffer;
+	public PasswordTitledDocument(String title, TitleModeListener listener) {
+		super(title, listener);
+		buffer = new ArrayList<Character>();
+	}
+	@Override
+	public String modInsert(int off, String text){
+		return text;
+	}
+	
+	@Override
+	public void remove(int off, int length){
+		
+	}
+}

@@ -1,0 +1,11 @@
+package atscustom;
+
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+
+public class TitledDocument {
+	@Override
+	public void insertString(int off, String text, AttributeSet att) throws BadLocationException{
+		
+	}
+}

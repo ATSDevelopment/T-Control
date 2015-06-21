@@ -1,0 +1,40 @@
+package atscustom;
+
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.PlainDocument;
+
+public class TitledDocument extends PlainDocument{
+	private String title;
+	public TitledDocument(String title){
+		this.title = title;
+	}
+	@Override
+	public void insertString(int off, String text, AttributeSet att) throws BadLocationException{
+		int length = super.getLength();
+		String currentText = super.getText(0, length);
+		
+		if(currentText.equals(this.title)){
+			super.remove(0, length);
+		}
+		
+		super.insertString(off, text, att);
+	}
+	
+	public String modifyText(String text){
+		return text;
+	}
+	
+	@Override
+	public void remove(int off, int length) throws BadLocationException{
+		int currentLength = super.getLength();
+		
+		String currentText = super.getText(0, length);
+		
+		if(currentText.equals(this.title)){
+			return;
+		}
+		
+		
+	}
+}

@@ -1,0 +1,6 @@
+package atscustom;
+
+public interface TitleModeListener {
+	public void enableTitled();
+	public void disableTitled();
+}

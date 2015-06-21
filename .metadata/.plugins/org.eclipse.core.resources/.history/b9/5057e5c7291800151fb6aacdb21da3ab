@@ -1,0 +1,5 @@
+package atscustom;
+
+public interface TitleModeListener {
+	public void setTitleMode(boolean titleMode);
+}

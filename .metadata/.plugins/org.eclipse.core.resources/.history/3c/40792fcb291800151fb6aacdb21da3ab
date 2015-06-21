@@ -1,0 +1,20 @@
+package atscustom.documents;
+
+import java.awt.Color;
+
+import javax.swing.JTextField;
+
+public class TitledTextField extends JTextField implements TitleModeListener{
+	private Color titled = Color.gray, untitled=Color.black;
+	public TitledTextField(String title, InputType inputType){
+		switch(inputType){
+		case ALL:
+			this.setDocument(new DefaultTitledDocument(title, this));
+			break;
+		}
+	}
+	@Override
+	public void setTitleMode(boolean titleMode) {
+		this.setForeground(titleMode ? titled:untitled);
+	}
+}

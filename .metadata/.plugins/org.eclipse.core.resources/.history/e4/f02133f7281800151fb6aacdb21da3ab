@@ -1,0 +1,10 @@
+package atscustom;
+
+import java.awt.Color;
+
+public class TitledTextField {
+	private Color titled, untitled;
+	public TitledTextField(String title, InputType inputType){
+		
+	}
+}

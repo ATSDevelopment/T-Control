@@ -1,0 +1,5 @@
+package atscustom.documents;
+
+public class PasswordTitledDocument extends DefaultTitledDocument{
+
+}

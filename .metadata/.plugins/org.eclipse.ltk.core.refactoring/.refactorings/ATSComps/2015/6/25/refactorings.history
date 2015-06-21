@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;atscustom.TitledDocument&apos; to &apos;DefaultTitledDocument&apos;&#x0A;- Original project: &apos;ATSComps&apos;&#x0A;- Original element: &apos;atscustom.TitledDocument&apos;&#x0A;- Renamed element: &apos;atscustom.DefaultTitledDocument&apos;&#x0A;- Update references to refactored element&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;TitledDocument&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;atscustom{TitledDocument.java[TitledDocument" matchStrategy="1" name="DefaultTitledDocument" qualified="false" references="true" similarDeclarations="false" stamp="1434840285882" textual="false" version="1.0"/>
+</session>

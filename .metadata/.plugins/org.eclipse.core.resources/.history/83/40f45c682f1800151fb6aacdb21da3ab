@@ -1,0 +1,5 @@
+package atsmod;
+
+public enum InputType {
+	ALL, PASSWORD;
+}
