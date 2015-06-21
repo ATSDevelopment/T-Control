@@ -5,11 +5,9 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 import server.request.Packet;
-import datamanager.dao.DataAccessResponse;
-import datamanager.dao.ResponseType;
 
 public class CM {
-	public static DataAccessResponse sendPacket(Packet p){
+	public static Packet sendPacket(Packet p){
 		try {
 			Socket s = new Socket("localhost", 12345);
 			
@@ -25,9 +23,9 @@ public class CM {
 			inputStream.close();
 			s.close();
 			
-			return (DataAccessResponse)pr.getObject();
+			return pr;
 		} catch (Exception e){
-			return new DataAccessResponse(false, ResponseType.STRING, "Não foi possível conectar com o servidor!");
+			return null;
 		}
 		
 	}

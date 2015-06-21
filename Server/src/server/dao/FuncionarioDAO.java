@@ -42,12 +42,12 @@ public class FuncionarioDAO implements DataAccessObject<Funcionario>{
 						if(novo){
 							int idPessoa = (Integer)resPessoa.getResponse();
 							int idUsuario = (Integer)resUsuario.getResponse();
-							
+
 							res = insert(conexao, idPessoa, idUsuario, entity);
 						}else{
 							res = update(conexao, entity);
 						}
-						
+
 						PreparedStatement ps = conexao.prepareStatement("COMMIT");
 						ps.execute();
 						ps.close();
@@ -57,7 +57,7 @@ public class FuncionarioDAO implements DataAccessObject<Funcionario>{
 							ps.execute();
 							ps.close();
 						} catch (SQLException ignore) {}
-						
+
 						res = new DataAccessResponse(false, ResponseType.STRING, e.getMessage());
 					}
 				}else{
@@ -135,12 +135,12 @@ public class FuncionarioDAO implements DataAccessObject<Funcionario>{
 
 	@Override
 	public DataAccessResponse listar() {
-		DataAccessResponse response;
+		DataAccessResponse response = null;
 
 		Connection conexao = ConnectionManager.get();
 
 		try{
-			PreparedStatement ps = conexao.prepareStatement("SELECT p.id_pessoa, p.nome, f.telefone, f.email, f.data_saida, f.id_usuario FROM funcionarios JOIN pessoas p ON p.id_pessoa=f.id_funcionario");
+			PreparedStatement ps = conexao.prepareStatement("SELECT p.id_pessoa, p.nome, f.telefone, f.email, f.data_saida, f.id_usuario FROM funcionarios f JOIN pessoas p ON p.id_pessoa=f.id_funcionario");
 
 			ResultSet rs = ps.executeQuery();
 
@@ -158,22 +158,27 @@ public class FuncionarioDAO implements DataAccessObject<Funcionario>{
 				int idUsuario = rs.getInt("id_usuario");
 
 				DataAccessResponse responseUsuario =  usuarioDAO.getById(idUsuario);
-
 				if(responseUsuario.getStatus()){
 					Usuario usuario  = (Usuario)responseUsuario.getResponse();
 
 					Funcionario f = new Funcionario(idUsuario, nome, telefone, email, dataSaida, usuario, null);
 
 					funcionarios.add(f);
+				}else{
+					response = responseUsuario;
 				}
 			}
 
 			rs.close();
 			ps.close();
 
-			return new DataAccessResponse(true, ResponseType.ARRAY_LIST, funcionarios);
+			if(response == null){
+				response = new DataAccessResponse(true, ResponseType.ARRAY_LIST, funcionarios);
+			}
 		}catch(SQLException e){
-			return new DataAccessResponse(false, ResponseType.STRING, e.getMessage());
+			response = new DataAccessResponse(false, ResponseType.STRING, e.getMessage());
 		}
+
+		return response;
 	}
 }

@@ -2,12 +2,17 @@ package client.view.forms;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
@@ -17,11 +22,9 @@ import atsmod.textfield.TitledTextField;
 public class FormFuncionario extends JFrame {
 
 	private JPanel contentPane;
-	private TitledTextField tfNome;
-	private TitledTextField tfTel;
-	private TitledTextField tfMail;
-	private TitledTextField tfUsuario;
-	private TitledTextField tfSenha;
+	private JPanel panel;
+	private JTextField textField;
+	private JTextField textField_1;
 
 	/**
 	 * Launch the application.
@@ -57,41 +60,101 @@ public class FormFuncionario extends JFrame {
 		JList list = new JList();
 		scrollPane.setViewportView(list);
 		
-		JPanel panel = new JPanel();
+		panel = new JPanel();
 		contentPane.add(panel, BorderLayout.CENTER);
-		panel.setLayout(null);
+		GridBagLayout gbl_panel = new GridBagLayout();
+		gbl_panel.columnWidths = new int[]{0, 0, 0};
+		gbl_panel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
+		gbl_panel.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
+		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		panel.setLayout(gbl_panel);
 		
-		tfNome = new TitledTextField("Nome", InputType.ALL);
-		tfNome.setBounds(12, 12, 240, 19);
-		panel.add(tfNome);
-		tfNome.setColumns(10);
+		TitledTextField lblNome = new TitledTextField("Nome", InputType.ALL);
+		GridBagConstraints gbc_lblNome = new GridBagConstraints();
+		gbc_lblNome.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblNome.gridwidth = 2;
+		gbc_lblNome.insets = new Insets(0, 0, 5, 0);
+		gbc_lblNome.gridx = 0;
+		gbc_lblNome.gridy = 0;
+		panel.add(lblNome, gbc_lblNome);
 		
-		tfTel = new TitledTextField("Telefone", InputType.ALL);
-		tfTel.setBounds(12, 43, 114, 19);
-		panel.add(tfTel);
-		tfTel.setColumns(10);
+		TitledTextField lblTelefone = new TitledTextField("Telefone", InputType.ALL);
+		GridBagConstraints gbc_lblTelefone = new GridBagConstraints();
+		gbc_lblTelefone.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblTelefone.insets = new Insets(0, 0, 5, 5);
+		gbc_lblTelefone.gridx = 0;
+		gbc_lblTelefone.gridy = 1;
+		panel.add(lblTelefone, gbc_lblTelefone);
 		
-		tfMail = new TitledTextField("E-Mail", InputType.ALL);
-		tfMail.setBounds(138, 43, 114, 19);
-		panel.add(tfMail);
-		tfMail.setColumns(10);
+		TitledTextField lblEmail = new TitledTextField("Email", InputType.ALL);
+		GridBagConstraints gbc_lblEmail = new GridBagConstraints();
+		gbc_lblEmail.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblEmail.insets = new Insets(0, 0, 5, 0);
+		gbc_lblEmail.gridx = 1;
+		gbc_lblEmail.gridy = 1;
+		panel.add(lblEmail, gbc_lblEmail);
 		
-		tfUsuario = new TitledTextField("Usuario", InputType.ALL);
-		tfUsuario.setBounds(12, 74, 114, 19);
-		panel.add(tfUsuario);
-		tfUsuario.setColumns(10);
+		JLabel lblDataDemisso = new JLabel("Data Demissão: ");
+		GridBagConstraints gbc_lblDataDemisso = new GridBagConstraints();
+		gbc_lblDataDemisso.anchor = GridBagConstraints.EAST;
+		gbc_lblDataDemisso.insets = new Insets(0, 0, 5, 5);
+		gbc_lblDataDemisso.gridx = 0;
+		gbc_lblDataDemisso.gridy = 2;
+		panel.add(lblDataDemisso, gbc_lblDataDemisso);
 		
-		tfSenha = new TitledTextField("Senha", InputType.ALL);
-		tfSenha.setColumns(10);
-		tfSenha.setBounds(138, 74, 114, 19);
-		panel.add(tfSenha);
+		textField = new JTextField();
+		GridBagConstraints gbc_textField = new GridBagConstraints();
+		gbc_textField.insets = new Insets(0, 0, 5, 0);
+		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField.gridx = 1;
+		gbc_textField.gridy = 2;
+		panel.add(textField, gbc_textField);
+		textField.setColumns(10);
 		
-		JCheckBox chckbxAdmin = new JCheckBox("Admin");
-		chckbxAdmin.setBounds(12, 107, 129, 23);
-		panel.add(chckbxAdmin);
+		TitledTextField lblUsurio = new TitledTextField("Usuário", InputType.ALL);
+		GridBagConstraints gbc_lblUsurio = new GridBagConstraints();
+		gbc_lblUsurio.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblUsurio.insets = new Insets(0, 0, 5, 5);
+		gbc_lblUsurio.gridx = 0;
+		gbc_lblUsurio.gridy = 3;
+		panel.add(lblUsurio, gbc_lblUsurio);
+		
+		TitledTextField lblSenha = new TitledTextField("Senha", InputType.ALL);
+		GridBagConstraints gbc_lblSenha = new GridBagConstraints();
+		gbc_lblSenha.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblSenha.insets = new Insets(0, 0, 5, 0);
+		gbc_lblSenha.gridx = 1;
+		gbc_lblSenha.gridy = 3;
+		panel.add(lblSenha, gbc_lblSenha);
 		
 		JCheckBox chckbxAtivo = new JCheckBox("Ativo");
-		chckbxAtivo.setBounds(148, 107, 104, 23);
-		panel.add(chckbxAtivo);
+		GridBagConstraints gbc_chckbxAtivo = new GridBagConstraints();
+		gbc_chckbxAtivo.insets = new Insets(0, 0, 5, 5);
+		gbc_chckbxAtivo.gridx = 0;
+		gbc_chckbxAtivo.gridy = 4;
+		panel.add(chckbxAtivo, gbc_chckbxAtivo);
+		
+		JCheckBox chckbxAdmin = new JCheckBox("Admin");
+		GridBagConstraints gbc_chckbxAdmin = new GridBagConstraints();
+		gbc_chckbxAdmin.insets = new Insets(0, 0, 5, 0);
+		gbc_chckbxAdmin.gridx = 1;
+		gbc_chckbxAdmin.gridy = 4;
+		panel.add(chckbxAdmin, gbc_chckbxAdmin);
+		
+		JLabel lblExpiraEm = new JLabel("Expira em: ");
+		GridBagConstraints gbc_lblExpiraEm = new GridBagConstraints();
+		gbc_lblExpiraEm.anchor = GridBagConstraints.EAST;
+		gbc_lblExpiraEm.insets = new Insets(0, 0, 0, 5);
+		gbc_lblExpiraEm.gridx = 0;
+		gbc_lblExpiraEm.gridy = 5;
+		panel.add(lblExpiraEm, gbc_lblExpiraEm);
+		
+		textField_1 = new JTextField();
+		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
+		gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_1.gridx = 1;
+		gbc_textField_1.gridy = 5;
+		panel.add(textField_1, gbc_textField_1);
+		textField_1.setColumns(10);
 	}
 }

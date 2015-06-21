@@ -1,6 +1,5 @@
 package server.dao;
 
-import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -47,11 +46,11 @@ public class UsuarioDAO implements DataAccessObject<Usuario> {
 		PreparedStatement ps = conexao
 				.prepareStatement("UPDATE usuarios SET nome_de_usuario= ?, password = ?, ativo = ?, exp_data = ?  WHERE id_usuario = ?");
 		
-		ps.setString(1, usuario.getNomedeUsuario());
+		ps.setString(1, usuario.getNomeDeUsuario());
 		
-		ps.setInt(2, usuario.getPassword());
+		ps.setString(2, usuario.getPassword());
 		
-		ps.setInt(3, usuario.getAtivo());
+		ps.setBoolean(3, usuario.isAtivo());
 		
 		ps.setString(4, usuario.getExpData());
 		
@@ -69,11 +68,11 @@ public class UsuarioDAO implements DataAccessObject<Usuario> {
 						"INSERT INTO usuarios SET nome_de_usuario= ?, password = ?, ativo = ?, exp_data = ? ",
 						Statement.RETURN_GENERATED_KEYS);
 		
-		ps.setString(1, usuario.getNomedeUsuario());
+		ps.setString(1, usuario.getNomeDeUsuario());
 		
-		ps.setInt(2, usuario.getPassword());
+		ps.setString(2, usuario.getPassword());
 		
-		ps.setInt(3, usuario.getAtivo());
+		ps.setBoolean(3, usuario.isAtivo());
 		
 		ps.setString(4, usuario.getExpData());
 		
@@ -112,7 +111,7 @@ public class UsuarioDAO implements DataAccessObject<Usuario> {
 
 				ps.close();
 
-				r = new DataAccessResponse(true, ResponseType.STRING, entity.getNomedeUsuario() + " Deletado com sucesso!");
+				r = new DataAccessResponse(true, ResponseType.STRING, entity.getNomeDeUsuario() + " Deletado com sucesso!");
 			} catch (SQLException e) {
 				r = new DataAccessResponse(false, ResponseType.STRING, e.getMessage());
 			}
@@ -132,7 +131,7 @@ public class UsuarioDAO implements DataAccessObject<Usuario> {
 
 		if (conexao != null) {
 
-			String query = "SELECT * FROM usuario";
+			String query = "SELECT * FROM usuarios";
 
 			Usuario entity = null;
 			ArrayList<Usuario> lista = new ArrayList<Usuario>();
@@ -147,11 +146,11 @@ public class UsuarioDAO implements DataAccessObject<Usuario> {
 			while (resultado.next()) {
 				
 				
-				entity.setNomedeUsuario(resultado.getString("nome"));
+				entity.setNomeDeUsuario(resultado.getString("nome_de_usuario"));
 				entity.setExpData(resultado.getString("expData"));
 				entity.setId(resultado.getInt("id"));
-				entity.setPassword(resultado.getInt("passoword"));
-				entity.setAtivo(resultado.getInt("ativo"));
+				entity.setPassword(resultado.getString("password"));
+				entity.setAtivo(resultado.getBoolean("ativo"));
 				
 				lista.add(entity);
 			}
@@ -179,27 +178,28 @@ public class UsuarioDAO implements DataAccessObject<Usuario> {
 
 		if (conexao != null) {
 
-			String query = "SELECT * FROM usuario WHERE id_usuario = ?";
+			String query = "SELECT nome_de_usuario, ativo, exp_data FROM usuarios WHERE id_usuario = ?";
 
 			Usuario usuario = null;
 			
-			
-
 			try {
 				PreparedStatement ps = conexao.prepareStatement(query);
 
 				ps.setInt(1, id);
 
 				ResultSet resultado = ps.executeQuery();
+				
 				if (resultado.next()) {
-					usuario = new Usuario(resultado.getInt("ativo"),resultado.getString("expData"),resultado.getInt("id"),resultado.getInt("password"),resultado.getString("nome"));
+					String nomeDeUsuario = resultado.getString("nome_de_usuario");
+					boolean ativo = resultado.getBoolean("ativo");
+					String expData = resultado.getString("exp_data");
 					
-					
+					usuario = new Usuario(id, nomeDeUsuario, null, ativo, expData);
 				}
 				resultado.close();
 				ps.close();
 
-				resp = new DataAccessResponse(true, ResponseType.OBJECT, (Serializable) usuario);
+				resp = new DataAccessResponse(true, ResponseType.OBJECT, usuario);
 			} catch (SQLException e) {
 
 				resp = new DataAccessResponse(false, ResponseType.STRING,

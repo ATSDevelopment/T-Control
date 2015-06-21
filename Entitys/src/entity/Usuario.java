@@ -1,18 +1,20 @@
 package entity;
 
-public class Usuario {
+import java.io.Serializable;
+
+public class Usuario implements Serializable{
 	private int id;
-	private String nomedeUsuario;
-	private int Password;
-	private int ativo;
+	private String nomeDeUsuario;
+	private String password;
+	private boolean ativo;
 	private String expData;
 
-	public Usuario(int id, String nomedeUsuario, int password, int ativo,
+	public Usuario(int id, String nomeDeUsuario, String password, boolean ativo,
 			String expData) {
 		super();
 		this.id = id;
-		this.nomedeUsuario = nomedeUsuario;
-		Password = password;
+		this.nomeDeUsuario = nomeDeUsuario;
+		this.password = password;
 		this.ativo = ativo;
 		this.expData = expData;
 	}
@@ -22,22 +24,22 @@ public class Usuario {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getNomedeUsuario() {
-		return nomedeUsuario;
+	public String getNomeDeUsuario() {
+		return nomeDeUsuario;
 	}
-	public void setNomedeUsuario(String nomedeUsuario) {
-		this.nomedeUsuario = nomedeUsuario;
+	public void setNomeDeUsuario(String nomeDeUsuario) {
+		this.nomeDeUsuario = nomeDeUsuario;
 	}
-	public int getPassword() {
-		return Password;
+	public String getPassword() {
+		return password;
 	}
-	public void setPassword(int password) {
-		Password = password;
+	public void setPassword(String password) {
+		this.password = password;
 	}
-	public int getAtivo() {
+	public boolean isAtivo() {
 		return ativo;
 	}
-	public void setAtivo(int ativo) {
+	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
 	}
 	public String getExpData() {
