@@ -43,7 +43,7 @@ public class SetorDAO implements DataAccessObject<Setor> {
 			throws SQLException {
 
 		PreparedStatement ps = conexao
-				.prepareStatement("UPDATE setor SET id_setor = ?, nome= ?, sigla_setor = ?");
+				.prepareStatement("UPDATE setores SET id_setor = ?, nome = ?, sigla = ?");
 		
 		ps.setInt(1, setor.getId());
 		ps.setString(2, setor.getNome());
@@ -61,7 +61,7 @@ public class SetorDAO implements DataAccessObject<Setor> {
 
 		PreparedStatement ps = conexao
 				.prepareStatement(
-						"INSERT INTO setor SET id_setor= ?, nome = ?, sigla = ?",
+						"INSERT INTO setores SET id_setor= ?, nome = ?, sigla = ?",
 						Statement.RETURN_GENERATED_KEYS);
 
 		ps.setInt(1, setor.getId());
@@ -95,7 +95,7 @@ public class SetorDAO implements DataAccessObject<Setor> {
 			Connection conexao = ConnectionManager.get();
 
 			if(conexao != null){
-				String query = "DELETE FROM setor WHERE id_setor = ?";
+				String query = "DELETE FROM setores WHERE id_setor = ?";
 
 				try {
 					PreparedStatement ps = conexao.prepareStatement(query);
@@ -126,7 +126,7 @@ public class SetorDAO implements DataAccessObject<Setor> {
 
 		if (conexao != null) {
 
-			String query = "SELECT * FROM setor WHERE id_setor = ?";
+			String query = "SELECT * FROM setores WHERE id_setor = ?";
 
 			Setor setor = null;
 			SetorDAO dao = null;
@@ -174,26 +174,18 @@ public class SetorDAO implements DataAccessObject<Setor> {
 
 		if (conexao != null) {
 
-			String query = "SELECT * FROM setor";
+			String query = "SELECT * FROM setores";
 
 			Setor setor = null;
 			ArrayList<Setor> array = new ArrayList<Setor>();
-			SetorDAO setordao = null;
 
 			try {
 				PreparedStatement ps = conexao.prepareStatement(query);
 
 				ResultSet resultado = ps.executeQuery();
 				while (resultado.next()) {
-					setordao = new SetorDAO();
-
-					DataAccessResponse response = setordao.getById(resultado
-							.getInt(5));
-
-					setor = (Setor) response.getResponse();
-
 					setor = new Setor(resultado.getInt(1),
-							resultado.getString(2), resultado.getString(3));
+							resultado.getString("sigla"), resultado.getString("nome"));
 
 					array.add(setor);
 				}

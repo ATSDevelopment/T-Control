@@ -1,0 +1,33 @@
+package client.view.nodes;
+
+import client.bll.SetorBLL;
+import client.view.forms.AbstractForm;
+import datamanager.dao.DataAccessResponse;
+import entity.Setor;
+
+public class NodeSetor extends AbstractNode<Setor>{
+	public NodeSetor() {
+		super("Setores");
+		// TODO Auto-generated constructor stub
+	}
+
+	private static final long serialVersionUID = 1L;
+
+	@Override
+	public void load() {
+		SetorBLL bll = new SetorBLL();
+		
+		DataAccessResponse res = bll.listar();
+		
+		if(res.getStatus()){
+			
+		}
+	}
+
+	@Override
+	public AbstractForm<Setor> getForm() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

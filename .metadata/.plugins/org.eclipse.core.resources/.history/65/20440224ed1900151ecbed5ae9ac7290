@@ -1,0 +1,9 @@
+package client.bll;
+
+import java.util.Set;
+
+import datamanager.BusinessLayoutLayer;
+
+public class SetorBLL implements BusinessLayoutLayer<Setor>{
+
+}

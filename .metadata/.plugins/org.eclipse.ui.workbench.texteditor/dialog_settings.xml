@@ -3,18 +3,19 @@
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="259" key="DIALOG_WIDTH"/>
 		<item value="270" key="DIALOG_Y_ORIGIN"/>
-		<item value="415" key="DIALOG_HEIGHT"/>
 		<item value="910" key="DIALOG_X_ORIGIN"/>
+		<item value="415" key="DIALOG_HEIGHT"/>
 		<item value="1|Noto Sans|9.0|0|GTK|1|" key="DIALOG_FONT_NAME"/>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="true" key="wrap"/>
-		<item value="false" key="isRegEx"/>
 		<item value="true" key="casesensitive"/>
+		<item value="false" key="isRegEx"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="&quot;, InputType.ALL);" key="selection"/>
+		<item value="this." key="selection"/>
 		<list key="findhistory">
+			<item value="panel."/>
 			<item value="&quot;);"/>
 			<item value="JTextField"/>
 			<item value="Nomede"/>
@@ -22,9 +23,9 @@
 			<item value="setNomede"/>
 			<item value="getNomede"/>
 			<item value="setNomedeUsuario"/>
-			<item value="getInt(&quot;passoword&quot;)"/>
 		</list>
 		<list key="replacehistory">
+			<item value="this."/>
 			<item value="&quot;, InputType.ALL);"/>
 			<item value="TitledTextField"/>
 			<item value="NomeDe"/>
@@ -32,7 +33,6 @@
 			<item value="setNomeDe"/>
 			<item value="getNomeDe"/>
 			<item value="getString(&quot;password&quot;)"/>
-			<item value="getBoolean(&quot;ativo&quot;)"/>
 		</list>
 	</section>
 </section>

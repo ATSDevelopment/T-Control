@@ -91,7 +91,7 @@ public class FormFuncionario extends AbstractForm<Funcionario>{
 		gbc_tfUser.gridy = 3;
 		this.add(tfUser, gbc_tfUser);
 
-		tfSenha = new TitledTextField("Senha", InputType.ALL);
+		tfSenha = new TitledTextField("Senha", InputType.PASSWORD);
 		GridBagConstraints gbc_tfSenha = new GridBagConstraints();
 		gbc_tfSenha.fill = GridBagConstraints.HORIZONTAL;
 		gbc_tfSenha.insets = new Insets(0, 0, 5, 0);
@@ -193,5 +193,7 @@ public class FormFuncionario extends AbstractForm<Funcionario>{
 		tfDataExp.setText("");
 		
 		cbxAtivo.setSelected(false);
+		
+		this.funcionario = null;
 	}
 }

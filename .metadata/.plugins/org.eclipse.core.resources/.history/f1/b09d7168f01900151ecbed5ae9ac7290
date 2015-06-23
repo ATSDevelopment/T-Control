@@ -1,0 +1,186 @@
+package client.view;
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTree;
+import javax.swing.UIManager;
+import javax.swing.border.EmptyBorder;
+import javax.swing.event.TreeExpansionEvent;
+import javax.swing.event.TreeExpansionListener;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+
+import client.bll.FuncionarioBLL;
+import client.bll.SetorBLL;
+import client.view.forms.AbstractForm;
+import client.view.nodes.AbstractNode;
+import client.view.nodes.NodeFuncionario;
+import client.view.nodes.NodeSetor;
+import datamanager.BusinessLayoutLayer;
+import datamanager.dao.DataAccessResponse;
+import entity.Setor;
+import entity.funcionario.Funcionario;
+
+
+public class PrincipalFrame extends JFrame implements TreeSelectionListener, ActionListener{
+
+	private JPanel contentPane;
+	private JPanel pnContent;
+	
+	private AbstractForm centerForm;
+	
+	private NodeFuncionario nodeFuncionario;
+	private NodeSetor nodeSetor;
+
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
+					PrincipalFrame frame = new PrincipalFrame();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	
+	public PrincipalFrame() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 661, 446);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(new BorderLayout(0, 0));
+		setContentPane(contentPane);
+
+		JScrollPane scrollPane = new JScrollPane();
+		contentPane.add(scrollPane, BorderLayout.WEST);
+
+		DefaultMutableTreeNode root = new DefaultMutableTreeNode();
+
+		nodeFuncionario = new NodeFuncionario();
+		nodeFuncionario.load();
+		root.add(nodeFuncionario);
+		
+		nodeSetor = new NodeSetor();
+		nodeSetor.load();
+		root.add(nodeSetor);
+
+		JTree tree = new JTree();
+		tree.addTreeSelectionListener(this);
+		tree.addTreeExpansionListener(new TreeExpansionListener() {
+			public void treeCollapsed(TreeExpansionEvent arg0) {
+				contentPane.updateUI();
+			}
+			public void treeExpanded(TreeExpansionEvent arg0) {
+				contentPane.updateUI();
+			}
+		});
+		tree.setModel(new DefaultTreeModel(root));
+		tree.setRootVisible(false);
+		scrollPane.setViewportView(tree);
+		
+		pnContent = new JPanel();
+		contentPane.add(pnContent, BorderLayout.CENTER);
+		pnContent.setLayout(new BorderLayout(0, 0));
+		
+		JPanel panel_1 = new JPanel();
+		FlowLayout flowLayout = (FlowLayout) panel_1.getLayout();
+		flowLayout.setAlignment(FlowLayout.RIGHT);
+		pnContent.add(panel_1, BorderLayout.SOUTH);
+		
+		JButton btnCancelar = new JButton("Cancelar");
+		panel_1.add(btnCancelar);
+		
+		JButton btnSalvar = new JButton("Salvar");
+		btnSalvar.setActionCommand("salvar");
+		btnSalvar.addActionListener(this);
+		panel_1.add(btnSalvar);
+	}
+	@Override
+	public void valueChanged(TreeSelectionEvent e) {
+		Object[] paths = e.getPath().getPath();
+
+		Object comp = paths[paths.length-1];
+		if(comp instanceof AbstractNode){
+			AbstractForm form = ((AbstractNode) comp).getForm();
+			
+			form.resetForm();
+			
+			toggleForm(form);
+		}else{
+			AbstractForm form = ((AbstractNode) paths[paths.length - 2]).getForm();
+
+			DefaultMutableTreeNode node = (DefaultMutableTreeNode) paths[paths.length-1];
+
+			Object edit = node.getUserObject();
+
+			form.setObjectEdit(edit);
+
+			toggleForm(form);
+		}
+	}
+
+	private void toggleForm(AbstractForm form){
+		if(form != centerForm){
+			if(centerForm != null){
+				pnContent.remove(centerForm);
+			}
+
+			centerForm = form;
+
+			pnContent.add(form, BorderLayout.CENTER);
+
+			pnContent.updateUI();
+		}		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		switch(arg0.getActionCommand()){
+		case "salvar":
+			salvar();
+			break;
+		case "cancelar":
+			break;
+		case "deletar":
+			break;
+		}
+	}
+	
+	private void salvar(){
+		if(centerForm != null){
+			AbstractNode reloadNode = null;
+			
+			Object obj = centerForm.getEditedObject();
+			
+			BusinessLayoutLayer bll = null;
+			if(obj instanceof Setor){
+				bll = new SetorBLL();
+				reloadNode = nodeSetor;
+			}else if(obj instanceof Funcionario){
+				bll = new FuncionarioBLL();
+				reloadNode = nodeFuncionario;
+			}
+			
+			DataAccessResponse res = bll.salvar(obj);
+			
+			String msg = res.getStatus() ? "Salvo com sucesso!":res.getResponse()+"";
+			
+			JOptionPane.showMessageDialog(this, msg, "", JOptionPane.PLAIN_MESSAGE, null);
+			
+			reloadNode.load();
+		}
+	}
+}

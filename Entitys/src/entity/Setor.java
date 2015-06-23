@@ -1,11 +1,17 @@
 package entity;
 
-public class Setor {
+import java.io.Serializable;
+
+public class Setor implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private String sigla;
 	private String nome;
 	
-	public Setor(int id, String sigla, String nome) {
+	public Setor(int id, String sigla, String nome){
 		super();
 		this.id = id;
 		this.sigla = sigla;
@@ -34,5 +40,10 @@ public class Setor {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	@Override
+	public String toString() {
+		return sigla;
 	}
 }

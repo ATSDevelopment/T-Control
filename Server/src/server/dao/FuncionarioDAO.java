@@ -107,6 +107,7 @@ public class FuncionarioDAO implements DataAccessObject<Funcionario>{
 
 		Connection conexao = ConnectionManager.get();
 
+
 		try{
 			PreparedStatement ps = conexao.prepareStatement("DELETE FROM funcionarios WHERE id_funcionario=?");
 
@@ -115,6 +116,10 @@ public class FuncionarioDAO implements DataAccessObject<Funcionario>{
 			ps.execute();
 
 			ps.close();
+
+			response = new DataAccessResponse(true, ResponseType.NULL, null);
+
+			System.out.println("Funcionario Deletado");
 		}catch(SQLException e){
 			response = new DataAccessResponse(false, ResponseType.STRING, e.getMessage());
 		}
@@ -123,6 +128,8 @@ public class FuncionarioDAO implements DataAccessObject<Funcionario>{
 			PessoaDAO pessoaDAO = new PessoaDAO(conexao);
 
 			DataAccessResponse resPessoa = pessoaDAO.deletar(entity);
+
+			System.out.println(resPessoa.getStatus()+":"+resPessoa.getResponse());
 		}
 
 		return response;
@@ -161,7 +168,7 @@ public class FuncionarioDAO implements DataAccessObject<Funcionario>{
 				if(responseUsuario.getStatus()){
 					Usuario usuario  = (Usuario)responseUsuario.getResponse();
 
-					Funcionario f = new Funcionario(idUsuario, nome, telefone, email, dataSaida, usuario, null);
+					Funcionario f = new Funcionario(id, nome, telefone, email, dataSaida, usuario, null);
 
 					funcionarios.add(f);
 				}else{

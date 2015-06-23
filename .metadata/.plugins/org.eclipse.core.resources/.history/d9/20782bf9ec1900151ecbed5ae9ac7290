@@ -1,0 +1,7 @@
+package client.view.nodes;
+
+import entity.Setor;
+
+public class NodeSetor extends AbstractNode<Setor>{
+
+}

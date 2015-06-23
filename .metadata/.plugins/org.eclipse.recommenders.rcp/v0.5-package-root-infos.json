@@ -130,19 +130,6 @@
     "javaRuntime": true
   },
   {
-    "symbolicName": "Json",
-    "version": {
-      "major": -1,
-      "minor": -1,
-      "micro": -1,
-      "qualifier": ""
-    },
-    "jarFileFingerprint": "2c6a69decbafa561d9e9305a49052e79b312ea1d",
-    "jarFileModificationDate": "2015-04-16T22:16:52-03:00",
-    "location": "/media/data/Arquivos/Backups/Linux/UbuntuBK/carlosrodrigues/ControleMerenda/Json.jar",
-    "javaRuntime": false
-  },
-  {
     "symbolicName": "jre",
     "version": {
       "major": 1,

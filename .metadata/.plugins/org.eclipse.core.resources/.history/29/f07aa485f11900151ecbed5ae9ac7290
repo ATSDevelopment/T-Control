@@ -1,0 +1,14 @@
+package client.view.forms;
+
+import javax.swing.JPanel;
+import javax.swing.border.TitledBorder;
+import javax.swing.border.EtchedBorder;
+
+public abstract class AbstractForm<ObjectEdit> extends JPanel {
+	public AbstractForm() {
+		setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Editor", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+	}
+	public abstract void setObjectEdit(ObjectEdit obj);
+	public abstract ObjectEdit getEditedObject();
+	public abstract void resetForm();
+}

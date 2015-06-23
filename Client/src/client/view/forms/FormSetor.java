@@ -1,42 +1,75 @@
 package client.view.forms;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
+import atsmod.textfield.InputType;
+import atsmod.textfield.TitledTextField;
+import entity.Setor;
 
-public class FormSetor extends JFrame {
-
-	private JPanel contentPane;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					FormSetor frame = new FormSetor();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
+public class FormSetor extends AbstractForm<Setor> {
+	private Setor setor;
+	
+	private TitledTextField tfNome;
+	private TitledTextField tfSigla;
+	
 	public FormSetor() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
+		GridBagLayout gbl_this = new GridBagLayout();
+		gbl_this.columnWidths = new int[]{0, 0};
+		gbl_this.rowHeights = new int[]{0, 0, 0};
+		gbl_this.columnWeights = new double[]{1.0, Double.MIN_VALUE};
+		gbl_this.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		this.setLayout(gbl_this);
+		
+		tfNome = new TitledTextField("Nome", InputType.ALL);
+		GridBagConstraints gbc_tfNome = new GridBagConstraints();
+		gbc_tfNome.insets = new Insets(0, 0, 5, 0);
+		gbc_tfNome.fill = GridBagConstraints.HORIZONTAL;
+		gbc_tfNome.gridx = 0;
+		gbc_tfNome.gridy = 0;
+		this.add(tfNome, gbc_tfNome);
+		tfNome.setColumns(10);
+		
+		tfSigla = new TitledTextField("Sigla", InputType.ALL);
+		GridBagConstraints gbc_tfSigla = new GridBagConstraints();
+		gbc_tfSigla.anchor = GridBagConstraints.WEST;
+		gbc_tfSigla.gridx = 0;
+		gbc_tfSigla.gridy = 1;
+		this.add(tfSigla, gbc_tfSigla);
+		tfSigla.setColumns(10);
 	}
 
+	@Override
+	public void setObjectEdit(Setor obj) {
+		resetForm();
+		
+		tfNome.setText(obj.getNome());
+		tfSigla.setText(obj.getSigla());
+		
+		this.setor = obj;
+	}
+
+	@Override
+	public Setor getEditedObject() {
+		String nome = tfNome.getText();
+		
+		String sigla = tfSigla.getText();
+		
+		if(setor == null){
+			setor = new Setor(0, sigla, nome);
+		}else{
+			setor.setNome(nome);
+			setor.setSigla(sigla);
+		}
+		return setor;
+	}
+
+	@Override
+	public void resetForm() {
+		tfNome.setText("");
+		tfSigla.setText("");
+		
+		setor = null;
+	}
 }

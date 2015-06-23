@@ -1,13 +1,20 @@
 package client.view;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.TitledBorder;
 import javax.swing.event.TreeExpansionEvent;
 import javax.swing.event.TreeExpansionListener;
 import javax.swing.event.TreeSelectionEvent;
@@ -15,16 +22,31 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
+import client.bll.FuncionarioBLL;
+import client.bll.SetorBLL;
 import client.view.forms.AbstractForm;
 import client.view.nodes.AbstractNode;
 import client.view.nodes.NodeFuncionario;
+import client.view.nodes.NodeSetor;
+import datamanager.BusinessLayoutLayer;
+import datamanager.dao.DataAccessResponse;
+import entity.Setor;
+import entity.funcionario.Funcionario;
 
 
-public class PrincipalFrame extends JFrame implements TreeSelectionListener{
+public class PrincipalFrame extends JFrame implements TreeSelectionListener, ActionListener{
 
 	private JPanel contentPane;
+	private JPanel pnContent;
+	
 	private AbstractForm centerForm;
+	
+	private NodeFuncionario nodeFuncionario;
+	private NodeSetor nodeSetor;
 
+	private JTree tree;
+	private DefaultTreeModel model;
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -38,9 +60,10 @@ public class PrincipalFrame extends JFrame implements TreeSelectionListener{
 			}
 		});
 	}
+	
 	public PrincipalFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 661, 446);
+		setBounds(100, 100, 648, 343);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -51,11 +74,15 @@ public class PrincipalFrame extends JFrame implements TreeSelectionListener{
 
 		DefaultMutableTreeNode root = new DefaultMutableTreeNode();
 
-		NodeFuncionario nof = new NodeFuncionario();
-		nof.load();
-		root.add(nof);
+		nodeFuncionario = new NodeFuncionario();
+		nodeFuncionario.load();
+		root.add(nodeFuncionario);
+		
+		nodeSetor = new NodeSetor();
+		nodeSetor.load();
+		root.add(nodeSetor);
 
-		JTree tree = new JTree();
+		tree = new JTree();
 		tree.addTreeSelectionListener(this);
 		tree.addTreeExpansionListener(new TreeExpansionListener() {
 			public void treeCollapsed(TreeExpansionEvent arg0) {
@@ -65,9 +92,34 @@ public class PrincipalFrame extends JFrame implements TreeSelectionListener{
 				contentPane.updateUI();
 			}
 		});
-		tree.setModel(new DefaultTreeModel(root));
+		tree.setModel(model = new DefaultTreeModel(root));
 		tree.setRootVisible(false);
 		scrollPane.setViewportView(tree);
+		
+		pnContent = new JPanel();
+		pnContent.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Editor", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		contentPane.add(pnContent, BorderLayout.CENTER);
+		pnContent.setLayout(new BorderLayout(0, 0));
+		
+		JPanel panel_1 = new JPanel();
+		FlowLayout flowLayout = (FlowLayout) panel_1.getLayout();
+		flowLayout.setAlignment(FlowLayout.RIGHT);
+		pnContent.add(panel_1, BorderLayout.SOUTH);
+		
+		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.setActionCommand("cancelar");
+		btnCancelar.addActionListener(this);
+		panel_1.add(btnCancelar);
+		
+		JButton btnSalvar = new JButton("Salvar");
+		btnSalvar.setActionCommand("salvar");
+		btnSalvar.addActionListener(this);
+		
+				JButton btnDeletar = new JButton("Deletar");
+				btnDeletar.setActionCommand("deletar");
+				btnDeletar.addActionListener(this);
+				panel_1.add(btnDeletar);
+		panel_1.add(btnSalvar);
 	}
 	@Override
 	public void valueChanged(TreeSelectionEvent e) {
@@ -96,14 +148,96 @@ public class PrincipalFrame extends JFrame implements TreeSelectionListener{
 	private void toggleForm(AbstractForm form){
 		if(form != centerForm){
 			if(centerForm != null){
-				contentPane.remove(centerForm);
+				pnContent.remove(centerForm);
 			}
 
 			centerForm = form;
 
-			contentPane.add(form, BorderLayout.CENTER);
+			pnContent.add(form, BorderLayout.CENTER);
 
-			contentPane.updateUI();
+			pnContent.updateUI();
+		}		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		switch(arg0.getActionCommand()){
+		case "salvar":
+			salvar();
+			break;
+		case "cancelar":
+			break;
+		case "deletar":
+			deletar();
+			break;
+		}
+	}
+	
+	private BusinessLayoutLayer getBll(Object obj){
+		if(obj instanceof Setor){
+			return new SetorBLL();
+		}else if(obj instanceof Funcionario){
+			return new FuncionarioBLL();
+		}else{
+			return null;
+		}
+	}
+	
+	private AbstractNode getReloadNode(Object obj){
+		if(obj instanceof Setor){
+			return nodeSetor;
+		}else if(obj instanceof Funcionario){
+			return nodeFuncionario;
+		}else{
+			return null;
+		}
+	}
+	
+	private void salvar(){
+		if(centerForm != null){			
+			Object obj = centerForm.getEditedObject();
+			
+			BusinessLayoutLayer bll = getBll(obj);
+			
+			DataAccessResponse res = bll.salvar(obj);
+			
+			String msg = res.getStatus() ? "Salvo com sucesso!":res.getResponse()+"";
+			
+			JOptionPane.showMessageDialog(this, msg, "", JOptionPane.PLAIN_MESSAGE, null);
+			
+			AbstractNode reloadNode = getReloadNode(obj);
+			
+			reloadNode.removeAllChildren();
+			
+			reloadNode.load();
+			
+			centerForm.resetForm();
+			
+			model.reload(reloadNode);
+		}
+	}
+	
+	private void deletar(){
+		if(centerForm != null){			
+			Object obj = centerForm.getEditedObject();
+			
+			BusinessLayoutLayer bll = getBll(obj);
+			
+			DataAccessResponse res = bll.deletar(obj);
+			
+			String msg = res.getStatus() ? "Deletado com sucesso!":res.getResponse()+"";
+			
+			JOptionPane.showMessageDialog(this, msg, "", JOptionPane.PLAIN_MESSAGE, null);
+			
+			AbstractNode reloadNode = getReloadNode(obj);
+			
+			reloadNode.removeAllChildren();
+			
+			reloadNode.load();
+			
+			centerForm.resetForm();
+			
+			model.reload(reloadNode);
 		}
 	}
 }

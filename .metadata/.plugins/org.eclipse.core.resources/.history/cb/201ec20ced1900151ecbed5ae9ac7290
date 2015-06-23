@@ -1,0 +1,5 @@
+package client.bll;
+
+public class SetorBLL {
+
+}

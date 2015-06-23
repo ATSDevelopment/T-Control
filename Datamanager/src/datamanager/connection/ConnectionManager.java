@@ -5,8 +5,6 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectionManager {
-	private static Connection conexao;
-
 	private static Connection open(){
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -38,20 +36,5 @@ public class ConnectionManager {
 	
 	public static Connection get(){
 		return open();
-	}
-	
-	public static boolean close(){
-		try {
-			conexao.close();
-			
-			conexao = null;
-			
-			return true;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			
-			return false;
-		}
 	}
 }

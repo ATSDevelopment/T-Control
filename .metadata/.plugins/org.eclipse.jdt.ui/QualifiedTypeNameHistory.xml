@@ -7,10 +7,7 @@
 <fullyQualifiedTypeName name="datamanager.BusinessLayoutLayer"/>
 <fullyQualifiedTypeName name="client.dao.FuncionarioBLL"/>
 <fullyQualifiedTypeName name="server.request.Packet"/>
-<fullyQualifiedTypeName name="javax.swing.tree.DefaultMutableTreeNode"/>
 <fullyQualifiedTypeName name="atscomponents.PasswordDocument"/>
-<fullyQualifiedTypeName name="entity.funcionario.Funcionario"/>
-<fullyQualifiedTypeName name="entity.Usuario"/>
 <fullyQualifiedTypeName name="server.bll.FuncionarioBLL"/>
 <fullyQualifiedTypeName name="java.sql.Statement"/>
 <fullyQualifiedTypeName name="server.dao.PessoaDAO"/>
@@ -20,7 +17,19 @@
 <fullyQualifiedTypeName name="atscustom.documents.PasswordTitledDocument"/>
 <fullyQualifiedTypeName name="atsmod.textfield.InputType"/>
 <fullyQualifiedTypeName name="atsmod.textfield.documents.DefaultTitledDocument"/>
-<fullyQualifiedTypeName name="javax.swing.UIManager"/>
 <fullyQualifiedTypeName name="datamanager.dao.ResponseType"/>
+<fullyQualifiedTypeName name="server.ClientConnection"/>
+<fullyQualifiedTypeName name="java.awt.event.ActionListener"/>
+<fullyQualifiedTypeName name="entity.Usuario"/>
+<fullyQualifiedTypeName name="entity.funcionario.Funcionario"/>
+<fullyQualifiedTypeName name="client.bll.FuncionarioBLL"/>
+<fullyQualifiedTypeName name="javax.swing.JFrame"/>
 <fullyQualifiedTypeName name="datamanager.dao.DataAccessResponse"/>
+<fullyQualifiedTypeName name="javax.swing.tree.DefaultTreeModel"/>
+<fullyQualifiedTypeName name="client.view.nodes.funcionario.NoFuncionario"/>
+<fullyQualifiedTypeName name="client.view.nodes.AbstractNode"/>
+<fullyQualifiedTypeName name="java.util.Arrays"/>
+<fullyQualifiedTypeName name="client.view.forms.AbstractForm"/>
+<fullyQualifiedTypeName name="javax.swing.UIManager"/>
+<fullyQualifiedTypeName name="javax.swing.tree.DefaultMutableTreeNode"/>
 </qualifiedTypeNameHistroy>

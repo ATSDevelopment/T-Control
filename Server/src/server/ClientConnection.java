@@ -121,10 +121,9 @@ public class ClientConnection extends Thread{
 		{
 			Serializable s = request.getObject();
 			
-			if(s instanceof Setor){
-				SetorBLL sbll = new SetorBLL();
-				res = sbll.listar();
-			}
+			SetorBLL sbll = new SetorBLL();
+			res = sbll.listar();
+			
 		}
 			break;
 		default:
