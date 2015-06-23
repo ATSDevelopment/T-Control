@@ -1,0 +1,13 @@
+package client.view.nodes;
+
+import java.util.ArrayList;
+
+import javax.swing.tree.DefaultMutableTreeNode;
+
+public abstract class AbstractNode<Entity> extends DefaultMutableTreeNode{
+	public AbstractNode(String title){
+		super(title);
+	}
+	public abstract ArrayList<Entity> getList();
+	public abstract void load();
+}

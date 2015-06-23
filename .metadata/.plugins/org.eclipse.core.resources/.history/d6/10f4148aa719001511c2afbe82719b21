@@ -1,0 +1,5 @@
+package client.view.nodes;
+
+public abstract class AbstractNode<Entity> {
+	public abstract void load();
+}

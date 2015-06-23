@@ -1,0 +1,9 @@
+package client.view.nodes.funcionario;
+
+import javax.swing.tree.DefaultMutableTreeNode;
+
+import entity.funcionario.Funcionario;
+
+public class NoFuncionarioItem extends DefaultMutableTreeNode{
+	private Funcionario f;
+}

@@ -1,0 +1,14 @@
+package client.view.nodes;
+
+import javax.swing.tree.DefaultMutableTreeNode;
+
+import entity.Setor;
+
+public class NoFuncionario extends DefaultMutableTreeNode{
+	public NoFuncionario(Setor setor){
+	}
+	
+	public void load(){
+		
+	}
+}

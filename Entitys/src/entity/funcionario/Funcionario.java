@@ -51,8 +51,4 @@ public class Funcionario extends Pessoa {
 	public void setMapasDeServico(ArrayList<MapaDeServico> mapasDeServico) {
 		this.mapasDeServico = mapasDeServico;
 	}
-	@Override
-	public String toString(){
-		return usuario.getNomeDeUsuario();
-	}
 }

@@ -1,0 +1,15 @@
+package client.view.nodes.funcionario;
+
+import javax.swing.tree.DefaultMutableTreeNode;
+
+import client.bll.FuncionarioBLL;
+import entity.Setor;
+
+public class NoFuncionario extends DefaultMutableTreeNode{
+	public NoFuncionario(Setor setor){
+	}
+	
+	public void load(){
+		FuncionarioBLL bll = new FuncionarioBLL();
+	}
+}

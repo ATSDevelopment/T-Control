@@ -1,0 +1,10 @@
+package client.view.nodes;
+
+import javax.swing.tree.DefaultMutableTreeNode;
+
+public abstract class AbstractNode extends DefaultMutableTreeNode{
+	public AbstractNode(String title){
+		super(title);
+	}
+	public abstract void load();
+}

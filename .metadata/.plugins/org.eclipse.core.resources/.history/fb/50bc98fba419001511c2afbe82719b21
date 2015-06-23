@@ -1,0 +1,8 @@
+package client.view.forms;
+
+import javax.swing.JPanel;
+
+public class AbstractForm<ObjectEdit> extends JPanel {
+	public abstract void setObjectEdit(ObjectEdit obj);
+	public abstract void getEditedObject();
+}

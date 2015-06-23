@@ -1,0 +1,14 @@
+package client.view.forms;
+
+import javax.swing.JPanel;
+
+public class AbstractForm extends JPanel {
+
+	/**
+	 * Create the panel.
+	 */
+	public AbstractForm() {
+
+	}
+
+}

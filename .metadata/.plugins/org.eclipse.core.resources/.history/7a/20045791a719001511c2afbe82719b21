@@ -1,0 +1,8 @@
+package client.view.nodes;
+
+import java.util.ArrayList;
+
+public abstract class AbstractNode<Entity> {
+	public ArrayList<Entity> getList();
+	public abstract void load();
+}

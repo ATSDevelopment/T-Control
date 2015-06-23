@@ -1,0 +1,79 @@
+package client.view;
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTree;
+import javax.swing.border.EmptyBorder;
+import javax.swing.event.TreeExpansionEvent;
+import javax.swing.event.TreeExpansionListener;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+
+import client.view.forms.AbstractForm;
+import client.view.nodes.AbstractNode;
+import client.view.nodes.NodeFuncionario;
+
+
+public class PrincipalFrame extends JFrame implements TreeSelectionListener{
+
+	private JPanel contentPane;
+	private AbstractForm centerForm;
+	
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					PrincipalFrame frame = new PrincipalFrame();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	public PrincipalFrame() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 661, 446);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(new BorderLayout(0, 0));
+		setContentPane(contentPane);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		contentPane.add(scrollPane, BorderLayout.WEST);
+		
+		DefaultMutableTreeNode root = new DefaultMutableTreeNode();
+		
+		NodeFuncionario nof = new NodeFuncionario();
+		nof.load();
+		root.add(nof);
+		
+		JTree tree = new JTree();
+		tree.addTreeSelectionListener(this);
+		tree.addTreeExpansionListener(new TreeExpansionListener() {
+			public void treeCollapsed(TreeExpansionEvent arg0) {
+				contentPane.updateUI();
+			}
+			public void treeExpanded(TreeExpansionEvent arg0) {
+				contentPane.updateUI();
+			}
+		});
+		tree.setModel(new DefaultTreeModel(root));
+		tree.setRootVisible(false);
+		scrollPane.setViewportView(tree);
+	}
+	@Override
+	public void valueChanged(TreeSelectionEvent e) {
+		Object[] paths = e.getPath().getPath();
+		
+		Object comp = paths[paths.length-1];
+		if(comp instanceof AbstractNode){
+			AbstractForm form = ((AbstractNode) comp).getForm();
+		}
+	}
+}
