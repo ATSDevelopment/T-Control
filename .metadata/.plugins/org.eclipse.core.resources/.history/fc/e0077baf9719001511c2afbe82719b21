@@ -1,0 +1,22 @@
+package server;
+
+import java.net.ServerSocket;
+
+import datamanager.connection.Config;
+
+public class Launcher {
+	
+	private static Config config;
+	
+	public static void main(String[] args) {
+		ServerSocket s = new ServerSocket(12345);
+		
+		while(true){
+			
+		}
+	}
+	
+	public static Config getConfig(){
+		return config;
+	}
+}

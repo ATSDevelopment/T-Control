@@ -1,8 +1,0 @@
-package server.dao;
-
-import datamanager.dao.DataAccessObject;
-import entity.funcionario.Funcionario;
-
-public class FuncionarioDAO implements DataAccessObject<Funcionario>{
-
-}

@@ -3,5 +3,10 @@
     "coordinate": "jre:jre:zip:ovrm:1.0.0",
     "location": "/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/rt.jar",
     "status": "RESOLVED"
+  },
+  "/home/carlosrodrigues/workspace/T-Control/ATSComps/src": {
+    "location": "/home/carlosrodrigues/workspace/T-Control/ATSComps/src",
+    "status": "UNRESOLVED",
+    "error": "No class path info available for \u0027/home/carlosrodrigues/workspace/T-Control/ATSComps/src\u0027. Skipped."
   }
 }

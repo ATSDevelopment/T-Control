@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class ConnectionManager {
 	private static Connection conexao;
 
-	public static boolean open(){
+	private static Connection open(){
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 
@@ -27,17 +27,17 @@ public class ConnectionManager {
 			url = url.replaceAll("#port", Integer.toString(port));
 			url = url.replaceAll("#database", database);
 
-			conexao = DriverManager.getConnection(url, user, pass);
+			Connection conexao = DriverManager.getConnection(url, user, pass);
 			
-			return true;
+			return conexao;
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
-			return false;
+			return null;
 		}
 	}
 	
 	public static Connection get(){
-		return conexao;
+		return open();
 	}
 	
 	public static boolean close(){

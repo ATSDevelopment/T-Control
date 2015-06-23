@@ -2,10 +2,15 @@ package client.view.forms;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -18,17 +23,29 @@ import javax.swing.border.EmptyBorder;
 
 import atsmod.textfield.InputType;
 import atsmod.textfield.TitledTextField;
+import client.bll.FuncionarioBLL;
+import datamanager.dao.DataAccessResponse;
+import entity.Usuario;
+import entity.funcionario.Funcionario;
+import entity.funcionario.MapaDeServico;
 
-public class FormFuncionario extends JFrame {
+public class FormFuncionario extends JFrame implements ActionListener{
 
 	private JPanel contentPane;
 	private JPanel panel;
-	private JTextField textField;
-	private JTextField textField_1;
-
-	/**
-	 * Launch the application.
-	 */
+	
+	private JTextField tfDataDem;
+	private JTextField tfDataExp;
+	
+	private TitledTextField tfNome;
+	private TitledTextField tfTel;
+	private TitledTextField tfMail;
+	private TitledTextField tfUser;
+	private TitledTextField tfSenha;
+	
+	private JCheckBox cbxAtivo;
+	private JCheckBox cbxAdmin;	
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -42,10 +59,7 @@ public class FormFuncionario extends JFrame {
 			}
 		});
 	}
-
-	/**
-	 * Create the frame.
-	 */
+	
 	public FormFuncionario() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 778, 418);
@@ -57,11 +71,29 @@ public class FormFuncionario extends JFrame {
 		JScrollPane scrollPane = new JScrollPane();
 		contentPane.add(scrollPane, BorderLayout.WEST);
 		
-		JList list = new JList();
+		ArrayList<Funcionario> funcionarios = obterFuncionarios();
+		
+		JList list = new JList(funcionarios == null ? new String[]{} : funcionarios.toArray());
 		scrollPane.setViewportView(list);
 		
+		JPanel panel_2 = new JPanel();
+		contentPane.add(panel_2, BorderLayout.CENTER);
+		panel_2.setLayout(new BorderLayout(0, 0));
+		
+		JPanel panel_1 = new JPanel();
+		FlowLayout flowLayout = (FlowLayout) panel_1.getLayout();
+		flowLayout.setAlignment(FlowLayout.RIGHT);
+		panel_2.add(panel_1, BorderLayout.SOUTH);
+		
+		JButton btnCancelar = new JButton("Cancelar");
+		panel_1.add(btnCancelar);
+		
+		JButton btnSalvar = new JButton("Salvar");
+		btnSalvar.addActionListener(this);
+		panel_1.add(btnSalvar);
+		
 		panel = new JPanel();
-		contentPane.add(panel, BorderLayout.CENTER);
+		panel_2.add(panel, BorderLayout.CENTER);
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[]{0, 0, 0};
 		gbl_panel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
@@ -69,30 +101,30 @@ public class FormFuncionario extends JFrame {
 		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		
-		TitledTextField lblNome = new TitledTextField("Nome", InputType.ALL);
-		GridBagConstraints gbc_lblNome = new GridBagConstraints();
-		gbc_lblNome.fill = GridBagConstraints.HORIZONTAL;
-		gbc_lblNome.gridwidth = 2;
-		gbc_lblNome.insets = new Insets(0, 0, 5, 0);
-		gbc_lblNome.gridx = 0;
-		gbc_lblNome.gridy = 0;
-		panel.add(lblNome, gbc_lblNome);
+		tfNome = new TitledTextField("Nome", InputType.ALL);
+		GridBagConstraints gbc_tfNome = new GridBagConstraints();
+		gbc_tfNome.fill = GridBagConstraints.HORIZONTAL;
+		gbc_tfNome.gridwidth = 2;
+		gbc_tfNome.insets = new Insets(0, 0, 5, 0);
+		gbc_tfNome.gridx = 0;
+		gbc_tfNome.gridy = 0;
+		panel.add(tfNome, gbc_tfNome);
 		
-		TitledTextField lblTelefone = new TitledTextField("Telefone", InputType.ALL);
-		GridBagConstraints gbc_lblTelefone = new GridBagConstraints();
-		gbc_lblTelefone.fill = GridBagConstraints.HORIZONTAL;
-		gbc_lblTelefone.insets = new Insets(0, 0, 5, 5);
-		gbc_lblTelefone.gridx = 0;
-		gbc_lblTelefone.gridy = 1;
-		panel.add(lblTelefone, gbc_lblTelefone);
+		tfTel = new TitledTextField("Telefone", InputType.ALL);
+		GridBagConstraints gbc_tfTel = new GridBagConstraints();
+		gbc_tfTel.fill = GridBagConstraints.HORIZONTAL;
+		gbc_tfTel.insets = new Insets(0, 0, 5, 5);
+		gbc_tfTel.gridx = 0;
+		gbc_tfTel.gridy = 1;
+		panel.add(tfTel, gbc_tfTel);
 		
-		TitledTextField lblEmail = new TitledTextField("Email", InputType.ALL);
-		GridBagConstraints gbc_lblEmail = new GridBagConstraints();
-		gbc_lblEmail.fill = GridBagConstraints.HORIZONTAL;
-		gbc_lblEmail.insets = new Insets(0, 0, 5, 0);
-		gbc_lblEmail.gridx = 1;
-		gbc_lblEmail.gridy = 1;
-		panel.add(lblEmail, gbc_lblEmail);
+		tfMail = new TitledTextField("Email", InputType.ALL);
+		GridBagConstraints gbc_tfMail = new GridBagConstraints();
+		gbc_tfMail.fill = GridBagConstraints.HORIZONTAL;
+		gbc_tfMail.insets = new Insets(0, 0, 5, 0);
+		gbc_tfMail.gridx = 1;
+		gbc_tfMail.gridy = 1;
+		panel.add(tfMail, gbc_tfMail);
 		
 		JLabel lblDataDemisso = new JLabel("Data Demissão: ");
 		GridBagConstraints gbc_lblDataDemisso = new GridBagConstraints();
@@ -102,44 +134,44 @@ public class FormFuncionario extends JFrame {
 		gbc_lblDataDemisso.gridy = 2;
 		panel.add(lblDataDemisso, gbc_lblDataDemisso);
 		
-		textField = new JTextField();
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.insets = new Insets(0, 0, 5, 0);
-		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField.gridx = 1;
-		gbc_textField.gridy = 2;
-		panel.add(textField, gbc_textField);
-		textField.setColumns(10);
+		tfDataDem = new JTextField();
+		GridBagConstraints gbc_tfDataDem = new GridBagConstraints();
+		gbc_tfDataDem.insets = new Insets(0, 0, 5, 0);
+		gbc_tfDataDem.fill = GridBagConstraints.HORIZONTAL;
+		gbc_tfDataDem.gridx = 1;
+		gbc_tfDataDem.gridy = 2;
+		panel.add(tfDataDem, gbc_tfDataDem);
+		tfDataDem.setColumns(10);
 		
-		TitledTextField lblUsurio = new TitledTextField("Usuário", InputType.ALL);
-		GridBagConstraints gbc_lblUsurio = new GridBagConstraints();
-		gbc_lblUsurio.fill = GridBagConstraints.HORIZONTAL;
-		gbc_lblUsurio.insets = new Insets(0, 0, 5, 5);
-		gbc_lblUsurio.gridx = 0;
-		gbc_lblUsurio.gridy = 3;
-		panel.add(lblUsurio, gbc_lblUsurio);
+		tfUser = new TitledTextField("Usuário", InputType.ALL);
+		GridBagConstraints gbc_tfUser = new GridBagConstraints();
+		gbc_tfUser.fill = GridBagConstraints.HORIZONTAL;
+		gbc_tfUser.insets = new Insets(0, 0, 5, 5);
+		gbc_tfUser.gridx = 0;
+		gbc_tfUser.gridy = 3;
+		panel.add(tfUser, gbc_tfUser);
 		
-		TitledTextField lblSenha = new TitledTextField("Senha", InputType.ALL);
-		GridBagConstraints gbc_lblSenha = new GridBagConstraints();
-		gbc_lblSenha.fill = GridBagConstraints.HORIZONTAL;
-		gbc_lblSenha.insets = new Insets(0, 0, 5, 0);
-		gbc_lblSenha.gridx = 1;
-		gbc_lblSenha.gridy = 3;
-		panel.add(lblSenha, gbc_lblSenha);
+		tfSenha = new TitledTextField("Senha", InputType.ALL);
+		GridBagConstraints gbc_tfSenha = new GridBagConstraints();
+		gbc_tfSenha.fill = GridBagConstraints.HORIZONTAL;
+		gbc_tfSenha.insets = new Insets(0, 0, 5, 0);
+		gbc_tfSenha.gridx = 1;
+		gbc_tfSenha.gridy = 3;
+		panel.add(tfSenha, gbc_tfSenha);
 		
-		JCheckBox chckbxAtivo = new JCheckBox("Ativo");
-		GridBagConstraints gbc_chckbxAtivo = new GridBagConstraints();
-		gbc_chckbxAtivo.insets = new Insets(0, 0, 5, 5);
-		gbc_chckbxAtivo.gridx = 0;
-		gbc_chckbxAtivo.gridy = 4;
-		panel.add(chckbxAtivo, gbc_chckbxAtivo);
+		cbxAtivo = new JCheckBox("Ativo");
+		GridBagConstraints gbc_cbxAtivo = new GridBagConstraints();
+		gbc_cbxAtivo.insets = new Insets(0, 0, 5, 5);
+		gbc_cbxAtivo.gridx = 0;
+		gbc_cbxAtivo.gridy = 4;
+		panel.add(cbxAtivo, gbc_cbxAtivo);
 		
-		JCheckBox chckbxAdmin = new JCheckBox("Admin");
-		GridBagConstraints gbc_chckbxAdmin = new GridBagConstraints();
-		gbc_chckbxAdmin.insets = new Insets(0, 0, 5, 0);
-		gbc_chckbxAdmin.gridx = 1;
-		gbc_chckbxAdmin.gridy = 4;
-		panel.add(chckbxAdmin, gbc_chckbxAdmin);
+		cbxAdmin = new JCheckBox("Admin");
+		GridBagConstraints gbc_cbxAdmin = new GridBagConstraints();
+		gbc_cbxAdmin.insets = new Insets(0, 0, 5, 0);
+		gbc_cbxAdmin.gridx = 1;
+		gbc_cbxAdmin.gridy = 4;
+		panel.add(cbxAdmin, gbc_cbxAdmin);
 		
 		JLabel lblExpiraEm = new JLabel("Expira em: ");
 		GridBagConstraints gbc_lblExpiraEm = new GridBagConstraints();
@@ -149,12 +181,58 @@ public class FormFuncionario extends JFrame {
 		gbc_lblExpiraEm.gridy = 5;
 		panel.add(lblExpiraEm, gbc_lblExpiraEm);
 		
-		textField_1 = new JTextField();
-		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
-		gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_1.gridx = 1;
-		gbc_textField_1.gridy = 5;
-		panel.add(textField_1, gbc_textField_1);
-		textField_1.setColumns(10);
+		tfDataExp = new JTextField();
+		GridBagConstraints gbc_tfDataExp = new GridBagConstraints();
+		gbc_tfDataExp.fill = GridBagConstraints.HORIZONTAL;
+		gbc_tfDataExp.gridx = 1;
+		gbc_tfDataExp.gridy = 5;
+		panel.add(tfDataExp, gbc_tfDataExp);
+		tfDataExp.setColumns(10);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		
+		String nome = tfNome.getText();
+		String telefone = tfTel.getText();
+		String email = tfMail.getText();
+		String usuario = tfUser.getText();
+		String senha = tfSenha.getText() == null ? "":tfSenha.getText();
+		
+		String dataDem = tfDataDem.getText();
+		dataDem = dataDem.isEmpty() ? null:dataDem;
+		
+		String dataExp = tfDataExp.getText();
+		dataExp = dataExp.isEmpty() ? null:dataExp;
+		
+		boolean ativo = cbxAtivo.isSelected();
+		boolean admin = cbxAdmin.isSelected();
+		
+		Usuario u = new Usuario(0, usuario, senha, ativo, dataExp);
+		
+		Funcionario f = new Funcionario(0, nome, telefone, email, dataDem, u, new ArrayList<MapaDeServico>());
+		
+		FuncionarioBLL bll = new FuncionarioBLL();
+		DataAccessResponse res = bll.salvar(f);
+		
+		System.out.println(res.getStatus()+" : "+res.getResponse());
+		
+		pack();
+	}
+	
+	private ArrayList<Funcionario> obterFuncionarios(){
+		FuncionarioBLL bll = new FuncionarioBLL();
+		
+		DataAccessResponse res = bll.listar();
+		
+		System.out.println(res);
+		
+		if(res.getStatus()){
+			return (ArrayList<Funcionario>) res.getResponse();
+		}else{
+			System.out.println(res.getStatus()+" : "+res.getResponse());
+			
+			return null;
+		}
 	}
 }

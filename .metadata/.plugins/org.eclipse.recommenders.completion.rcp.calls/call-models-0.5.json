@@ -28,5 +28,15 @@
     "location": "/home/carlosrodrigues/workspace/T-Control/Client/src",
     "status": "UNRESOLVED",
     "error": "No class path info available for \u0027/home/carlosrodrigues/workspace/T-Control/Client/src\u0027. Skipped."
+  },
+  "/home/carlosrodrigues/workspace/T-Control/ATSComps/src": {
+    "location": "/home/carlosrodrigues/workspace/T-Control/ATSComps/src",
+    "status": "UNRESOLVED",
+    "error": "No class path info available for \u0027/home/carlosrodrigues/workspace/T-Control/ATSComps/src\u0027. Skipped."
+  },
+  "/home/carlosrodrigues/workspace/T-Control/ATSModifications/src": {
+    "location": "/home/carlosrodrigues/workspace/T-Control/ATSModifications/src",
+    "status": "UNRESOLVED",
+    "error": "No class path info available for \u0027/home/carlosrodrigues/workspace/T-Control/ATSModifications/src\u0027. Skipped."
   }
 }

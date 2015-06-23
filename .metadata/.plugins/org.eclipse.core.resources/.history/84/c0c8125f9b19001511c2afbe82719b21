@@ -1,0 +1,222 @@
+package client.view.forms;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.border.EmptyBorder;
+
+import atsmod.textfield.InputType;
+import atsmod.textfield.TitledTextField;
+import client.bll.FuncionarioBLL;
+import datamanager.dao.DataAccessResponse;
+import entity.Usuario;
+import entity.funcionario.Funcionario;
+import entity.funcionario.MapaDeServico;
+
+public class FormFuncionario extends JFrame implements ActionListener{
+
+	private JPanel contentPane;
+	private JPanel panel;
+	
+	private JTextField tfDataDem;
+	private JTextField tfDataExp;
+	
+	private TitledTextField tfNome;
+	private TitledTextField tfTel;
+	private TitledTextField tfMail;
+	private TitledTextField tfUser;
+	private TitledTextField tfSenha;
+	
+	private JCheckBox cbxAtivo;
+	private JCheckBox cbxAdmin;	
+	
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
+					FormFuncionario frame = new FormFuncionario();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	
+	public FormFuncionario() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 778, 418);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(new BorderLayout(0, 0));
+		setContentPane(contentPane);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		contentPane.add(scrollPane, BorderLayout.WEST);
+		
+		JList list = new JList();
+		scrollPane.setViewportView(list);
+		
+		JPanel panel_2 = new JPanel();
+		contentPane.add(panel_2, BorderLayout.CENTER);
+		panel_2.setLayout(new BorderLayout(0, 0));
+		
+		JPanel panel_1 = new JPanel();
+		FlowLayout flowLayout = (FlowLayout) panel_1.getLayout();
+		flowLayout.setAlignment(FlowLayout.RIGHT);
+		panel_2.add(panel_1, BorderLayout.SOUTH);
+		
+		JButton btnCancelar = new JButton("Cancelar");
+		panel_1.add(btnCancelar);
+		
+		JButton btnSalvar = new JButton("Salvar");
+		btnSalvar.addActionListener(this);
+		panel_1.add(btnSalvar);
+		
+		panel = new JPanel();
+		panel_2.add(panel, BorderLayout.CENTER);
+		GridBagLayout gbl_panel = new GridBagLayout();
+		gbl_panel.columnWidths = new int[]{0, 0, 0};
+		gbl_panel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
+		gbl_panel.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
+		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		panel.setLayout(gbl_panel);
+		
+		tfNome = new TitledTextField("Nome", InputType.ALL);
+		GridBagConstraints gbc_tfNome = new GridBagConstraints();
+		gbc_tfNome.fill = GridBagConstraints.HORIZONTAL;
+		gbc_tfNome.gridwidth = 2;
+		gbc_tfNome.insets = new Insets(0, 0, 5, 0);
+		gbc_tfNome.gridx = 0;
+		gbc_tfNome.gridy = 0;
+		panel.add(tfNome, gbc_tfNome);
+		
+		tfTel = new TitledTextField("Telefone", InputType.ALL);
+		GridBagConstraints gbc_tfTel = new GridBagConstraints();
+		gbc_tfTel.fill = GridBagConstraints.HORIZONTAL;
+		gbc_tfTel.insets = new Insets(0, 0, 5, 5);
+		gbc_tfTel.gridx = 0;
+		gbc_tfTel.gridy = 1;
+		panel.add(tfTel, gbc_tfTel);
+		
+		tfMail = new TitledTextField("Email", InputType.ALL);
+		GridBagConstraints gbc_tfMail = new GridBagConstraints();
+		gbc_tfMail.fill = GridBagConstraints.HORIZONTAL;
+		gbc_tfMail.insets = new Insets(0, 0, 5, 0);
+		gbc_tfMail.gridx = 1;
+		gbc_tfMail.gridy = 1;
+		panel.add(tfMail, gbc_tfMail);
+		
+		JLabel lblDataDemisso = new JLabel("Data Demissão: ");
+		GridBagConstraints gbc_lblDataDemisso = new GridBagConstraints();
+		gbc_lblDataDemisso.anchor = GridBagConstraints.EAST;
+		gbc_lblDataDemisso.insets = new Insets(0, 0, 5, 5);
+		gbc_lblDataDemisso.gridx = 0;
+		gbc_lblDataDemisso.gridy = 2;
+		panel.add(lblDataDemisso, gbc_lblDataDemisso);
+		
+		tfDataDem = new JTextField();
+		GridBagConstraints gbc_tfDataDem = new GridBagConstraints();
+		gbc_tfDataDem.insets = new Insets(0, 0, 5, 0);
+		gbc_tfDataDem.fill = GridBagConstraints.HORIZONTAL;
+		gbc_tfDataDem.gridx = 1;
+		gbc_tfDataDem.gridy = 2;
+		panel.add(tfDataDem, gbc_tfDataDem);
+		tfDataDem.setColumns(10);
+		
+		tfUser = new TitledTextField("Usuário", InputType.ALL);
+		GridBagConstraints gbc_tfUser = new GridBagConstraints();
+		gbc_tfUser.fill = GridBagConstraints.HORIZONTAL;
+		gbc_tfUser.insets = new Insets(0, 0, 5, 5);
+		gbc_tfUser.gridx = 0;
+		gbc_tfUser.gridy = 3;
+		panel.add(tfUser, gbc_tfUser);
+		
+		tfSenha = new TitledTextField("Senha", InputType.ALL);
+		GridBagConstraints gbc_tfSenha = new GridBagConstraints();
+		gbc_tfSenha.fill = GridBagConstraints.HORIZONTAL;
+		gbc_tfSenha.insets = new Insets(0, 0, 5, 0);
+		gbc_tfSenha.gridx = 1;
+		gbc_tfSenha.gridy = 3;
+		panel.add(tfSenha, gbc_tfSenha);
+		
+		cbxAtivo = new JCheckBox("Ativo");
+		GridBagConstraints gbc_cbxAtivo = new GridBagConstraints();
+		gbc_cbxAtivo.insets = new Insets(0, 0, 5, 5);
+		gbc_cbxAtivo.gridx = 0;
+		gbc_cbxAtivo.gridy = 4;
+		panel.add(cbxAtivo, gbc_cbxAtivo);
+		
+		cbxAdmin = new JCheckBox("Admin");
+		GridBagConstraints gbc_cbxAdmin = new GridBagConstraints();
+		gbc_cbxAdmin.insets = new Insets(0, 0, 5, 0);
+		gbc_cbxAdmin.gridx = 1;
+		gbc_cbxAdmin.gridy = 4;
+		panel.add(cbxAdmin, gbc_cbxAdmin);
+		
+		JLabel lblExpiraEm = new JLabel("Expira em: ");
+		GridBagConstraints gbc_lblExpiraEm = new GridBagConstraints();
+		gbc_lblExpiraEm.anchor = GridBagConstraints.EAST;
+		gbc_lblExpiraEm.insets = new Insets(0, 0, 0, 5);
+		gbc_lblExpiraEm.gridx = 0;
+		gbc_lblExpiraEm.gridy = 5;
+		panel.add(lblExpiraEm, gbc_lblExpiraEm);
+		
+		tfDataExp = new JTextField();
+		GridBagConstraints gbc_tfDataExp = new GridBagConstraints();
+		gbc_tfDataExp.fill = GridBagConstraints.HORIZONTAL;
+		gbc_tfDataExp.gridx = 1;
+		gbc_tfDataExp.gridy = 5;
+		panel.add(tfDataExp, gbc_tfDataExp);
+		tfDataExp.setColumns(10);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		
+		String nome = tfNome.getText();
+		String telefone = tfTel.getText();
+		String email = tfMail.getText();
+		String usuario = tfUser.getText();
+		String senha = tfSenha.getText() == null ? "":tfSenha.getText();
+		
+		String dataDem = tfDataDem.getText();
+		dataDem = dataDem.isEmpty() ? null:dataDem;
+		
+		String dataExp = tfDataExp.getText();
+		dataExp = dataExp.isEmpty() ? null:dataExp;
+		
+		boolean ativo = cbxAtivo.isSelected();
+		boolean admin = cbxAdmin.isSelected();
+		
+		Usuario u = new Usuario(0, usuario, senha, ativo, dataExp);
+		
+		Funcionario f = new Funcionario(0, nome, telefone, email, dataDem, u, new ArrayList<MapaDeServico>());
+		
+		FuncionarioBLL bll = new FuncionarioBLL();
+		DataAccessResponse res = bll.salvar(f);
+		
+		System.out.println(res.getStatus()+" : "+res.getResponse());
+	}
+	
+	private ArrayList<Funcionario> obterFuncionarios(){
+		FuncionarioBLL bll = new FuncionarioBLL();
+	}
+}

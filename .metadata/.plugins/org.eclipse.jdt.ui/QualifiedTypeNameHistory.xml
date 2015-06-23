@@ -1,18 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="datamanager.connection.ConnectionManager"/>
-<fullyQualifiedTypeName name="datamanager.dao.ResponseType"/>
 <fullyQualifiedTypeName name="java.sql.Connection"/>
-<fullyQualifiedTypeName name="server.dao.PessoaDAO"/>
-<fullyQualifiedTypeName name="entity.funcionario.Funcionario"/>
-<fullyQualifiedTypeName name="server.bll.FuncionarioBLL"/>
 <fullyQualifiedTypeName name="datamanager.dao.DataAccessObject"/>
 <fullyQualifiedTypeName name="java.io.ObjectOutputStream"/>
 <fullyQualifiedTypeName name="java.io.ObjectInputStream"/>
-<fullyQualifiedTypeName name="datamanager.dao.DataAccessResponse"/>
 <fullyQualifiedTypeName name="datamanager.BusinessLayoutLayer"/>
 <fullyQualifiedTypeName name="client.dao.FuncionarioBLL"/>
 <fullyQualifiedTypeName name="server.request.Packet"/>
 <fullyQualifiedTypeName name="javax.swing.tree.DefaultMutableTreeNode"/>
 <fullyQualifiedTypeName name="atscomponents.PasswordDocument"/>
+<fullyQualifiedTypeName name="entity.funcionario.Funcionario"/>
+<fullyQualifiedTypeName name="entity.Usuario"/>
+<fullyQualifiedTypeName name="server.bll.FuncionarioBLL"/>
+<fullyQualifiedTypeName name="java.sql.Statement"/>
+<fullyQualifiedTypeName name="server.dao.PessoaDAO"/>
+<fullyQualifiedTypeName name="datamanager.connection.ConnectionManager"/>
+<fullyQualifiedTypeName name="atscustom.DefaultTitledDocument"/>
+<fullyQualifiedTypeName name="java.lang.Character"/>
+<fullyQualifiedTypeName name="atscustom.documents.PasswordTitledDocument"/>
+<fullyQualifiedTypeName name="atsmod.textfield.InputType"/>
+<fullyQualifiedTypeName name="atsmod.textfield.documents.DefaultTitledDocument"/>
+<fullyQualifiedTypeName name="javax.swing.UIManager"/>
+<fullyQualifiedTypeName name="datamanager.dao.ResponseType"/>
+<fullyQualifiedTypeName name="datamanager.dao.DataAccessResponse"/>
 </qualifiedTypeNameHistroy>

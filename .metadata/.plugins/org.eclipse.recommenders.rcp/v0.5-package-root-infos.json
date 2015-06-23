@@ -150,9 +150,9 @@
       "micro": 0,
       "qualifier": ""
     },
-    "jarFileFingerprint": "c30382a4ff1f7bc7af28969cefb40de54e45d9b6",
-    "jarFileModificationDate": "2015-04-16T05:25:04-03:00",
-    "location": "/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/jce.jar",
+    "jarFileFingerprint": "82c89422944e3efefaac1f38e03d0f64682a6a9a",
+    "jarFileModificationDate": "2015-04-16T10:06:53-03:00",
+    "location": "/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/ext/icedtea-sound.jar",
     "javaRuntime": true
   },
   {
@@ -163,9 +163,9 @@
       "micro": 0,
       "qualifier": ""
     },
-    "jarFileFingerprint": "82c89422944e3efefaac1f38e03d0f64682a6a9a",
-    "jarFileModificationDate": "2015-04-16T10:06:53-03:00",
-    "location": "/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/ext/icedtea-sound.jar",
+    "jarFileFingerprint": "c30382a4ff1f7bc7af28969cefb40de54e45d9b6",
+    "jarFileModificationDate": "2015-04-16T05:25:04-03:00",
+    "location": "/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/jce.jar",
     "javaRuntime": true
   },
   {

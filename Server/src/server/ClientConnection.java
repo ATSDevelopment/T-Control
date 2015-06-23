@@ -82,11 +82,7 @@ public class ClientConnection extends Thread{
 		}
 		case "funcionarios:listar":
 		{
-			Serializable s = request.getObject();
-			
-			if(s instanceof Funcionario){
-				return new FuncionarioBLL().listar(); 
-			}		
+			return new FuncionarioBLL().listar(); 
 		}
 		case "funcionarios:obter_por_id":
 		{}
