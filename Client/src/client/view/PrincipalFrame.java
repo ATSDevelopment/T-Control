@@ -1,4 +1,5 @@
 package client.view;
+
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
@@ -24,6 +25,7 @@ import javax.swing.tree.DefaultTreeModel;
 
 import client.bll.FuncionarioBLL;
 import client.bll.SetorBLL;
+import client.bll.TerminalBLL;
 import client.view.forms.AbstractForm;
 import client.view.nodes.AbstractNode;
 import client.view.nodes.NodeFuncionario;
@@ -31,27 +33,29 @@ import client.view.nodes.NodeSetor;
 import datamanager.BusinessLayoutLayer;
 import datamanager.dao.DataAccessResponse;
 import entity.Setor;
+import entity.Terminal;
 import entity.funcionario.Funcionario;
 
-
-public class PrincipalFrame extends JFrame implements TreeSelectionListener, ActionListener{
+public class PrincipalFrame extends JFrame implements TreeSelectionListener,
+		ActionListener {
 
 	private JPanel contentPane;
 	private JPanel pnContent;
-	
+
 	private AbstractForm centerForm;
-	
+
 	private NodeFuncionario nodeFuncionario;
 	private NodeSetor nodeSetor;
 
 	private JTree tree;
 	private DefaultTreeModel model;
-	
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
+					UIManager
+							.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
 					PrincipalFrame frame = new PrincipalFrame();
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -60,7 +64,7 @@ public class PrincipalFrame extends JFrame implements TreeSelectionListener, Act
 			}
 		});
 	}
-	
+
 	public PrincipalFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 648, 343);
@@ -77,7 +81,7 @@ public class PrincipalFrame extends JFrame implements TreeSelectionListener, Act
 		nodeFuncionario = new NodeFuncionario();
 		nodeFuncionario.load();
 		root.add(nodeFuncionario);
-		
+
 		nodeSetor = new NodeSetor();
 		nodeSetor.load();
 		root.add(nodeSetor);
@@ -88,6 +92,7 @@ public class PrincipalFrame extends JFrame implements TreeSelectionListener, Act
 			public void treeCollapsed(TreeExpansionEvent arg0) {
 				contentPane.updateUI();
 			}
+
 			public void treeExpanded(TreeExpansionEvent arg0) {
 				contentPane.updateUI();
 			}
@@ -95,47 +100,53 @@ public class PrincipalFrame extends JFrame implements TreeSelectionListener, Act
 		tree.setModel(model = new DefaultTreeModel(root));
 		tree.setRootVisible(false);
 		scrollPane.setViewportView(tree);
-		
+
 		pnContent = new JPanel();
-		pnContent.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Editor", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		pnContent.setBorder(new TitledBorder(new EtchedBorder(
+				EtchedBorder.LOWERED, null, null), "Editor",
+				TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		contentPane.add(pnContent, BorderLayout.CENTER);
 		pnContent.setLayout(new BorderLayout(0, 0));
-		
+
 		JPanel panel_1 = new JPanel();
 		FlowLayout flowLayout = (FlowLayout) panel_1.getLayout();
 		flowLayout.setAlignment(FlowLayout.RIGHT);
 		pnContent.add(panel_1, BorderLayout.SOUTH);
-		
+
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.setActionCommand("cancelar");
 		btnCancelar.addActionListener(this);
 		panel_1.add(btnCancelar);
-		
+
 		JButton btnSalvar = new JButton("Salvar");
 		btnSalvar.setActionCommand("salvar");
 		btnSalvar.addActionListener(this);
-		
-				JButton btnDeletar = new JButton("Deletar");
-				btnDeletar.setActionCommand("deletar");
-				btnDeletar.addActionListener(this);
-				panel_1.add(btnDeletar);
 		panel_1.add(btnSalvar);
+		
+		JButton btnDeletar = new JButton("Deletar");
+		btnDeletar.setActionCommand("deletar");
+		btnDeletar.addActionListener(this);
+		panel_1.add(btnDeletar);
+		
+		
 	}
+
 	@Override
 	public void valueChanged(TreeSelectionEvent e) {
 		Object[] paths = e.getPath().getPath();
 
-		Object comp = paths[paths.length-1];
-		if(comp instanceof AbstractNode){
+		Object comp = paths[paths.length - 1];
+		if (comp instanceof AbstractNode) {
 			AbstractForm form = ((AbstractNode) comp).getForm();
-			
-			form.resetForm();
-			
-			toggleForm(form);
-		}else{
-			AbstractForm form = ((AbstractNode) paths[paths.length - 2]).getForm();
 
-			DefaultMutableTreeNode node = (DefaultMutableTreeNode) paths[paths.length-1];
+			form.resetForm();
+
+			toggleForm(form);
+		} else {
+			AbstractForm form = ((AbstractNode) paths[paths.length - 2])
+					.getForm();
+
+			DefaultMutableTreeNode node = (DefaultMutableTreeNode) paths[paths.length - 1];
 
 			Object edit = node.getUserObject();
 
@@ -145,9 +156,9 @@ public class PrincipalFrame extends JFrame implements TreeSelectionListener, Act
 		}
 	}
 
-	private void toggleForm(AbstractForm form){
-		if(form != centerForm){
-			if(centerForm != null){
+	private void toggleForm(AbstractForm form) {
+		if (form != centerForm) {
+			if (centerForm != null) {
 				pnContent.remove(centerForm);
 			}
 
@@ -156,12 +167,12 @@ public class PrincipalFrame extends JFrame implements TreeSelectionListener, Act
 			pnContent.add(form, BorderLayout.CENTER);
 
 			pnContent.updateUI();
-		}		
+		}
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		switch(arg0.getActionCommand()){
+		switch (arg0.getActionCommand()) {
 		case "salvar":
 			salvar();
 			break;
@@ -172,71 +183,75 @@ public class PrincipalFrame extends JFrame implements TreeSelectionListener, Act
 			break;
 		}
 	}
-	
-	private BusinessLayoutLayer getBll(Object obj){
-		if(obj instanceof Setor){
+
+	private BusinessLayoutLayer getBll(Object obj) {
+		if (obj instanceof Setor) {
 			return new SetorBLL();
-		}else if(obj instanceof Funcionario){
+		} else if (obj instanceof Funcionario) {
 			return new FuncionarioBLL();
-		}else{
+		} else {
 			return null;
 		}
 	}
-	
-	private AbstractNode getReloadNode(Object obj){
-		if(obj instanceof Setor){
+
+	private AbstractNode getReloadNode(Object obj) {
+		if (obj instanceof Setor) {
 			return nodeSetor;
-		}else if(obj instanceof Funcionario){
+		} else if (obj instanceof Funcionario) {
 			return nodeFuncionario;
-		}else{
+		} else {
 			return null;
 		}
 	}
-	
-	private void salvar(){
-		if(centerForm != null){			
+
+	private void salvar() {
+		if (centerForm != null) {
 			Object obj = centerForm.getEditedObject();
-			
+
 			BusinessLayoutLayer bll = getBll(obj);
-			
+
 			DataAccessResponse res = bll.salvar(obj);
-			
-			String msg = res.getStatus() ? "Salvo com sucesso!":res.getResponse()+"";
-			
-			JOptionPane.showMessageDialog(this, msg, "", JOptionPane.PLAIN_MESSAGE, null);
-			
+
+			String msg = res.getStatus() ? "Salvo com sucesso!" : res
+					.getResponse() + "";
+
+			JOptionPane.showMessageDialog(this, msg, "",
+					JOptionPane.PLAIN_MESSAGE, null);
+
 			AbstractNode reloadNode = getReloadNode(obj);
-			
+
 			reloadNode.removeAllChildren();
-			
+
 			reloadNode.load();
-			
+
 			centerForm.resetForm();
-			
+
 			model.reload(reloadNode);
 		}
 	}
-	
-	private void deletar(){
-		if(centerForm != null){			
+
+	private void deletar() {
+		if (centerForm != null) {
 			Object obj = centerForm.getEditedObject();
-			
+
 			BusinessLayoutLayer bll = getBll(obj);
-			
+
 			DataAccessResponse res = bll.deletar(obj);
-			
-			String msg = res.getStatus() ? "Deletado com sucesso!":res.getResponse()+"";
-			
-			JOptionPane.showMessageDialog(this, msg, "", JOptionPane.PLAIN_MESSAGE, null);
-			
+
+			String msg = res.getStatus() ? "Deletado com sucesso!" : res
+					.getResponse() + "";
+
+			JOptionPane.showMessageDialog(this, msg, "",
+					JOptionPane.PLAIN_MESSAGE, null);
+
 			AbstractNode reloadNode = getReloadNode(obj);
-			
+
 			reloadNode.removeAllChildren();
-			
+
 			reloadNode.load();
-			
+
 			centerForm.resetForm();
-			
+
 			model.reload(reloadNode);
 		}
 	}

@@ -129,7 +129,7 @@ public class SetorDAO implements DataAccessObject<Setor> {
 			String query = "SELECT * FROM setores WHERE id_setor = ?";
 
 			Setor setor = null;
-			SetorDAO dao = null;
+			
 
 			try {
 				PreparedStatement ps = conexao.prepareStatement(query);
@@ -137,13 +137,7 @@ public class SetorDAO implements DataAccessObject<Setor> {
 				ps.setInt(1, id);
 
 				ResultSet resultado = ps.executeQuery();
-				if (resultado.next()) {
-					dao = new SetorDAO();
-
-					DataAccessResponse response = dao.getById(resultado
-							.getInt(5));
-
-					setor = (Setor) response.getResponse();
+				if (resultado.next()) {					
 
 					setor = new Setor(resultado.getInt(1),
 							resultado.getString(2), resultado.getString(3));
@@ -151,7 +145,7 @@ public class SetorDAO implements DataAccessObject<Setor> {
 				resultado.close();
 				ps.close();
 
-				r = new DataAccessResponse(true, ResponseType.OBJECT, (Serializable) setor);
+				r = new DataAccessResponse(true, ResponseType.OBJECT, setor);
 			} catch (SQLException e) {
 
 				r = new DataAccessResponse(false, ResponseType.STRING,

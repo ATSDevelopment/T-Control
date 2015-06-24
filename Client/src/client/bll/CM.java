@@ -9,7 +9,7 @@ import server.request.Packet;
 public class CM {
 	public static Packet sendPacket(Packet p){
 		try {
-			Socket s = new Socket("localhost", 12345);
+			Socket s = new Socket("", 12345);
 			
 			ObjectOutputStream outputStream = new ObjectOutputStream(s.getOutputStream());
 			

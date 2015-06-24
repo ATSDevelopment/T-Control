@@ -10,10 +10,12 @@ import java.net.Socket;
 
 import server.bll.FuncionarioBLL;
 import server.bll.SetorBLL;
+import server.bll.TerminalBLL;
 import server.request.Packet;
 import datamanager.dao.DataAccessResponse;
 import datamanager.dao.ResponseType;
 import entity.Setor;
+import entity.Terminal;
 import entity.funcionario.Funcionario;
 
 public class ClientConnection extends Thread{
@@ -123,6 +125,46 @@ public class ClientConnection extends Thread{
 			
 			SetorBLL sbll = new SetorBLL();
 			res = sbll.listar();
+			
+		}
+			break;
+			
+		case "terminais:salvar":
+		{
+			Serializable s = request.getObject();
+			
+			if(s instanceof Terminal){
+				TerminalBLL tbll = new TerminalBLL();
+				res = tbll.salvar((Terminal) s);
+			}
+		}
+			break;
+		case "terminais:deletar":
+		{
+			Serializable s = request.getObject();
+			
+			if(s instanceof Terminal){
+				TerminalBLL tbll = new TerminalBLL();
+				res = tbll.deletar((Terminal) s);
+			}
+		}
+			break;
+		case "terminais:obter_por_id":
+		{
+			Serializable s = request.getObject();
+			
+			if(s instanceof Integer){
+				TerminalBLL tbll = new TerminalBLL();
+				res = tbll.getById((Integer) s);
+			}
+		}
+			break;
+		case "terminais:listar":
+		{
+			Serializable s = request.getObject();
+			
+			TerminalBLL tbll = new TerminalBLL();
+			res = tbll.listar();
 			
 		}
 			break;

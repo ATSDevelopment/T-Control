@@ -45,7 +45,8 @@ public class TerminalDAO implements DataAccessObject<Terminal> {
 			throws SQLException {
 
 		PreparedStatement ps = conexao
-				.prepareStatement("UPDATE terminais SET hostname = ?, ip_address = ?, ativo = ?, id_setor = ?  WHERE id_terminal = ?");
+				.prepareStatement("UPDATE terminais SET hostname = ?, ip_address = ?, ativo = ?, id_setor = ?  " +
+						"WHERE id_terminal = ?");
 
 		ps.setString(1, terminal.getHostname());
 		ps.setString(2, terminal.getIpAddress());
@@ -65,7 +66,7 @@ public class TerminalDAO implements DataAccessObject<Terminal> {
 
 		PreparedStatement ps = conexao
 				.prepareStatement(
-						"INSERT INTO terminal SET hostname = ?, ip_address = ?, ativo = ?, id_setor = ?",
+						"INSERT INTO terminais SET hostname = ?, ip_address = ?, ativo = ?, id_setor = ?",
 						Statement.RETURN_GENERATED_KEYS);
 
 		ps.setString(1, terminal.getHostname());
@@ -99,7 +100,7 @@ public class TerminalDAO implements DataAccessObject<Terminal> {
 		Connection conexao = ConnectionManager.get();
 
 		if (conexao != null) {
-			String query = "DELETE FROM terminal WHERE id_terminal = ?";
+			String query = "DELETE FROM terminais WHERE id_terminal = ?";
 
 			try {
 				PreparedStatement ps = conexao.prepareStatement(query);
@@ -134,12 +135,11 @@ public class TerminalDAO implements DataAccessObject<Terminal> {
 
 		if (conexao != null) {
 
-			String query = "SELECT * FROM terminal WHERE id_terminal = ?";
+			String query = "SELECT * FROM terminais WHERE id_terminal = ?";
 
 			Terminal terminal = null;
-			
-			
-			DataAccessObject<Setor> dao =new SetorDAO();
+
+			DataAccessObject<Setor> dao = new SetorDAO();
 
 			try {
 				PreparedStatement ps = conexao.prepareStatement(query);
@@ -184,7 +184,7 @@ public class TerminalDAO implements DataAccessObject<Terminal> {
 
 		if (conexao != null) {
 
-			String query = "SELECT * FROM terminal";
+			String query = "SELECT * FROM terminais";
 
 			Terminal terminal = null;
 			ArrayList<Terminal> array = new ArrayList<Terminal>();
